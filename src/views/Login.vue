@@ -22,7 +22,7 @@
 </template>
 <script>
 import axios from "axios";
-import InputField from "./InputField.vue";
+import InputField from "../components/InputField.vue";
 
 export default {
   components: {

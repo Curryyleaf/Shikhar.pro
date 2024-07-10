@@ -22,10 +22,31 @@ export const useStore = defineStore("main", {
     // },
   },
   actions: {
+    async fetchCategory(){
+            try {
+              const response = await axios.get(
+                "https://fakestoreapi.com/products/categories"
+              );
+              this.categories = response.data;
+              console.log('categories' , response.data);
+            } catch (error) {
+              
+            }
+    } ,
     async fetchProducts() {
       try {
         const response = await axios.get("https://fakestoreapi.com/products");
+        const responnse1 = await axios.post("https://fakestoreapi.com/products" , {
+                    title: 'test product',
+                    price: 13.5,
+                    description: 'lorem ipsum set',
+                    image: 'https://i.pravatar.cc',
+                    category: 'electronic'
+                });
         this.products = response.data;
+        this.products.push(responnse1.data)
+        // console.log('responnse1' , responnse1.data);
+        // console.log('responnse' , response.data);
         this.categories = [
           ...new Set(response.data.map((item) => item.category)),
         ];
@@ -48,13 +69,13 @@ export const useStore = defineStore("main", {
         }));
         this.cart = [...this.cart.flat() , ...cartItems]
         localStorage.setItem("cart", JSON.stringify(this.cart));
-        console.log("Cart fetched successfully:", this.cart);
+        // console.log("Cart fetched successfully:", this.cart);
       } catch (error) {
         console.error("Error fetching user cart:", error);
       }
     },
     addToCart(productId , quantity) {
-      console.log("addToCart being used");
+      // console.log("addToCart being used");
       const cartItem = this.cart.find((item) => item.productId === productId);
       if (cartItem) {
         cartItem.quantity+= quantity;
@@ -62,7 +83,7 @@ export const useStore = defineStore("main", {
         this.cart = [...this.cart, {  productId, quantity }];
       }
       localStorage.setItem("cart", JSON.stringify(this.cart));
-      console.log("Items in cart after adding:", this.cart);
+      // console.log("Items in cart after adding:", this.cart);
     },
 
     removeFromCart(productId) {

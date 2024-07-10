@@ -138,7 +138,7 @@ export default {
         );
         const { token } = response.data;
         localStorage.setItem("token", token);
-        this.$router.push({ name: "Home" });
+        this.$router.push({ name: "AdminDashboad" });
       } catch (error) {
         console.error("Login failed:", error);
       }
