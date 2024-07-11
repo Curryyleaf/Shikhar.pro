@@ -1,5 +1,5 @@
 <template>
-  <section class="grid " style="grid-template-rows: auto 1fr; height: 100vh;">
+  <section style="grid-template-rows: auto 1fr; height: 100vh;">
     <header class="bg-gray-800  ">
       <!-- Nav content -->
       <nav aria-label="menu nav" class="pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto w-full z-20 top-0">
@@ -91,10 +91,10 @@ export default {
 };
 </script>
 <style>
-.gird{
+/* .gird{
     height: 100vh;
     grid-template-rows: auto 1fr;
     display: grid;
 
-}
+} */
 </style>
