@@ -29,7 +29,9 @@
           
           @click.prevent.stop="navigateToSingle(product.id)"
           :key="product.id"
-          class="">
+          class=" "
+          @mouseover="hover=true"
+          @mouseleave="hover=false">
           <div
             class="aspect-h-1 aspect-w-1 w-full  xl:aspect-h-8 xl:aspect-w-7 hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
           >
@@ -44,6 +46,15 @@
           <p class="mt-1 text-lg font-medium text-gray-900">
             {{ product.price }}
           </p>
+           
+          <div v-show="hover">
+            
+  <button @click.prevent="increaseQuantity(product.id)">+</button>
+
+  <input type="number" v-model.number="productQuantities[product.id]" min="1" class="bg-gray-300 inline-flex h-6 w-12 text-center justify-center items-center m-2 no-spinner" />
+     <button @click.prevent="decreaseQuantity(product.id)">-</button>
+        
+          </div>
         </div>
 
       </div>
