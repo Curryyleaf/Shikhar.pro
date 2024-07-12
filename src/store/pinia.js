@@ -6,9 +6,11 @@ export const useStore = defineStore("main", {
   state: () => ({
     products: [],
     categories: [],
-    selectedCategory: "All",
+    temporaryCategories: [],
+    selectedCategory: [],
+    // temporaryCategoryHolder:"All" ,
     // cart: JSON.parse(localStorage.getItem("cart")) || [],
-    cart:[]
+    cart: [],
   }),
   getters: {
     // Example of a getter if needed
@@ -22,13 +24,21 @@ export const useStore = defineStore("main", {
     // },
   },
   actions: {
+    async fetchCategories() {
+      try {
+        const response = await axios.get(
+          "https://fakestoreapi.com/products/categories"
+        );
+        this.selectedCategory = response.data;
+        console.log("catgeoriess now ", response);
+      } catch (error) {}
+    },
+
     async fetchProducts() {
       try {
-        const response = await axios.get("https://fakestoreapi.com/products");
+        const response = await axios.get(`https://fakestoreapi.com/products`);
+
         this.products = response.data;
-        this.categories = [
-          ...new Set(response.data.map((item) => item.category)),
-        ];
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -46,20 +56,44 @@ export const useStore = defineStore("main", {
           productId: item.productId,
           quantity: item.quantity,
         }));
-        this.cart = [...this.cart.flat() , ...cartItems]
+        this.cart = [...this.cart.flat(), ...cartItems];
         localStorage.setItem("cart", JSON.stringify(this.cart));
         console.log("Cart fetched successfully:", this.cart);
       } catch (error) {
         console.error("Error fetching user cart:", error);
       }
     },
-    addToCart(productId , quantity) {
+    async fetchCategoryProducts(category = 'All') {
+      // const savedCategory = localStorage.getItem('category')
+
+      if (category === "All" ) {
+        await this.fetchProducts();
+        this.categories = this.products;
+        console.log("all" , this.categories);
+      } else {
+        this.loading = true;
+        try {
+          const response = await axios.get(
+            `https://fakestoreapi.com/products/category/${category}`
+          );
+          this.temporaryCategories = response.data;
+
+          this.categories = response.data;
+          this.temporaryCategories = [];
+          console.log("productsfromcategiryinPinia", response);
+        } catch (error) {
+          console.log("error from now", error);
+        }
+      }
+    }
+,
+    addToCart(productId, quantity) {
       console.log("addToCart being used");
       const cartItem = this.cart.find((item) => item.productId === productId);
       if (cartItem) {
-        cartItem.quantity+= quantity;
+        cartItem.quantity += quantity;
       } else {
-        this.cart = [...this.cart, {  productId, quantity }];
+        this.cart = [...this.cart, { productId, quantity }];
       }
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("Items in cart after adding:", this.cart);
@@ -93,8 +127,8 @@ export const useStore = defineStore("main", {
       const product = this.products.find((product) => product.id === productId);
       return product ? product.price : 0;
     },
-    setCategory(category) {
-      this.selectedCategory = category;
-    },
+    // setCategory(category) {
+    //  this.selectedCategory = category;
+    // },
   },
 });

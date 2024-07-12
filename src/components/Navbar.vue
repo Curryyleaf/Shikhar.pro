@@ -95,7 +95,7 @@
             <div
               v-if="dropDownn"
               id="dropdownNavbar"
-              class=" absolute font-normal bg-white divide-y left-[666px]    rounded-lg  w-34 hover:text-gray-800 pt-3 dark:divide-gray-600  transition-transform duration-1000 transform translate-x-full" 
+              class=" absolute font-normal bg-white divide-y left-[666px]   z-[999]  rounded-lg  w-34 hover:text-gray-800 pt-3 dark:divide-gray-600  transition-transform duration-1000 transform translate-x-full" 
              >
               <ul
               v-for="category in list"
@@ -104,7 +104,7 @@
               >
                 <li class="">
                   <button 
-                  @click.prevent="setCategory(category)"
+                  @click.away="setCategory(category)"
                     href="#"
                     class="block px-4 pt-2 pb-0 hover:text-gray-900  "
                     >
@@ -192,21 +192,24 @@ export default {
     async fetchData() {
       const store = useStore();
       await store.fetchProducts();
+      await store.fetchCategories()
+
+      console.log(this.list);
     },
     setCategory(category) {
-      console.log('setCategory');
-      const store = useStore();
-      store.setCategory(category);
+       localStorage.setItem('category' , category)
 
-      if(this.$route.path !== '/categories'){
-        this.$router.replace('/categories')
-      }
+            const store = useStore();
+       store.fetchCategoryProducts(category)
+      // if(this.$route.path !== '/categories'){
+      //   this.$router.replace('/categories')
+      // }
     },
   },
   computed: {
     list() {
       const store = useStore();
-      return ["All", ...store.categories];
+      return ["All", ...store.selectedCategory];
     },
   },
 };

@@ -13,7 +13,7 @@
   <!-- <input type="number" v-model.number="productQuantities[product.id]" min="1" class="bg-gray-300 inline-flex h-6 w-12 text-center justify-center items-center m-2 no-spinner" /> -->
 
   <div class="bg-white">
-    <div class="   py-10 z-50 relative bg-white  text-center top-36 w-screen mb-14 font-extralight text-black text-6xl">
+    <div class="   relative bg-white  text-center top-36 w-screen mb-14 font-extralight text-black text-6xl">
       <h1>Products</h1>
     </div>
     <div
@@ -25,7 +25,7 @@
         class="grid   w-full grid-cols-1 mt-56 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-y-36 xl:gap-x-14"
       >
         <div 
-          v-for="product in filteredProducts"
+          v-for="product in displayingLogic"
           @click.prevent.stop="navigateToSingle(product.id)"
           :key="product.id"
           class="">
@@ -57,28 +57,38 @@ import SingleProduct from "./SingleProduct.vue";
 export default {
   data() {
     return {
+      products:[] ,
       productQuantities: {},
       toast: useToast(),
+   
+      isLoading: false
     };
   },
   computed: {
-    filteredProducts() {
-      const store = useStore();
-      if (!store.selectedCategory || store.selectedCategory === "All") {
-        return store.products;
-      }
-      return store.products.filter(
-        (product) => product.category === store.selectedCategory
-      );
-    },
+    // filteredProducts() {
+    //   const store = useStore();
+    //    return store.categories
+    // },
+    displayingLogic(){
+      const store= useStore()
+    if(store.temporaryCategories.length){
+      return store.temporaryCategories
+    } else{
+      return store.categories
+    }
+    }
   },
   methods: {
     navigateToSingle(productid) {
       this.$router.push({ name: "product", params: { id: productid } });
     },
-    fetchData() {
+    async  fetchData() {
       const store = useStore();
       store.fetchProducts();
+           const savedCategory =localStorage.getItem('category')
+      if(savedCategory){
+        await store.fetchCategoryProducts(savedCategory)
+      }
     },
     showSuccessToast() {
       this.toast.success("Items Added!", {
