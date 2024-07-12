@@ -31,7 +31,7 @@
           :key="product.id"
           class="">
           <div
-            class="aspect-h-1 aspect-w-1 w-full  xl:aspect-h-8 xl:aspect-w-7"
+            class="aspect-h-1 aspect-w-1 w-full  xl:aspect-h-8 xl:aspect-w-7 hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out"
           >
             <img
               :src="product.image"
@@ -57,7 +57,8 @@ import SingleProduct from "./SingleProduct.vue";
 export default {
   data() {
     return {
-      products:[] ,
+      // products:[] ,
+      hover:false ,
       productQuantities: {},
       toast: useToast(),
    
