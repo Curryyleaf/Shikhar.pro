@@ -46,7 +46,6 @@
           </p>
         </div>
 
-        <!-- More products... -->
       </div>
     </div>
   </div>
@@ -130,7 +129,7 @@ export default {
 
     decreaseQuantity(Id) {
       if (this.productQuantities[Id] && this.productQuantities[Id] > 0) {
-        this.productQuantities[Id]--; // Decrease quantity if it exists and is greater than 0
+        this.productQuantities[Id]--; 
       }
       console.log("btn is clickin", Id);
     },

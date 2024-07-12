@@ -47,7 +47,7 @@ export const useStore = defineStore("main", {
     async fetchCart() {
       try {
         const token = localStorage.getItem("token");
-        if (!token) return; // Handle scenario where token is not available
+        if (!token) return; 
 
         const decodedToken = jwtDecode(token);
         const response = await axios.get(
