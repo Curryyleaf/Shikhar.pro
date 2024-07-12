@@ -48,9 +48,9 @@
 
       <div class="hidden w-full md:block md:w-auto text-gray-500" id="navbar-dropdown ">
         <ul
-          class="flex mr-3 flex-col justify-center items-center font-medium p-4 md:p-0 mt-4 border-2 border-gray-200 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white "
+          class="flex mr-3 flex-col justify-center items-center  font-medium p-4 md:p-0 mt-4 border-2 border-gray-200 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white "
         >
-          <router-link to="/">Home</router-link>
+          <router-link to="/" class="hover:text-gray-900 ">Home</router-link>
 
           <li>
             <button
@@ -155,11 +155,12 @@
           </svg>
         </span>
       </router-link>
-       <li>
+       <li class="ml-4 ">
             
-                  <button class="ml-4" @click="logout">Logout</button>
+                  <button class="border-2 border-gray-300 rounded-lg p-1 text-xs hover:text-sm " @click="logout">Logout</button>
           </li>
         </ul>
+        
       </div>
     </div>
   </nav>

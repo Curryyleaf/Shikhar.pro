@@ -1,6 +1,6 @@
 <template>
   
-  <div class="container mx-auto mt-10">
+  <div class="container mx-auto mt-24">
     <div class="sm:flex shadow-md my-10">
       <div class="w-full sm:w-3/4 bg-white px-10 py-10">
         <div class="flex justify-between border-b pb-8">
