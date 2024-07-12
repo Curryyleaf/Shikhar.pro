@@ -4,7 +4,7 @@ import Login from "../views/Login.vue";
 import Register from "../components/Register.vue";
 import About from "../views/About.vue";
 import Categories from "../views/Categories.vue";
-import Cart from '../components/Cart.vue'
+import Cart from '../views/Cart.vue'
 import SingleProduct from '../views/SingleProduct.vue'
 
 const routes = [

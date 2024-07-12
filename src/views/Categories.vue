@@ -26,6 +26,7 @@
       >
         <div 
           v-for="product in displayingLogic"
+          
           @click.prevent.stop="navigateToSingle(product.id)"
           :key="product.id"
           class="">

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { getConfigValue } from "@/components/config";
 
 export const useStore = defineStore("main", {
   state: () => ({
@@ -27,7 +28,7 @@ export const useStore = defineStore("main", {
     async fetchCategories() {
       try {
         const response = await axios.get(
-          "https://fakestoreapi.com/products/categories"
+          `${getConfigValue("myUrl")}/products/categories`
         );
         this.selectedCategory = response.data;
         console.log("catgeoriess now ", response);
@@ -36,7 +37,7 @@ export const useStore = defineStore("main", {
 
     async fetchProducts() {
       try {
-        const response = await axios.get(`https://fakestoreapi.com/products`);
+        const response = await axios.get(`${getConfigValue('myUrl')}/products`);
 
         this.products = response.data;
       } catch (error) {
@@ -50,7 +51,7 @@ export const useStore = defineStore("main", {
 
         const decodedToken = jwtDecode(token);
         const response = await axios.get(
-          `https://fakestoreapi.com/carts/user/${decodedToken.sub}`
+          `${getConfigValue("myUrl")}/carts/user/${decodedToken.sub}`
         );
         const cartItems = response.data[0].products.map((item) => ({
           productId: item.productId,
@@ -74,7 +75,7 @@ export const useStore = defineStore("main", {
         this.loading = true;
         try {
           const response = await axios.get(
-            `https://fakestoreapi.com/products/category/${category}`
+            `${getConfigValue("myUrl")}/products/category/${category}`
           );
           this.temporaryCategories = response.data;
 
