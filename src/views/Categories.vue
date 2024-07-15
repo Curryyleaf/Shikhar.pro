@@ -74,7 +74,7 @@
                 type="number"
                 v-model.stop="productQuantities[product.id]"
                 min="1"
-                
+                @click.prevent.stop="preventNavigation"
                 class="border border-gray-300 w-6 inline-flex h-6  text-center justify-center items-center m-2 no-spinner"
               />
               <button @click.prevent.stop="decreaseQuantity(product.id)">
@@ -136,6 +136,11 @@ export default {
     },
   },
   methods: {
+    preventNavigation(event){
+    event.preventDefault();
+    event.stopPropagation()
+    
+    } ,
     mouseOver(productId) {
       this.hover[productId] = true;
     },
