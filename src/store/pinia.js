@@ -10,8 +10,8 @@ export const useStore = defineStore("main", {
     temporaryCategories: [],
     selectedCategory: [],
     // temporaryCategoryHolder:"All" ,
-    // cart: JSON.parse(localStorage.getItem("cart")) || [],
-    cart: [],
+    cart: JSON.parse(localStorage.getItem("cart")) || [],
+    // cart: [],
   }),
   getters: {
     // Example of a getter if needed

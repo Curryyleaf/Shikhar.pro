@@ -1,11 +1,10 @@
 <template>
-  
-  <div class="container mx-auto mt-24">
+  <div class="container mx-auto mt-32">
     <div class="sm:flex shadow-md my-10">
       <div class="w-full sm:w-3/4 bg-white px-10 py-10">
         <div class="flex justify-between border-b pb-8">
           <h1 class="font-semibold text-2xl">Shopping Cart</h1>
-          <h2 class="font-semibold text-2xl">Items</h2>
+          <h2 class="font-semibold mr-9 text-2xl">Items</h2>
         </div>
 
         <div
@@ -13,7 +12,9 @@
           :key="item.id"
           class="md:flex items-strech py-6 md:py-4 lg:pt-1 border-t border-gray-300"
         >
-          <div class="md:w-1/4 2xl:w-1/4 flex justify-center items-center overflow-hidden w-full">
+          <div
+            class="md:w-1/4 2xl:w-1/4 flex justify-center items-center overflow-hidden w-full"
+          >
             <img
               :src="item.image"
               alt="Black Leather Purse"
@@ -21,19 +22,23 @@
             />
           </div>
           <div class="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
-            <p class="text-xs leading-3 text-gray-800 md:pt-0 ">Product id: {{ item.id }}</p>
+            <p class="text-xs leading-3 text-gray-800 md:pt-0">
+              Product id: {{ item.id }}
+            </p>
             <div class="flex items-center justify-between pb-2 w-full">
               <p class="text-base font-black leading-none text-gray-800">
-               {{ item.title }}
+                {{ item.title }}
               </p>
               <aside
                 aria-label="Select quantity"
                 class="py-2 px-1 border border-gray-200 mr-6 focus:outline-none"
               >
-            {{ itemQunatitiy(item.id) }}
+                {{ itemQunatitiy(item.id) }}
               </aside>
             </div>
-            <p class="text-xs leading-3 text-gray-600 pb-1">Category: {{ item.category }}</p>
+            <p class="text-xs leading-3 text-gray-600 pb-1">
+              Category: {{ item.category }}
+            </p>
             <p class="w-96 text-xs leading-3 text-gray-600">
               Composition: {{ item.title }}
             </p>
@@ -42,9 +47,10 @@
                 <p
                   class="text-xs leading-3 underline text-gray-800 cursor-pointer"
                 >
-                Rating: {{ item.rating.rate }}
+                  Rating: {{ item.rating.rate }}
                 </p>
-                <button @click.prevent="removeFromCart(item.id)"
+                <button
+                  @click.prevent="removeFromCart(item.id)"
                   class="text-xs leading-3 underline text-red-500 pl-20 cursor-pointer"
                 >
                   Remove
@@ -58,7 +64,10 @@
         </div>
         <!-- herererererer -->
 
-        <router-link to="/categories" class="flex font-semibold text-indigo-600 text-sm mt-10">
+        <router-link
+          to="/categories"
+          class="flex font-semibold text-indigo-600 text-sm mt-10"
+        >
           <svg
             class="fill-current mr-2 text-indigo-600 w-4"
             viewBox="0 0 448 512"
@@ -117,7 +126,6 @@
           </button>
         </div>
       </div>
-     
     </div>
   </div>
 </template>
@@ -125,13 +133,11 @@
 import { useStore } from "@/store/pinia";
 
 export default {
-
   computed: {
-
     filteredCartItems() {
       const store = useStore();
       const ids = store.cart.map((items) => items.productId);
-      console.log('STORE',store.cart);
+      console.log("STORE", store.cart);
       const newArray = store.products.filter((item) => ids.includes(item.id));
       console.log("array in cart after filter", newArray);
       return newArray;
@@ -145,21 +151,18 @@ export default {
         0
       );
     },
-
   },
   methods: {
-        itemQunatitiy(id) {
-const store = useStore();
-    const cartItem = store.cart.find(item => item.productId === id);
-    return cartItem.quantity 
-      
-    },
-       async  fetchdata() {
+    itemQunatitiy(id) {
       const store = useStore();
-    await  store.fetchProducts();
-     await store.fetchCart();
-     store.addToCart()
-     
+      const cartItem = store.cart.find((item) => item.productId === id);
+      return cartItem.quantity;
+    },
+    async fetchdata() {
+      const store = useStore();
+      await store.fetchProducts();
+      await store.fetchCart();
+      store.addToCart();
     },
     removeFromCart(productId) {
       const store = useStore();
@@ -174,7 +177,7 @@ const store = useStore();
     //   store.decrementQuantity(productId);
     // },
   },
-async created() {
+  async created() {
     const store = useStore();
     await this.fetchdata();
 
@@ -184,6 +187,4 @@ async created() {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
