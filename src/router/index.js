@@ -6,7 +6,7 @@ import About from "../views/About.vue";
 import Categories from "../views/Categories.vue";
 import Cart from "../components/Cart.vue";
 import SingleProduct from "../views/SingleProduct.vue";
-import AdminDashboard from "@/views/AdminDashboard.vue";
+import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
 
 const routes = [
   {
