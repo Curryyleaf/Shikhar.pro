@@ -4,11 +4,18 @@ import Login from "../views/Login.vue";
 import Register from "../components/Register.vue";
 import About from "../views/About.vue";
 import Categories from "../views/Categories.vue";
-import Cart from "../components/Cart.vue";
+import Cart from "../views/Cart.vue";
 import SingleProduct from "../views/SingleProduct.vue";
 import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
+import AddNewProduct from "@/components/AddNewProduct.vue";
 
 const routes = [
+  {
+    path: "/addnewproduct",
+    name: "AddNewProduct",
+    component: AddNewProduct,
+    meta: { requiresAuth: true, isAdmin: true }, 
+  },
   {
     path: "/product/:id",
     name: "product",
@@ -18,6 +25,7 @@ const routes = [
     path: "/adminDashboard",
     name: "AdminDashboard",
     component: AdminDashboard,
+    meta: { requiresAuth: true, isAdmin: true }, 
   },
   {
     path: "/",
@@ -63,7 +71,6 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem("token");
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    // this line looks for the routes that matches the requirement and only apply below logic to routes that has this requirement
     if (!isAuthenticated) {
       next({ name: "Login" });
     } else {

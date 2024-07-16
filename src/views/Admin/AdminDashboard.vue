@@ -1,100 +1,93 @@
 <template>
-  <section style="grid-template-rows: auto 1fr; height: 100vh;">
-    <header class="bg-gray-800  ">
+  <section class="h-screen w-screen grid grid-rows-[auto_1fr]">
+    <header class="w-full fixed top-0 left-0 right-0 border-b shadow-md border-gray-200 z-50 bg-white">
       <!-- Nav content -->
-      <nav aria-label="menu nav" class="pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto w-full z-20 top-0">
-        <div class="flex flex-wrap items-center">
-          <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
-            <a href="#" aria-label="Home">
-              <span class="text-xl pl-2"><i class="em em-grinning"></i></span>
-            </a>
-          </div>
-          <div class="flex flex-1 md:w-1/3 justify-center md:justify-start text-white px-2">
-            <span class="relative w-full">
-              <input aria-label="search" type="search" id="search" placeholder="Search" class="w-full bg-gray-900 text-white transition border border-transparent focus:outline-none focus:border-gray-400 rounded py-3 px-2 pl-10 appearance-none leading-normal">
-              <div class="absolute search-icon" style="top: 1rem; left: .8rem;">
-                <svg class="fill-current pointer-events-none text-white w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
+      <nav aria-label="menu nav" class="h-auto p-4 mx-auto bg-white w-full">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4 text-gray-800">
+            <a href="#" aria-label="Home" class="text-2xl font-bold"><i class="em em-grinning"></i> Admin</a>
+            <div class="relative w-full md:w-auto">
+              <input
+                aria-label="search"
+                type="search"
+                id="search"
+                placeholder="Search"
+                class="w-full md:w-64 lg:w-96 text-gray-600 border border-gray-300 focus:outline-none focus:border-blue-500 rounded-full py-2 px-4 pl-10 transition bg-gray-100"
+              />
+              <div class="absolute top-2 left-3">
+                <svg
+                  class="fill-current text-gray-600 w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"
+                  ></path>
                 </svg>
               </div>
-            </span>
+            </div>
           </div>
-          <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
-            <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
-              <li class="flex-1 md:flex-none md:mr-3">
-                <a class="inline-block py-2 px-4 text-white no-underline" href="#">Active</a>
-              </li>
-              <li class="flex-1 md:flex-none md:mr-3">
-                <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">link</a>
-              </li>
-              <li class="flex-1 md:flex-none md:mr-3">
-                <div class="relative inline-block">
-                  <button onclick="toggleDD('myDropdown')" class="drop-button text-white py-2 px-2">
-                    <span class="pr-2"><i class="em em-robot_face"></i></span>
-                    Hi, User
-                    <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                    </svg>
-                  </button>
-                  <div id="myDropdown" class="dropdownlist absolute bg-gray-800 text-white right-0 mt-3 p-3 overflow-auto z-30 invisible">
-                    <input type="text" class="drop-search p-2 text-gray-600" placeholder="Search.." id="myInput" onkeyup="filterDD('myDropdown','myInput')">
-                    <a href="#" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fa fa-user fa-fw"></i> Profile</a>
-                    <a href="#" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fa fa-cog fa-fw"></i> Settings</a>
-                    <div class="border border-gray-800"></div>
-                    <a href="#" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</a>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
+          <ul class="flex items-center space-x-6 text-gray-800">
+            <li><a class="py-2 px-4 hover:bg-gray-100 rounded-full transition" href="#">Active</a></li>
+            <li><a class="py-2 px-4 hover:bg-gray-100 rounded-full transition" href="#">Link</a></li>
+            <li class="relative">
+              <button @click="toggleDropdown" class="flex items-center space-x-2 py-2 px-4 hover:bg-gray-100 rounded-full transition">
+                <i class="em em-robot_face"></i>
+                <span>Hi, User</span>
+                <svg class="h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <path
+                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                  />
+                </svg>
+              </button>
+       
+            </li>
+          </ul>
         </div>
       </nav>
     </header>
-    <main class="grid grid-cols-4 bg-fuchsia-300 w-full ">
-      <nav class="col-span-1  bg-slate-400 h-full">
-        <!-- Sidebar content -->
-         <div>
-            <ul class="ml-4 mt-4 space-y-8 overflow-hidden">
-                <li class="border-b-2">
-                    Product
-                </li>
-                <li class="border-b-2">
-                    Inventory
-                </li>
-                <li class="border-b-2">
-                    User
-                </li>
-                <li class="border-b-2">
-                    Add new product
-                </li>
-                <li class="border-b-2">
-                    Analytics
-                </li>
-            </ul>
-         </div>
 
+    <main class="grid grid-cols-5  gap-2 w-full h-full overflow-hidden">
+      <nav class="col-span-1 pt-11 bg-gray-50 border-r border-gray-200 h-full overflow-y-auto">
+        <!-- Sidebar content -->
+        <div class="w-full pt-10 ">
+          <ul class="space-y-2">
+            <li class="bg-blue-500 text-white font-semibold text-center p-3 rounded-md">Product</li>
+            <li class="bg-gray-100 text-gray-700 font-semibold text-center p-3 rounded-md hover:bg-gray-200 transition">Inventory</li>
+            <li class="bg-gray-100 text-gray-700 font-semibold text-center p-3 rounded-md hover:bg-gray-200 transition">User</li>
+            <li class="bg-gray-100 text-gray-700 font-semibold text-center p-3 rounded-md hover:bg-gray-200 transition">Reports</li>
+            <li class="bg-gray-100 text-gray-700 font-semibold text-center p-3 rounded-md hover:bg-gray-200 transition">Analytics</li>
+          </ul>
+        </div>
       </nav>
-      <div class="col-span-3 bg-slate-600 h-full overflow-y-auto">
+      <div class="col-span-4 w-full h-full overflow-y-auto bg-gray-50 pt-20">
         <!-- Main content -->
-         <router-view></router-view>
+
+        <AdminPage></AdminPage>
       </div>
     </main>
   </section>
 </template>
+
 <script>
+import AdminPage from "@/components/AdminPage.vue";
+
 export default {
-  name: 'AdminDashboard',
-  data() {
-    return {};
+  name: "AdminDashboard",
+  components: {
+    AdminPage,
   },
-  methods: {}
+  data() {
+    return {
+
+    };
+  },
+  methods: {
+
+  },
 };
 </script>
-<style>
-/* .gird{
-    height: 100vh;
-    grid-template-rows: auto 1fr;
-    display: grid;
 
-} */
+<style>
+/* Add custom styles here */
 </style>

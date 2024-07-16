@@ -10,7 +10,7 @@
             class="px-4 py-10 rounded-lg shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] relative"
           >
             <img
-              :src="product[0].image"
+              :src="product.image"
               alt="Product"
               class="w-3/4 rounded object-cover mx-auto"
             />
@@ -35,7 +35,7 @@
               class="w-24 h-20 flex items-center justify-center rounded-lg p-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] cursor-pointer"
             >
               <img
-                :src="product[0].image"
+                :src="product.image"
                 alt="Product2"
                 class="w-full h-full object-contain"
               />
@@ -44,7 +44,7 @@
               class="w-24 h-20 flex items-center justify-center rounded-lg p-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] cursor-pointer"
             >
               <img
-                :src="product[0].image"
+                :src="product.image"
                 alt="Product2"
                 class="w-full h-full object-contain"
               />
@@ -53,7 +53,7 @@
               class="w-24 h-20 flex items-center justify-center rounded-lg p-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] cursor-pointer"
             >
               <img
-                :src="product[0].image"
+                :src="product.image"
                 alt="Product2"
                 class="w-full h-full object-contain"
               />
@@ -62,7 +62,7 @@
               class="w-24 h-20 flex items-center justify-center rounded-lg p-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] cursor-pointer"
             >
               <img
-                :src="product[0].image"
+                :src="product.image"
                 alt="Product2"
                 class="w-full h-full object-contain"
               />
@@ -72,7 +72,7 @@
 
         <div class="lg:col-span-2">
           <h2 class="text-2xl font-extrabold text-gray-800">
-            {{ product[0].title }}| {{ product[0].category }}
+            {{ product.title }}| {{ product.category }}
           </h2>
 
           <div class="flex space-x-2 mt-4">
@@ -131,7 +131,7 @@
 
           <div class="flex flex-wrap gap-4 mt-8">
             <p class="text-gray-800 text-3xl font-bold">
-              {{ product[0].price }}
+              {{ product.price }}
             </p>
             <p class="text-gray-400 text-base">
               <strike>$1500</strike>
@@ -170,7 +170,7 @@
 
             <button
               type="button"
-              @click="addToCart(product[0].id)"
+              @click="addToCart(product.id)"
               class="min-w-[200px] px-4 py-2.5 border border-blue-600 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded"
             >
               Add to cart
@@ -183,7 +183,7 @@
         <h3 class="text-xl font-bold text-gray-800">Product information</h3>
         <ul class="mt-4 space-y-6 text-gray-800">
           <li class="text-sm">
-            TYPE <span class="ml-4 float-right">{{ product[0].category }}</span>
+            TYPE <span class="ml-4 float-right">{{ product.category }}</span>
           </li>
           <li class="text-sm">
             RAM <span class="ml-4 float-right">xxxxxxxx</span>
@@ -392,6 +392,8 @@
 <script>
 import { useStore } from "@/store/pinia";
 import { useToast } from "vue-toastification";
+import axios from "axios";
+import { getConfigValue } from "@/components/config";
 
 export default {
   name: "SingleProduct",
@@ -406,15 +408,23 @@ export default {
     async fetchdata() {
       const store = useStore();
       await store.fetchProducts();
+      
     },
-    myProduct() {
-      console.log("using it ");
+   async myProduct() {
+    
       const ids = this.$route.params.id;
-      const store = useStore();
-      const ourItem = store.products.filter(
-        (items) => items.id === parseInt(ids)
-      );
-      this.product = ourItem;
+      
+try {
+  const response = await axios.get(`${getConfigValue("myUrl")}/products/${ids}`);
+   this.product = response.data
+   console.log('abi' , response.data);
+} catch (error) {
+  
+}
+      // const ourItem = store.products.filter(
+      //   (items) => items.id === parseInt(ids)
+      // );
+   
       console.log("product", this.product);
       console.log("ids", ids);
     },

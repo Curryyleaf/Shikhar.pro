@@ -1,14 +1,18 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { getConfigValue } from "@/components/config";
 
 export const useStore = defineStore("main", {
   state: () => ({
     products: [],
+    newProduct: JSON.parse(localStorage.getItem("newProduct")) || null,
     categories: [],
-    selectedCategory: "All",
-    // cart: JSON.parse(localStorage.getItem("cart")) || [],
-    cart:[]
+    temporaryCategories: [],
+    selectedCategory: [],
+    // temporaryCategoryHolder:"All" ,
+    cart: JSON.parse(localStorage.getItem("cart")) || [],
+    // cart: [],
   }),
   getters: {
     // Example of a getter if needed
@@ -22,34 +26,41 @@ export const useStore = defineStore("main", {
     // },
   },
   actions: {
-    async fetchCategory(){
-            try {
-              const response = await axios.get(
-                "https://fakestoreapi.com/products/categories"
-              );
-              this.categories = response.data;
-              console.log('categories' , response.data);
-            } catch (error) {
-              
-            }
-    } ,
+    setNewProduct(newProduct) {
+      this.newProduct = newProduct;
+      localStorage.setItem("newProduct", JSON.stringify(newProduct));
+    },
+    async fetchAddaNewProduct() {
+      // console.log('reactive newproduct in pinia ' , this.newProduct);
+      try {
+        const response = await axios.post(
+          "https://fakestoreapi.com/products",
+          this.newProduct
+        );
+
+        this.products.push(response.data);
+
+        console.log("response.data :", response.data);
+        console.log("this.products", this.products);
+      } catch (error) {
+        console.error("Error adding product:", error);
+      }
+    },
+    async fetchCategories() {
+      try {
+        const response = await axios.get(
+          `${getConfigValue("myUrl")}/products/categories`
+        );
+        this.selectedCategory = response.data;
+        console.log("catgeoriess now ", response);
+      } catch (error) {}
+    },
+
     async fetchProducts() {
       try {
-        const response = await axios.get("https://fakestoreapi.com/products");
-        const responnse1 = await axios.post("https://fakestoreapi.com/products" , {
-                    title: 'test product',
-                    price: 13.5,
-                    description: 'lorem ipsum set',
-                    image: 'https://i.pravatar.cc',
-                    category: 'electronic'
-                });
+        const response = await axios.get(`${getConfigValue("myUrl")}/products`);
+
         this.products = response.data;
-        this.products.push(responnse1.data)
-        // console.log('responnse1' , responnse1.data);
-        // console.log('responnse' , response.data);
-        this.categories = [
-          ...new Set(response.data.map((item) => item.category)),
-        ];
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -57,30 +68,53 @@ export const useStore = defineStore("main", {
     async fetchCart() {
       try {
         const token = localStorage.getItem("token");
-        if (!token) return; // Handle scenario where token is not available
+        if (!token) return;
 
         const decodedToken = jwtDecode(token);
         const response = await axios.get(
-          `https://fakestoreapi.com/carts/user/${decodedToken.sub}`
+          `${getConfigValue("myUrl")}/carts/user/${decodedToken.sub}`
         );
         const cartItems = response.data[0].products.map((item) => ({
           productId: item.productId,
           quantity: item.quantity,
         }));
-        this.cart = [...this.cart.flat() , ...cartItems]
+        this.cart = [...this.cart.flat(), ...cartItems];
         localStorage.setItem("cart", JSON.stringify(this.cart));
         // console.log("Cart fetched successfully:", this.cart);
       } catch (error) {
         console.error("Error fetching user cart:", error);
       }
     },
-    addToCart(productId , quantity) {
-      // console.log("addToCart being used");
+    async fetchCategoryProducts(category = "All") {
+      // const savedCategory = localStorage.getItem('category')
+
+      if (category === "All") {
+        await this.fetchProducts();
+        this.categories = this.products;
+        await this.fetchAddaNewProduct();
+        // console.log("all", this.categories);
+      } else {
+        try {
+          const response = await axios.get(
+            `${getConfigValue("myUrl")}/products/category/${category}`
+          );
+          this.temporaryCategories = response.data;
+
+          this.categories = response.data;
+          this.temporaryCategories = [];
+          // console.log("productsfromcategiryinPinia", response);
+        } catch (error) {
+          console.log("error from now", error);
+        }
+      }
+    },
+    addToCart(productId, quantity) {
+      console.log("addToCart being used");
       const cartItem = this.cart.find((item) => item.productId === productId);
       if (cartItem) {
-        cartItem.quantity+= quantity;
+        cartItem.quantity += quantity;
       } else {
-        this.cart = [...this.cart, {  productId, quantity }];
+        this.cart = [...this.cart, { productId, quantity }];
       }
       localStorage.setItem("cart", JSON.stringify(this.cart));
       // console.log("Items in cart after adding:", this.cart);
@@ -114,8 +148,8 @@ export const useStore = defineStore("main", {
       const product = this.products.find((product) => product.id === productId);
       return product ? product.price : 0;
     },
-    setCategory(category) {
-      this.selectedCategory = category;
-    },
+    // setCategory(category) {
+    //  this.selectedCategory = category;
+    // },
   },
 });
