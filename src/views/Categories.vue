@@ -149,12 +149,15 @@ export default {
     async fetchData() {
       const store = useStore();
 
-      await store.fetchProducts();
-      await store.fetchAddaNewProduct()
+      // await store.fetchProducts();
+   
+      // await store.fetchAddaNewProduct()
       const savedCategory = localStorage.getItem("category");
       if (savedCategory) {
         await store.fetchCategoryProducts(savedCategory);
       }
+ 
+      // even though i commeneted fetchAddaNewproduct all the new product were being added to the this.products because of the above fetchCategoryProducts
     },
     showSuccessToast() {
       this.toast.success("Items Added!", {

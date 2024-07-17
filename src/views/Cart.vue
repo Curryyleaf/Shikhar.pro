@@ -160,9 +160,10 @@ export default {
     },
     async fetchdata() {
       const store = useStore();
-      await store.fetchProducts();
+      // await store.fetchProducts();
       await store.fetchCart();
       store.addToCart();
+         console.log("hihih", store.cart);
     },
     removeFromCart(productId) {
       const store = useStore();
@@ -182,7 +183,7 @@ export default {
     await this.fetchdata();
 
     // this.filteredCartItems();
-    console.log("hihih", store.cart);
+ 
   },
 };
 </script>

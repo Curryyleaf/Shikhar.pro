@@ -3,10 +3,11 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { getConfigValue } from "@/components/config";
 
+
 export const useStore = defineStore("main", {
   state: () => ({
     products: [],
-    newProduct: JSON.parse(localStorage.getItem("newProduct")) || null,
+    newProduct: JSON.parse(localStorage.getItem("newProduct")) || [],
     categories: [],
     temporaryCategories: [],
     selectedCategory: [],
@@ -26,26 +27,6 @@ export const useStore = defineStore("main", {
     // },
   },
   actions: {
-    setNewProduct(newProduct) {
-      this.newProduct = newProduct;
-      localStorage.setItem("newProduct", JSON.stringify(newProduct));
-    },
-    async fetchAddaNewProduct() {
-      // console.log('reactive newproduct in pinia ' , this.newProduct);
-      try {
-        const response = await axios.post(
-          "https://fakestoreapi.com/products",
-          this.newProduct
-        );
-
-        this.products.push(response.data);
-
-        console.log("response.data :", response.data);
-        console.log("this.products", this.products);
-      } catch (error) {
-        console.error("Error adding product:", error);
-      }
-    },
     async fetchCategories() {
       try {
         const response = await axios.get(
@@ -78,7 +59,7 @@ export const useStore = defineStore("main", {
           productId: item.productId,
           quantity: item.quantity,
         }));
-        this.cart = [...this.cart.flat(), ...cartItems];
+        this.cart.push(cartItems);
         localStorage.setItem("cart", JSON.stringify(this.cart));
         // console.log("Cart fetched successfully:", this.cart);
       } catch (error) {
@@ -89,10 +70,15 @@ export const useStore = defineStore("main", {
       // const savedCategory = localStorage.getItem('category')
 
       if (category === "All") {
-        await this.fetchProducts();
+        // await this.fetchProducts();
+
+        // this one was causing a major problem . it was causing to new prodcust to be not displayed . because since i was fetching it again it was re assigning to only 20 products that it was .
+
+        await this.AddaNewProduct();
+
         this.categories = this.products;
-        await this.fetchAddaNewProduct();
-        // console.log("all", this.categories);
+
+        console.log("all", this.categories);
       } else {
         try {
           const response = await axios.get(
@@ -108,6 +94,34 @@ export const useStore = defineStore("main", {
         }
       }
     },
+    setNewProduct(newProduct) {
+      this.newProduct.push(newProduct);
+      localStorage.setItem("newProduct", JSON.stringify(this.newProduct));
+
+      // console.log('checking' ,this.newProduct);
+    },
+    async AddaNewProduct() {
+      console.log("type of ", this.newProduct);
+      try {
+        const responses = await Promise.all(
+          this.newProduct.map(async (newProduct) => {
+            const response = await axios.post(
+              "https://fakestoreapi.com/products",
+              newProduct
+            );
+            return response.data;
+          })
+        );
+        responses.forEach((productData) => {
+          this.products.push(productData);
+          console.log("product added", this.products);
+        });
+        this.newProduct = [];
+      } catch (error) {
+        console.error("Error adding product:", error);
+      }
+    },
+
     addToCart(productId, quantity) {
       console.log("addToCart being used");
       const cartItem = this.cart.find((item) => item.productId === productId);
@@ -141,9 +155,9 @@ export const useStore = defineStore("main", {
         console.log("Quantity decremented for item:", productId);
       }
     },
-    getProductById(productId) {
-      return this.products.find((product) => product.id === productId);
-    },
+    // getProductById(productId) {
+    //   return this.products.find((product) => product.id === productId);
+    // },
     getProductPriceById(productId) {
       const product = this.products.find((product) => product.id === productId);
       return product ? product.price : 0;

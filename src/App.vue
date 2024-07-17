@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="box-border m-0 p-0 overflow-x-hidden">
     <Navbar v-if="!isAdminRoute"></Navbar>
     <router-view></router-view>
   </div>

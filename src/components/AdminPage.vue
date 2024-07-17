@@ -76,7 +76,7 @@ import { useStore } from '@/store/pinia';
 export default{
     methods:{
         navigateToAddNewItem(){
-            this.$router.push('/addnewproduct')
+           this.$router.push({ name: "AddNewProduct" })
         } ,
       async  deleteProduct(id){
         const store=useStore();

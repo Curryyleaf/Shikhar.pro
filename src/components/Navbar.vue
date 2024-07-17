@@ -196,6 +196,7 @@ export default {
       const store = useStore();
       await store.fetchProducts();
       await store.fetchCategories()
+      await store.fetchCategoryProducts()
 
       console.log(this.list);
     },

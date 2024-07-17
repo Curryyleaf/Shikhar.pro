@@ -8,14 +8,9 @@ import Cart from "../views/Cart.vue";
 import SingleProduct from "../views/SingleProduct.vue";
 import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
 import AddNewProduct from "@/components/AddNewProduct.vue";
+import AdminPage from "@/components/AdminPage.vue";
 
 const routes = [
-  {
-    path: "/addnewproduct",
-    name: "AddNewProduct",
-    component: AddNewProduct,
-    meta: { requiresAuth: true, isAdmin: true }, 
-  },
   {
     path: "/product/:id",
     name: "product",
@@ -25,7 +20,21 @@ const routes = [
     path: "/adminDashboard",
     name: "AdminDashboard",
     component: AdminDashboard,
-    meta: { requiresAuth: true, isAdmin: true }, 
+    meta: { requiresAuth: true, isAdmin: true },
+    children: [
+      {
+        path: "addnewproduct",
+        name: "AddNewProduct",
+        component: AddNewProduct,
+        
+      },
+      {
+        path: "",
+        name: "AdminPage",
+        component: AdminPage,
+        
+      },
+    ],
   },
   {
     path: "/",
