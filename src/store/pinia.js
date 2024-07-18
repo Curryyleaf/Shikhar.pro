@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
-import axios from "axios";
+// import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { getConfigValue } from "@/components/config";
-
+import axios from "@/plugins/axios";
 
 export const useStore = defineStore("main", {
   state: () => ({
@@ -30,7 +30,7 @@ export const useStore = defineStore("main", {
     async fetchCategories() {
       try {
         const response = await axios.get(
-          `${getConfigValue("myUrl")}/products/categories`
+          `/products/categories`
         );
         this.selectedCategory = response.data;
         console.log("catgeoriess now ", response);
@@ -53,7 +53,7 @@ export const useStore = defineStore("main", {
 
         const decodedToken = jwtDecode(token);
         const response = await axios.get(
-          `${getConfigValue("myUrl")}/carts/user/${decodedToken.sub}`
+          `/carts/user/${decodedToken.sub}`
         );
         const cartItems = response.data[0].products.map((item) => ({
           productId: item.productId,
@@ -82,7 +82,7 @@ export const useStore = defineStore("main", {
       } else {
         try {
           const response = await axios.get(
-            `${getConfigValue("myUrl")}/products/category/${category}`
+            `/products/category/${category}`
           );
           this.temporaryCategories = response.data;
 
@@ -106,7 +106,7 @@ export const useStore = defineStore("main", {
         const responses = await Promise.all(
           this.newProduct.map(async (newProduct) => {
             const response = await axios.post(
-              "https://fakestoreapi.com/products",
+              "/products",
               newProduct
             );
             return response.data;

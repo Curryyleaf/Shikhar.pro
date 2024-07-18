@@ -1,15 +1,7 @@
 <template>
   <div class="w-full box-border bg-gray-100">
-    <div class="border-b pt-6 border-gray-200">
-      <route
-        to="/adminpage"
-        class="max-w-full box-border ml-28 pt-10 font-bold text-3xl mx-auto"
-        >Add Product</route
-      >
-      <p class="py-3 text-gray-400 ml-28">Add your new products here</p>
-    </div>
     <form
-      class="grid grid-cols-2 h-screen max-w-screen-lg mt-8 mx-auto gap-4 p-4"
+      class="grid grid-cols-2 h-screen max-w-screen-lg  mx-auto gap-4 p-4"
     >
       <!-- Product Image Section -->
       <div
@@ -77,7 +69,7 @@
             <label for="price" class="block text-sm font-medium text-gray-700"
               >Price</label
             >
-            <label for="title" class="block text-sm font-medium text-gray-700"
+            <label for="title" class="block text-sm font-medium text-gray-700 mr-48"
               >Title</label
             >
           </div>
