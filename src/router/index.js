@@ -9,6 +9,7 @@ import SingleProduct from "../views/SingleProduct.vue";
 import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
 import AddNewProduct from "@/components/AddNewProduct.vue";
 import AdminPage from "@/components/AdminPage.vue";
+import Inventory from "@/components/Inventory.vue";
 
 const routes = [
   {
@@ -26,6 +27,12 @@ const routes = [
         path: "addnewproduct",
         name: "AddNewProduct",
         component: AddNewProduct,
+        
+      },
+      {
+        path: "inventory",
+        name: "Inventory",
+        component: Inventory,
         
       },
       {

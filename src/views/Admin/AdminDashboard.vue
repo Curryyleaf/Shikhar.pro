@@ -5,7 +5,7 @@
     >
       <!-- Nav content -->
       <nav aria-label="menu nav" class="h-auto p-4 mx-auto bg-white w-full">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between ml-2">
           <div class="flex items-center space-x-4 text-gray-800">
             <a href="#" aria-label="Home" class="text-2xl font-bold"
               ><i class="em em-grinning"></i> Admin</a
@@ -56,18 +56,19 @@
 <nav class="col-span-1 h-full flex flex-col mt-24 bg-white">
     <!-- Sidebar content -->
     <div class="flex  flex-col justify-center ml-3">
-        <a href="#" class="sidebar-link text-center  flex items-center space-x-2 p-3 rounded-lg hover:bg-green-100 focus:bg-green-100">
+        <router-link  :to="{name:'AdminPage'}" class="sidebar-link text-center  flex items-center space-x-2 p-3 rounded-lg hover:bg-green-100 focus:bg-green-100">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
                 <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
             </svg>
             <span>Product</span>
-        </a>
-        <a href="#" class="sidebar-link  text-center flex items-center space-x-2 p-3 rounded-lg hover:bg-green-100 focus:bg-green-100">
+        </router-link>
+
+        <router-link :to="{name:'Inventory'}" href="#" class="sidebar-link  text-center flex items-center space-x-2 p-3 rounded-lg hover:bg-green-100 focus:bg-green-100">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive" viewBox="0 0 16 16">
                 <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
             </svg>
             <span>Inventory</span>
-        </a>
+        </router-link>
         <a href="#" class="sidebar-link flex items-center space-x-2 p-3 rounded-lg hover:bg-green-100 focus:bg-green-100">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
