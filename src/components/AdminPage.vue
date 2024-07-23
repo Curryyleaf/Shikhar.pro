@@ -50,21 +50,25 @@
       </button>
     </div>
     <ProductTable
-      :products="products"
-      :filteredProducts="filteredProducts"
-      :isAllSelected="isAllSelected"
-      :toggleAllSelect="toggleAllSelect"
-      :selectItem="selectItem"
-      :sorting="sorting"
-      :deleteProduct="deleteProduct"
-      :toggleDropDown="toggleDropDown"
-      :groupProductsByPriceBracket="groupProductsByPriceBracket"
-      :PriceBracket="PriceBracket"
-      :dropDown="dropDown"
+    
+    :config="tableConfig"
+    :products="products"
+    :filteredProducts="filteredProducts"
+    :isAllSelected="isAllSelected"
+    :toggleAllSelect="toggleAllSelect"
+    :selectItem="selectItem"
+    :sorting="sorting"
+    :deleteProduct="deleteProduct"
+    :toggleDropDown="toggleDropDown"
+    :groupProductsByPriceBracket="groupProductsByPriceBracket"
+    :PriceBracket="PriceBracket"
+    :dropDown="dropDown"
     />
   </div>
 </template>
 
+<!-- we were doing like this before  JUST IN CASE
+    showPrice showId showCategory showTitle showDeleteBtn showAllSelectBox -->
 <script>
 import axios from "axios";
 import { useStore } from "@/store/pinia";
@@ -78,6 +82,14 @@ export default {
   },
   data() {
     return {
+        tableConfig: {
+        showAllSelectBox: true,
+        showTitle: true,
+        showId: true,
+        showPrice: true,
+        showCategory: true,
+        showDeleteBtn: true,
+      },
       searchedQuery: "",
       dropDown: {
         category: false,

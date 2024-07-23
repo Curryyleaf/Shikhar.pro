@@ -3,7 +3,8 @@
     <table class="w-full text-sm text-left rtl:text-right text-gray-500">
       <thead class="text-base text-gray-700 rounded-lg pb-4 bg-gray-50 uppercase font-thin">
         <tr class="mb-4">
-          <th class="pl-2 w-4">
+
+          <th v-if="config.showAllSelectBox" class="pl-2 w-4">
             <div class="flex items-center justify-center">
               <input type="checkbox"
                      :checked="isAllSelected"
@@ -12,7 +13,9 @@
               <p class="ml-1 flex justify-center items-center p-0 m-0">All</p>
             </div>
           </th>
-          <th class="px-6">
+
+<!-- product  -->
+          <th v-if="config.showTitle" class="px-6">
             <div class="relative">
               <div @click="toggleDropDown('title')" class="flex justify-center relative cursor-pointer items-center">
                 <span class="inline-flex">Product</span>
@@ -27,7 +30,8 @@
               </div>
             </div>
           </th>
-          <th class="px-6">
+          <!-- Category -->
+          <th v-if="config.showCategory" class="px-6">
             <div class="relative flex justify-center flex-col">
               <div @click="toggleDropDown('category')" class="flex relative cursor-pointer items-center">
                 <span>Category</span>
@@ -42,7 +46,9 @@
               </div>
             </div>
           </th>
-          <th class="px-6">
+
+          <!-- Price -->
+          <th v-if="config.showPrice" class="px-6">
             <div @click="toggleDropDown('price')" class="flex h-full w-full justify-center items-center relative">
               <span class="cursor-pointer">Price</span>
               <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -55,7 +61,9 @@
               </div>
             </div>
           </th>
-          <th class="px-6">
+
+          <!-- id -->
+          <th v-if="config.showId" class="px-6">
             <div class="relative">
               <div @click="toggleDropDown('id')" class="flex justify-center relative cursor-pointer items-center">
                 <span class="inline-flex">ID</span>
@@ -70,27 +78,30 @@
               </div>
             </div>
           </th>
-          <th class="px-6">Action</th>
+          <!-- deletconfig.e action -->
+          <th v-if="config.showDeleteBtn" class="px-6">Action</th>
         </tr>
       </thead>
 
       <tbody>
         <tr v-for="product in filteredProducts" :key="product.id" @click.stop="selectItem(product.id)" class="bg-white hover:bg-gray-50 max-h-16 min-h-12 mb-4 flex-wrap">
-          <td class="p-2 w-4 m-0">
+
+          <td v-if="config.showAllSelectBox" class="p-2 w-4 m-0">
             <div class="flex items-center m-0 w-4">
               <input :id="product.id" type="checkbox" v-model="product.checked" class="w-4 h-4 text-blue-600 bg-gray-50 focus:ring-blue-500">
               <label class="sr-only">checkbox</label>
             </div>
           </td>
-          <td class="px-6 whitespace-nowrap tracking-wide font-medium flex text-wrap">
+<!-- product title -->
+          <td v-if="config.showTitle" class="px-6 whitespace-nowrap tracking-wide font-medium flex text-wrap">
             <span v-html="product.title" class="flex-grow"></span>
           </td>
-          <td class="px-6 whitespace-nowrap py-2">{{ product.category }}</td>
-          <td class="px-6 whitespace-nowrap py-2">{{ product.price }}</td>
-          <td class="px-6 whitespace-nowrap py-2">
-           {{ product.id }}
-          </td>
-          <td class="px-6 whitespace-nowrap py-2">
+<!-- product -->
+          <td v-if="config.showCategory" class="px-6 whitespace-nowrap py-2">{{ product.category }}</td>
+          <td v-if="config.showPrice" class="px-6 whitespace-nowrap py-2">{{ product.price }}</td>
+          <td v-if="config.showId" class="px-6 whitespace-nowrap py-2"> {{ product.id }} </td>
+          <!-- delete -->
+          <td v-if="config.showDeleteBtn" class="px-6 whitespace-nowrap py-2">
             <button @click="deleteProduct(product.id)" href="#" class="font-medium text-blue-600 hover:underline">Delete</button>
           </td>
         </tr>
@@ -102,6 +113,10 @@
 <script>
 export default {
   props: {
+   config:{
+  type:Object,
+  default:{}
+   } ,
     products: {
       type: Array,
       required: true
