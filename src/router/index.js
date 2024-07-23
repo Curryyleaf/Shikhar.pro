@@ -27,19 +27,16 @@ const routes = [
         path: "addnewproduct",
         name: "AddNewProduct",
         component: AddNewProduct,
-        
       },
       {
         path: "inventory",
         name: "Inventory",
         component: Inventory,
-        
       },
       {
         path: "",
         name: "AdminPage",
         component: AdminPage,
-        
       },
     ],
   },
@@ -71,6 +68,7 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+    meta: {  isAdmin: true },
   },
   {
     path: "/register",

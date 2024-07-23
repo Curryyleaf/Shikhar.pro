@@ -53,7 +53,7 @@
     </header>
 
     <main class="grid grid-cols-6 gap-2 w-full mt-2 h-full overflow-hidden">
-<nav class="col-span-1 h-full flex flex-col mt-24 bg-white">
+<nav class="col-span-1 h-full flex flex-col mt-24  bg-white md:block hidden">
     <!-- Sidebar content -->
     <div class="flex  flex-col justify-center ml-3">
         <router-link  :to="{name:'AdminPage'}" class="sidebar-link text-center  flex items-center space-x-2 p-3 rounded-lg hover:bg-green-100 focus:bg-green-100">
