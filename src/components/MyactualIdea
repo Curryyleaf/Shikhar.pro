@@ -1,0 +1,32 @@
+const columnConfigurations = [
+  {
+    title: 'Product',
+    field: 'title',
+    sortable: true,
+    data:[] ,
+    renderFunction: product => product.title
+  },
+  {
+    title: 'Category',
+    field: 'category',
+    sortable: true,
+    renderFunction: product => product.category
+  },
+  {
+    title: 'Price',
+    field: 'price',
+    sortable: true,
+    renderFunction: product => `$${product.price.toFixed(2)}`
+  },
+  {
+    title: 'ID',
+    field: 'id',
+    sortable: true,
+    renderFunction: product => product.id
+  },
+  {
+    title: 'Action',
+    field: 'action',
+    renderFunction: product => `<button @click="deleteProduct(${product.id})" class="font-medium text-blue-600 hover:underline">Delete</button>`
+  }
+];

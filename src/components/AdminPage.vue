@@ -1,6 +1,10 @@
 <template>
-  <div class="relative w-11/12 p-3 border rounded-lg overflow-x-auto bg-white shadow-md md:max-w-screen-xl sm:max-w-screen-sm ">
-    <div class="block md:flex md:w-auto w-full bg-white p-6 justify-between items-center">
+  <div
+    class="relative w-11/12 p-3 border rounded-lg overflow-x-auto bg-white shadow-md md:max-w-screen-xl sm:max-w-screen-sm"
+  >
+    <div
+      class="block md:flex md:w-auto w-full bg-white p-6 justify-between items-center"
+    >
       <div class="relative w-full md:w-auto">
         <input
           v-model="searchedQuery"
@@ -9,6 +13,7 @@
           placeholder="Search"
           class="w-full md:w-64 lg:w-96 text-gray-600 border border-gray-300 focus:outline-none focus:border-blue-500 rounded-full py-2 px-4 pl-10 transition bg-gray-100"
         />
+        {{ searchedQuery }}
         <div class="absolute top-2 left-3">
           <svg
             class="fill-current text-gray-600 w-5 h-5"
@@ -38,8 +43,11 @@
         <button class="ml-2 md:text-lg text-sm py-2" @click="sortingAscending">
           {{ ascending ? "A to Z" : "Z to A" }}
         </button>
-        <!-- Add responsive classes to make the button margin dynamic -->
-        <button class="ml-2 md:text-lg text-sm md:ml-4" @click="fetchSort"></button>
+
+        <button
+          class="ml-2 md:text-lg text-sm md:ml-4"
+          @click="fetchSort"
+        ></button>
       </div>
 
       <button
@@ -50,19 +58,18 @@
       </button>
     </div>
     <ProductTable
-    
-    :config="tableConfig"
-    :products="products"
-    :filteredProducts="filteredProducts"
-    :isAllSelected="isAllSelected"
-    :toggleAllSelect="toggleAllSelect"
-    :selectItem="selectItem"
-    :sorting="sorting"
-    :deleteProduct="deleteProduct"
-    :toggleDropDown="toggleDropDown"
-    :groupProductsByPriceBracket="groupProductsByPriceBracket"
-    :PriceBracket="PriceBracket"
-    :dropDown="dropDown"
+      :tableHeadConfig="tableHeadConfig"
+      :products="products"
+       :visibleColumns="visibleColumns"
+      :closeDropdown="closeDropdown"
+      :isAllSelected="isAllSelected"
+      :toggleAllSelect="toggleAllSelect"
+      :selectItem="selectItem"
+      :sorting="sorting"
+      :deleteProduct="deleteProduct"
+      :toggleDropDown="toggleDropDown"
+      :groupProductsByPriceBracket="groupProductsByPriceBracket"
+      :PriceBracket="PriceBracket"
     />
   </div>
 </template>
@@ -82,26 +89,38 @@ export default {
   },
   data() {
     return {
-        tableConfig: {
-        showAllSelectBox: true,
-        showTitle: true,
-        showId: true,
-        showPrice: true,
-        showCategory: true,
-        showDeleteBtn: true,
-      },
+      tableHeadConfig: [
+        {
+          title: "Product",
+          sortby: "title",
+          sortable: true,
+          show: false,
+          id: 1,
+        },
+        {
+          title: "Category",
+          sortby: "category",
+          sortable: true,
+          show: false,
+          id: 2,
+        },
+        { title: "Price", sortby: "price", sortable: true, show: false, id: 3 },
+        { title: "ID", sortby: "id", sortable: true, show: false, id: 4 },
+        {
+          title: "Action",
+          sortby: "action",
+          sortable: false,
+          show: false,
+          id: 5,
+        },
+      ],
+      visibleColumns: [true , true , true , true , true  , true],
+
+      columns: [{}, {}, {}],
       searchedQuery: "",
-      dropDown: {
-        category: false,
-        title: false,
-        price: false,
-        id: false,
-        sort: false,
-      },
       ascending: false,
       products: [],
       PriceBracket: ["0-100", "100-500", "500+"],
-      filteredProducts: [],
     };
   },
   computed: {},
@@ -117,13 +136,25 @@ export default {
       const isChecked = event.target.checked;
       this.products.forEach((item) => (item.checked = isChecked));
     },
-    toggleDropDown(parameter) {
-      this.dropDown[parameter] = !this.dropDown[parameter];
+    toggleDropDown(id) {
+      this.tableHeadConfig = this.tableHeadConfig.map((item) => {
+        if (item.id === id) {
+          return { ...item, show: !item.show };
+        }
+        return item;
+      });
+    },
+    closeDropdown(id) {
+      this.tableHeadConfig = this.tableHeadConfig.map((item) => {
+        if (item.id === id) {
+          return { ...item, show: false };
+        }
+        return item;
+      });
     },
     async groupProductsByPriceBracket(bracket = "all") {
       if (bracket === "all") {
-        await this.fetchSort();
-        this.filteredProducts = this.products;
+        return;
       } else {
         const filteredProducts = this.products.filter(
           (product) => product.priceBracket === bracket
@@ -131,7 +162,7 @@ export default {
 
         filteredProducts.sort((a, b) => a.price - b.price);
 
-        this.filteredProducts = filteredProducts;
+        this.products = filteredProducts;
       }
     },
     sorting(parameter) {
@@ -164,6 +195,9 @@ export default {
       });
     },
     seacrhedItems() {
+      if (this.searchedQuery === "") {
+        this.fetchSort();
+      }
       const query = this.searchedQuery.toLowerCase();
       const newItems = this.products.filter((items) => {
         return items.title.toLowerCase().includes(query);
@@ -188,7 +222,7 @@ export default {
         }
       });
 
-      this.filteredProducts = highlightedTitle;
+      this.products = highlightedTitle;
     },
     async fetchSort() {
       try {
@@ -218,18 +252,13 @@ export default {
     },
     async deleteProduct(id) {
       const NewProducts = this.products.filter((item) => item.id !== id);
-      this.filteredProducts = NewProducts;
+      this.products = NewProducts;
     },
   },
   computed: {
     isAllSelected() {
       return this.products.every((item) => item.checked);
     },
-    list() {
-      const store = useStore();
-      return store.selectedCategory;
-    },
-    categorizedProducts() {},
   },
   created() {
     this.fetchSort();
