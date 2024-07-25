@@ -70,6 +70,9 @@
       :toggleDropDown="toggleDropDown"
       :groupProductsByPriceBracket="groupProductsByPriceBracket"
       :PriceBracket="PriceBracket"
+      :togglePrice="togglePrice"
+      :closePriceToggle="closePriceToggle"
+      
     />
   </div>
 </template>
@@ -89,31 +92,13 @@ export default {
   },
   data() {
     return {
-      tableHeadConfig: [
-        {
-          title: "Product",
-          sortby: "title",
-          sortable: true,
-          show: false,
-          id: 1,
-        },
-        {
-          title: "Category",
-          sortby: "category",
-          sortable: true,
-          show: false,
-          id: 2,
-        },
-        { title: "Price", sortby: "price", sortable: true, show: false, id: 3 },
-        { title: "ID", sortby: "id", sortable: true, show: false, id: 4 },
-        {
-          title: "Action",
-          sortby: "action",
-          sortable: false,
-          show: false,
-          id: 5,
-        },
-      ],
+        tableHeadConfig: [
+      { title: "Product", sortby: "title", sortable: true, show: false, id: 1, priceGrouping: false },
+      { title: "Category", sortby: "category", sortable: true, show: false, id: 2, priceGrouping: false },
+      { title: "Price", sortby: "price", sortable: false, show: false, id: 3, priceGrouping: false },
+      { title: "ID", sortby: "id", sortable: false, show: false, id: 4, priceGrouping: false },
+      { title: "Action", sortby: "action", sortable: false, show: false, id: 5, priceGrouping: false },
+    ],
       visibleColumns: [true , true , true , true , true  , true],
 
       columns: [{}, {}, {}],
@@ -132,6 +117,19 @@ export default {
         }
       });
     },
+togglePrice(id) {
+  this.tableHeadConfig = this.tableHeadConfig.map(item => {
+    if (item.id === id) {
+      return { ...item, priceGrouping: !item.priceGrouping };
+    }
+    return item;
+  });
+},
+
+    closePriceToggle(){
+     this.tableHeadConfig.priceGrouping = false
+     console.log('heyu');
+    },
     toggleAllSelect(event) {
       const isChecked = event.target.checked;
       this.products.forEach((item) => (item.checked = isChecked));
@@ -145,6 +143,7 @@ export default {
       });
     },
     closeDropdown(id) {
+      console.log('hiii');
       this.tableHeadConfig = this.tableHeadConfig.map((item) => {
         if (item.id === id) {
           return { ...item, show: false };
@@ -233,6 +232,7 @@ export default {
           ...product,
           priceBracket: this.getPriceBracket(product.price),
           checked: false,
+          action:'Delete'
         }));
       } catch (error) {
         console.log(error);

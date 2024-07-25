@@ -46,17 +46,17 @@
         </svg>
       </button>
 
-      <div class="hidden w-full md:block md:w-auto text-gray-500" id="navbar-dropdown ">
+      <div class="hidden  w-full md:block md:w-auto text-gray-500" id="navbar-dropdown ">
         <ul
           class="flex mr-3 flex-col justify-center items-center  font-medium p-4 md:p-0 mt-4 border-2 border-gray-200 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white "
         >
           <router-link to="/" class="hover:text-gray-900 ">Home</router-link>
 
-          <li>
+          <li class="relative" >
             <button
               id="dropdownNavbarLink"
               @click="toggle"
-              class="flex items-center relative justify-between w-full py-2 px-3  hover:text-gray-900 focus:text-gray-900  text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto md:dark:hover:text-gray-500 dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+              class="flex items-center  justify-between w-full py-2 px-3  hover:text-gray-900 focus:text-gray-900  text-gray-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto md:dark:hover:text-gray-500 dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
             >
               Categories
               <svg
@@ -74,6 +74,7 @@
                   d="m1 1 4 4 4-4"
                 />
               </svg>
+            
             </button>
               <!-- <template v-for="(category, index) in list" :key="index">
         <nav class="flex ml-6 h-10 text-white items-center justify-center">
@@ -84,36 +85,31 @@
        </template> -->
             
             <!-- Dropdown menu -->
-
-            <div
+               
+            <aside
               v-if="dropDownn"
               @mouseleave="closeDropdown"
               id="dropdownNavbar"
-              class=" absolute font-normal bg-white divide-y left-[566px]   z-[999]  rounded-lg  w-34 hover:text-gray-800 pt-3 dark:divide-gray-600  transition-transform duration-1000 transform translate-x-full" 
+              class="  font-normal absolute left-[0.5 rem] right-24 whitespace-no-wrap w-36 bg-white divide-y  z-[999]  rounded-lg   hover:text-gray-800 pt-3 dark:divide-gray-600  transition-transform duration-1000 transform translate-x-full" 
+              style="top: calc(100% + 2px)"
              >
-              <ul
+              <div
               v-for="category in list"
-                class="py-2 mr-3 text-sm text-gray-500 hover:bg-gray-100  hover:text-gray-700 "
+                class="py-2 mr-3 text-sm w-full text-gray-500  hover:bg-gray-100  hover:text-gray-700 "
                 
               >
-                <li class="">
+                <div class="whitespace-no-wrap">
                   <button 
                   @click.away="setCategory(category)"
                     href="#"
-                    class="block px-4 pt-2 pb-0 hover:text-gray-900  "
+                    class=" block px-4 pt-2 pb-0 hover:text-gray-900  "
                     >
                     {{ category }}
                   </button>
-                </li>
-              </ul>
-
-              <div class="py-1">
-               
+                </div>
               </div>
 
-            </div>
-
-            
+            </aside>
           </li>
 
           <li>

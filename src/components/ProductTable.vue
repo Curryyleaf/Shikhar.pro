@@ -1,67 +1,121 @@
 <template>
   <div class="w-full">
-    
     <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-      <thead class="text-base text-gray-700 rounded-lg pb-4 bg-gray-50 uppercase font-thin">
+      <thead
+        class="text-base text-gray-700 rounded-lg pb-4 bg-gray-50 uppercase font-thin"
+      >
         <tr class="mb-4">
-
-<!-- why is this in upper -->
-          <th  class="pl-2 w-4">
+          <!-- why is this in upper -->
+          <th class="pl-3 w-4">
             <div class="flex items-center justify-center">
-              <input type="checkbox"
-                     :checked="isAllSelected"
-                     @change="toggleAllSelect"
-                     class="w-4 h-4">
+              <input
+                type="checkbox"
+                :checked="isAllSelected"
+                @change="toggleAllSelect"
+                class="w-4 h-4"
+              />
               <p class="ml-1 flex justify-center items-center p-0 m-0">All</p>
             </div>
           </th>
 
-<!-- product  -->
-          <th v-for="(items , index) in tableHeadConfig" :key="index" class="px-6">
+          <!-- product  -->
+          <th
+            v-for="(items, index) in tableHeadConfig"
+            :key="index"
+            class="px-6"
+            @click.prevent.stop="togglePrice(items.id)"
+          >
             <div v-if="visibleColumns[index]" class="relative">
-             
-              <div class="flex justify-center relative cursor-pointer items-center">
-                <span  @click="toggleDropDown(items.id)" class="inline-flex">{{ items.title }}</span>
-                <svg v-if="items.sortable" class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+              <div 
+                class="flex justify-center relative cursor-pointer items-center"
+              >
+                <span @click="toggleDropDown(items.id) " class="inline-flex">{{
+                  items.title
+                }}</span>
+                <svg
+
+                  v-if="items.sortable"
+                  class="w-2.5 h-2.5 ms-2.5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 10 6"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m1 1 4 4 4-4"
+                  />
                 </svg>
               </div>
-              <div v-if="items.show" @mouseleave="closeDropdown(items.id)" class="absolute flex flex-col  top-6 right-0 left-0 font-sans text-sm font-normal bg-white border-b-2 w-24 shadow-lg border-gray-100">
-                <button @click="sorting(`${items.sortby}`)" class="py-2 hover:bg-gray-100">Ascending</button>
-                <button @click="sorting(`${items.sortby}`)" class="py-2 hover:bg-gray-100">Descending</button>
+
+              <div
+                v-if="items.show && items.sortable"
+                @mouseleave="closeDropdown(items.id)"
+                class="absolute flex flex-col top-6 right-0 left-8 font-sans text-sm font-normal bg-white border-b-2 w-24 shadow-lg border-gray-100"
+              >
+                <button
+                  @click="sorting(`${items.sortby}`)"
+                  class="py-2 hover:bg-gray-100"
+                >
+                  Ascending
+                </button>
+                <button
+                  @click="sorting(`${items.sortby}`)"
+                  class="py-2 hover:bg-gray-100"
+                >
+                  Descending
+                </button>
               </div>
+
+              <div  class="flex h-full w-full justify-center items-center relative">
+             
+              <div v-if="items.priceGrouping && items.id===3" @mouseleave="togglePrice(items.id) " class="absolute flex-col top-0 font-sans text-sm font-normal bg-white border-b-2 shadow-lg border-gray-100">
+                <div v-for="(bracket, index) in PriceBracket" :key="index" @click="groupProductsByPriceBracket(bracket)" class="hover:bg-gray-100 py-2 w-24 px-3">
+                  <button>{{ bracket }}</button>
+                </div>
+              </div>
+            </div>
             </div>
           </th>
           <!-- Category -->
-              </tr>
+        </tr>
       </thead>
 
-      <tbody>
-        <tr v-for="(product , index ) in products" :key="index" @click.stop="selectItem(product.id)" class="bg-white hover:bg-gray-50 max-h-16 min-h-12 mb-4 flex-wrap">
+      <tbody class="mt-4">
+        <tr
+          v-for="(product, index) in products"
+          :key="product.id"
+          @click.stop="selectItem(product.id)"
+          class="bg-white hover:bg-gray-50 max-h-16 min-h-12"
+        >
+          <td class="  py-1 flex  pl-5 text-center  items-center ">
+            <input
+              :id="product.id"
+              type="checkbox"
+              v-model="product.checked"
+              class="w-3 h-4 text-blue-600 bg-gray-50 focus:ring-blue-500"
+            />
+            <span class=""></span>
+          </td>
+         <template v-for="column in tableHeadConfig" :key="column.id" class="flex justify-center items-center">
+           <td class=" tracking-wide font-medium pl-9  max-w-72 ">
+      
+             <span v-html="product[column.sortby]" class=" w-full"></span>
+              
+         
+          </td>
+         </template>
+          <!-- even if you add flex to td it wil have same problem even if you wrap td with another dic or templated -->
 
-          <td v-if="visibleColumns[0]" class="p-2 w-4 m-0">
-            <div class="flex items-center m-0 w-4">
-              <input :id="product.id" type="checkbox" v-model="product.checked" class="w-4 h-4 text-blue-600 bg-gray-50 focus:ring-blue-500">
-              <label class="sr-only">checkbox</label>
-            </div>
-          </td>
-<!-- product title -->
-          <td v-if="visibleColumns[1]" class="px-6 whitespace-nowrap tracking-wide font-medium flex text-wrap">
-            <span v-html="product.title" class="flex-grow"></span>
-          </td>
-<!-- product -->
-          <td v-if="visibleColumns[2]" class="px-6 whitespace-nowrap py-2">{{ product.category }}</td>
-          <td v-if="visibleColumns[3]" class="px-6 whitespace-nowrap py-2">{{ product.price }}</td>
-          <td v-if="visibleColumns[4]" class="px-6 whitespace-nowrap py-2"> {{ product.id }} </td>
-          <!-- delete -->
-          <td v-if="visibleColumns[5]" class="px-6 whitespace-nowrap py-2">
-            <button @click="deleteProduct(product.id)" href="#" class="font-medium text-blue-600 hover:underline">Delete</button>
-          </td>
-          <!-- when we were using the index from loop  it was causing to show only 5 table data for each columns 
-           why ?
+          <!-- product title -->
+
+          <!-- product -->
+          <!-- when we were using the index from loop  it was causing to show only 5 table data for each columns  why ?
            ini every loop they would have been given same index 11111 , 22222 , 33333 , 44444 , 55555 mkaing only upto index 5 visible . -->
         </tr>
-
       </tbody>
     </table>
   </div>
@@ -70,74 +124,74 @@
 <script>
 export default {
   props: {
-   config:{
-  type:Object,
-  default:{}
-   } ,
-   tableHeadConfig:{
-    type:Array ,
-   } ,
+    config: {
+      type: Object,
+      default: {},
+    },
+    tableHeadConfig: {
+      type: Array,
+    },
+  togglePrice: {
+    type: Function,
+    required: true,
+  },
+  closePriceToggle: {
+    type: Function,
+    required: true,
+  },
     products: {
       type: Array,
-      required: true
+      required: true,
     },
-    visibleColumns:{
-
-    } ,
-  toggleDropDown:{
-        type:Function
-  },
+    visibleColumns: {},
+    toggleDropDown: {
+      type: Function,
+    },
     isAllSelected: {
       type: Boolean,
     },
     toggleAllSelect: {
       type: Function,
-      required: true
+      required: true,
     },
     selectItem: {
       type: Function,
-      required: true
+      required: true,
     },
 
     sorting: {
       type: Function,
-      required: true
+      required: true,
     },
     deleteProduct: {
       type: Function,
-      required: true
+      required: true,
     },
 
     groupProductsByPriceBracket: {
       type: Function,
-      required: true
+      required: true,
     },
     PriceBracket: {
       type: Array,
-
     },
-  closeDropdown:{
-      type:Function
-    }
+    closeDropdown: {
+      type: Function,
+    },
   },
-//   methods: {
-//     toggleDropdown(field) {
-//       this.dropDown[field] = !this.dropDown[field];
-//     },
-//     closeDropdown(field) {
-//       this.dropDown[field] = false;
-//     },
-//     closeSortDropdown() {
-//       this.sort = false;
-//     },
-//   },
-created(){
-
-}
+  //   methods: {
+  //     toggleDropdown(field) {
+  //       this.dropDown[field] = !this.dropDown[field];
+  //     },
+  //     closeDropdown(field) {
+  //       this.dropDown[field] = false;
+  //     },
+  //     closeSortDropdown() {
+  //       this.sort = false;
+  //     },
+  //   },
+  created() {},
 };
 </script>
 
-
-<style >
-
-</style>
+<style></style>
