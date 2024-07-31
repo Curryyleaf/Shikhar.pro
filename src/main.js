@@ -38,9 +38,5 @@ app.config.errorHandler = (err, instance, info) => {
   // Append the error message element to the root
   rootElement.appendChild(errorElement);
 
-  // Remove the error message after a timeout
-  setTimeout(() => {
-    rootElement.removeChild(errorElement);
-  }, 5000); // Remove after 5 seconds or adjust as needed
 };
 app.mount("#app");

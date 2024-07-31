@@ -235,6 +235,8 @@ togglePrice(id) {
           checked: false,
           action:'Delete'
         }));
+
+        
       } catch (error) {
         console.log(error);
       }
@@ -263,11 +265,7 @@ togglePrice(id) {
     },
   },
   created() {
-    try {
-      this.fetchSort();
-    } catch (error) {
-      console.log('error has ' , error)
-    }
+    this.fetchSort();
     this.groupProductsByPriceBracket();
   },
 };
