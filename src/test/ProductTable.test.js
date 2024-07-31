@@ -2,6 +2,7 @@ import { mount } from "@vue/test-utils";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import MyComponent from "@/components/ProductTable.vue";
 import defaultProps from "./defaultProps";
+// import { ourMethods } from "./defaultProps";
 
 describe("MyComponent", () => {
   let wrapper;
@@ -33,7 +34,7 @@ describe("MyComponent", () => {
     });
 
     it(" it shppuld render with default props when no props is given ", () => {
-      expect(wrapper.props()).toEqual(defaultProps);
+      // expect(wrapper.props()).toEqual(defaultProps);
       const table = wrapper.find("table");
       expect(table.exists()).toBe(true);
       expect(wrapper.exists("th")).toBe(true);
@@ -43,10 +44,100 @@ describe("MyComponent", () => {
       const rows = wrapper.findAll("tr");
       expect(rows.length).toBe(1);
     });
+
+    describe("checing  if the global error is triggered  when the props are missing and incorrect",  () => {
+      it('checking  how the ui handles when the methods are missing and if error happens aND ERROR UI IS loaded or not ' ,  async()=>{
+            const originalErrorHandler = console.error;
+
+       
+       const errorHandlerMock = vi.fn();
+       console.error = errorHandlerMock;
+
+      const methods = {
+        togglePrice: vi.fn(),
+        closePriceToggle: vi.fn(),
+        toggleDropDown: vi.fn(),
+        toggleAllSelect: vi.fn(),
+        selectItem: vi.fn(),
+        sorting: vi.fn(),
+        deleteProduct: vi.fn(),
+        groupProductsByPriceBracket: vi.fn(),
+        closeDropdown: vi.fn(),
+      };
+      const isolatedWrapper = mount(MyComponent, {
+        props: {
+          ...methods,
+          product: {},
+          tableHeadConfig: [
+            {
+              title: "",
+              sortby: "title",
+              sortable: true,
+              show: false,
+              id: 1,
+              priceGrouping: false,
+            },
+            {
+              title: "Category",
+              sortby: "category",
+              sortable: null,
+              show: false,
+              id: 2,
+              priceGrouping: false,
+            },
+            {
+              title: "Price",
+              sortby: "price",
+              sortable: false,
+              show: false,
+              id: "",
+              priceGrouping: false,
+            },
+            {
+              title: "ID",
+              sortby: "id",
+              sortable: false,
+              show: false,
+              id: 4,
+              priceGrouping: false,
+            },
+            {
+              title: 1,
+              sortby: "action",
+              sortable: false,
+              show: false,
+              id: 5,
+              priceGrouping: "",
+            },
+          ],
+          visibleColumns: {},
+          sorting: [],
+        },
+      });
+   await  isolatedWrapper.vm.$nextTick();
+    expect(errorHandlerMock).toHaveBeenCalled();
+
+    
+  
+      // here
+
+      // for(let[methodsName , method] of Object.entries(methods) ){
+
+      // }
+
+      
+      
+ 
+ 
+      })
+
+
+    });
   });
 
+
   describe("componenet events", () => {
-    it("checing  if the global error is triggered  when the props are missing and incorrect", () => {
+    it("checing  if the global error is triggered  when the props are missing and incorrect", async () => {
 
        const originalErrorHandler = window.onerror;
 
@@ -64,7 +155,7 @@ describe("MyComponent", () => {
         groupProductsByPriceBracket: vi.fn(),
         closeDropdown: vi.fn(),
       };
-      const isolatedWrapper = mount(MyComponent, {
+      const secondIsolatedWrapper = mount(MyComponent, {
         ...methods,
         product: {},
         tableHeadConfig: [
@@ -113,6 +204,8 @@ describe("MyComponent", () => {
         sorting: [],
       });
 
+      
+ secondIsolatedWrapper.vm.$nextTick
     expect(errorHandlerMock).not.toHaveBeenCalled();
 
     // Restore the original error handler

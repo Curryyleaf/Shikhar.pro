@@ -234,8 +234,7 @@ togglePrice(id) {
           priceBracket: this.getPriceBracket(product.price),
           checked: false,
           action:'Delete'
-        })
-      );
+        }));
       } catch (error) {
         console.log(error);
       }
@@ -264,7 +263,11 @@ togglePrice(id) {
     },
   },
   created() {
-    this.fetchSort();
+    try {
+      this.fetchSort();
+    } catch (error) {
+      console.log('error has ' , error)
+    }
     this.groupProductsByPriceBracket();
   },
 };

@@ -19,12 +19,9 @@ app.use(Toast);
 app.use(pinia);
 app.use(router);
 app.config.errorHandler = (err, instance, info) => {
-
   console.error("Global error handler:", err, info);
 
-  
   const rootElement = document.getElementById("app");
-
 
   const errorElement = document.createElement("div");
   errorElement.style.position = "fixed";
@@ -40,5 +37,9 @@ app.config.errorHandler = (err, instance, info) => {
   // Append the error message element to the root
   rootElement.appendChild(errorElement);
 
+  // Remove the error message after a timeout
+  setTimeout(() => {
+    rootElement.removeChild(errorElement);
+  }, 5000); // Remove after 5 seconds or adjust as needed
 };
 app.mount("#app");
