@@ -1,7 +1,8 @@
 // src/main.js
-import "./assets/tailwind.css"; // Import Tailwind CSS first
+
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import "./assets/tailwind.css"; // Import Tailwind CSS first
 import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
