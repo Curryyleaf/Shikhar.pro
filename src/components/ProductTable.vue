@@ -9,7 +9,7 @@
           <th class="pl-3 w-4">
             <div class="flex items-center justify-center">
               <input
-                type="checkbox"
+               id="select-all-checkbox"
                 :checked="isAllSelected"
                 @change="toggleAllSelect"
                 class="w-4 h-4"
@@ -27,9 +27,9 @@
           >
             <div v-if="visibleColumns[index]" class="relative">
               <div 
-                class="flex justify-center relative cursor-pointer items-center"
+                class="flex justify-center  relative cursor-pointer items-center"
               >
-                <span @click="toggleDropDown(items.id) " class="inline-flex">{{
+                <span @click="toggleDropDown(items.id) " class="pr-4 inline-flex tracking-wider">{{
                   items.title
                 }}</span>
                 <svg
@@ -96,14 +96,14 @@
               :id="product.id"
               type="checkbox"
               v-model="product.checked"
-              class="w-3 h-4 text-blue-600 bg-gray-50 focus:ring-blue-500"
+              class=" secondInput w-3 h-4 text-blue-600 bg-gray-50 focus:ring-blue-500"
             />
             <span class=""></span>
           </td>
          <template v-for="column in tableHeadConfig" :key="column.id" class="flex justify-center items-center">
            <td class=" tracking-wide font-medium pl-9  max-w-72 ">
       
-             <span v-html="product[column.sortby]" class=" w-full"></span>
+             <span v-html="product[column.sortby]" class=" table-rows w-full"></span>
               
          
           </td>
@@ -123,60 +123,98 @@
 
 <script>
 export default {
+  data(){
+    return{
+     error:''
+    }
+  } ,
   props: {
-    config: {
-      type: Object,
-      default: {},
-    },
+
     tableHeadConfig: {
       type: Array,
+      default:[
+         { title: "column 1", sortby: "yourSort", sortable: true, show: false, id: 1, priceGrouping: false },
+      { title: "column 2", sortby: "yourSort", sortable: true, show: false, id: 2, priceGrouping: false },
+      { title: "column 3", sortby: "yourSort", sortable: false, show: false, id: 3, priceGrouping: false },
+      { title: "column 4", sortby: "yourSort", sortable: false, show: false, id: 4, priceGrouping: false },
+      { title: "column 4", sortby: "yourSort", sortable: false, show: false, id: 5, priceGrouping: false },
+      ]
     },
   togglePrice: {
     type: Function,
-    required: true,
+    default:()=>{
+      // logic
+    }
+    
   },
   closePriceToggle: {
     type: Function,
-    required: true,
+    default:()=>{
+      // logic
+    }
   },
     products: {
       type: Array,
-      required: true,
+      default:[]
     },
-    visibleColumns: {},
+
+    visibleColumns: {
+      type:Array ,
+      default:[true , true , true , true , true , true]
+
+    },
+
     toggleDropDown: {
       type: Function,
+      default:()=>{
+        // logic
+      }
     },
     isAllSelected: {
       type: Boolean,
+      default:false
     },
     toggleAllSelect: {
       type: Function,
-      required: true,
+      default:()=>{
+
+      } ,
     },
     selectItem: {
       type: Function,
-      required: true,
+      default:()=>{
+        // logic
+      }
     },
 
     sorting: {
-      type: Function,
-      required: true,
+      type: Function , 
+      default:()=>{
+        // logic
+      },
+    
     },
     deleteProduct: {
       type: Function,
-      required: true,
+      default:()=>{
+        // logic
+      }
     },
 
     groupProductsByPriceBracket: {
       type: Function,
-      required: true,
+      default:()=>{
+        // logic
+      }
     },
     PriceBracket: {
       type: Array,
     },
     closeDropdown: {
       type: Function,
+      default:()=>{
+        // logic
+      }
     },
   },
   //   methods: {

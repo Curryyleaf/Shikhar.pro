@@ -7,6 +7,7 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import ErrorNotification from './components/ErrorNotification.vue';
 export default {
   components: {
     Navbar

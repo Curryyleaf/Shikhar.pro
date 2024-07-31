@@ -102,6 +102,7 @@ export default {
       visibleColumns: [true , true , true , true , true  , true],
 
       columns: [{}, {}, {}],
+      // it was my idea that i didnot do but eeping fro refrence just ini case if i do in future 
       searchedQuery: "",
       ascending: false,
       products: [],
@@ -233,7 +234,8 @@ togglePrice(id) {
           priceBracket: this.getPriceBracket(product.price),
           checked: false,
           action:'Delete'
-        }));
+        })
+      );
       } catch (error) {
         console.log(error);
       }
@@ -258,6 +260,7 @@ togglePrice(id) {
   computed: {
     isAllSelected() {
       return this.products.every((item) => item.checked);
+      // every methos return true if all functionns return true and returns false if one function returns false
     },
   },
   created() {

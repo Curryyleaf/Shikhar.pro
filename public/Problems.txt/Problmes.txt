@@ -1,0 +1,13 @@
+7/29/2024
+
+Error: Failed to resolve import "@/components/" from "src/test/ProductTable.test.js". Does the file exist?
+Answer=> 1. Simplifies Import Paths
+Using an alias like @ allows you to simplify import paths in your code. Without an alias, you would have to use relative paths, which can become cumbersome and error-prone as your project grows:
+
+Without Alias: import ProductTable from '../../components/ProductTable.vue';
+With Alias: import ProductTable from '@/components/ProductTable.vue';
+
+
+SECOND ERROR 
+t 2. then we had a error of a refrence error path is not found .
+Answer=> we had to bring path to the vites.config.js
