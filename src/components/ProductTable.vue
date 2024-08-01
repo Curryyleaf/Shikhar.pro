@@ -12,9 +12,10 @@
                id="select-all-checkbox"
                 :checked="isAllSelected"
                 @change="toggleAllSelect"
-                class="w-4 h-4"
+                class="toggleAllSelect w-4 h-4"
               />
-              <p class="ml-1 flex justify-center items-center p-0 m-0">All</p>
+              <!-- HERERERERERERER -->
+              <p class=" ml-1 flex justify-center items-center p-0 m-0">All</p>
             </div>
           </th>
 
@@ -22,14 +23,14 @@
           <th
             v-for="(items, index) in tableHeadConfig"
             :key="index"
-            class=" px-6"
+            class=" togglePrice px-6"
             @click.prevent.stop="togglePrice(items.id)"
           >
             <div v-if="visibleColumns[index]" class="relative">
               <div 
                 class="flex justify-center  relative cursor-pointer items-center"
               >
-                <span @click="toggleDropDown(items.id) " class=" toggle-from-th pr-4 inline-flex tracking-wider">{{
+                <span @click="toggleDropDown(items.id) " class="toggleDropDown pr-4 inline-flex tracking-wider">{{
                   items.title
                 }}</span>
                 <svg
@@ -54,17 +55,17 @@
               <div
                 v-if="items.show && items.sortable"
                 @mouseleave="closeDropdown(items.id)"
-                class="absolute flex flex-col top-6 right-0 left-8 font-sans text-sm font-normal bg-white border-b-2 w-24 shadow-lg border-gray-100"
+                class="closeDropDown absolute flex flex-col top-6 right-0 left-8 font-sans text-sm font-normal bg-white border-b-2 w-24 shadow-lg border-gray-100"
               >
                 <button
                   @click="sorting(`${items.sortby}`)"
-                  class="py-2 hover:bg-gray-100"
+                  class="sorting py-2 hover:bg-gray-100"
                 >
                   Ascending
                 </button>
                 <button
                   @click="sorting(`${items.sortby}`)"
-                  class="py-2 hover:bg-gray-100"
+                  class="sorting py-2 hover:bg-gray-100"
                 >
                   Descending
                 </button>
@@ -72,8 +73,8 @@
 
               <div  class="flex h-full w-full justify-center items-center relative">
              
-              <div v-if="items.priceGrouping && items.id===3" @mouseleave="togglePrice(items.id) " class="absolute flex-col top-0 font-sans text-sm font-normal bg-white border-b-2 shadow-lg border-gray-100">
-                <div v-for="(bracket, index) in PriceBracket" :key="index" @click="groupProductsByPriceBracket(bracket)" class="hover:bg-gray-100 py-2 w-24 px-3">
+              <div v-if="items.priceGrouping && items.id===3" @mouseleave="togglePrice(items.id) " class="togglePrice absolute flex-col top-0 font-sans text-sm font-normal bg-white border-b-2 shadow-lg border-gray-100">
+                <div v-for="(bracket, index) in PriceBracket" :key="index" @click="groupProductsByPriceBracket(bracket)" class=" groupProductsByPriceBracket hover:bg-gray-100 py-2 w-24 px-3">
                   <button>{{ bracket }}</button>
                 </div>
               </div>
@@ -89,7 +90,7 @@
           v-for="(product, index) in products"
           :key="product.id"
           @click.stop="selectItem(product.id)"
-          class="bg-white hover:bg-gray-50 max-h-16 min-h-12"
+          class="selectItem  bg-white hover:bg-gray-50 max-h-16 min-h-12"
         >
           <td class="  py-1 flex  pl-5 text-center  items-center ">
             <input
@@ -98,6 +99,7 @@
               v-model="product.checked"
               class=" secondInput w-3 h-4 text-blue-600 bg-gray-50 focus:ring-blue-500"
             />
+            <!-- AND HERERER -->
             <span class=""></span>
           </td>
          <template v-for="column in tableHeadConfig" :key="column.id" class="flex justify-center items-center">
