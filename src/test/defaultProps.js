@@ -44,7 +44,7 @@ const defaultProps = {
         priceGrouping: false,
       },
     ],
-    products: [],
+    products: [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
     visibleColumns: [],
     PriceBracket: [],
     togglePrice: vi.fn(),
@@ -62,3 +62,23 @@ const defaultProps = {
 };
 
 export default defaultProps;
+
+let togglePrice
+let toggleDropDown
+let toggleAllSelect
+let selectItem
+let sorting
+let deleteProduct
+let groupProductsByPriceBracket
+let closeDropdown
+let closePriceToggle
+
+export const myMethods = [  togglePrice ,
+        closePriceToggle ,
+        toggleDropDown ,
+        toggleAllSelect ,
+        selectItem ,
+        sorting ,
+        deleteProduct ,
+        groupProductsByPriceBracket ,
+        closeDropdown ]

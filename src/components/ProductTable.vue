@@ -22,14 +22,14 @@
           <th
             v-for="(items, index) in tableHeadConfig"
             :key="index"
-            class="px-6"
+            class=" px-6"
             @click.prevent.stop="togglePrice(items.id)"
           >
             <div v-if="visibleColumns[index]" class="relative">
               <div 
                 class="flex justify-center  relative cursor-pointer items-center"
               >
-                <span @click="toggleDropDown(items.id) " class="pr-4 inline-flex tracking-wider">{{
+                <span @click="toggleDropDown(items.id) " class=" toggle-from-th pr-4 inline-flex tracking-wider">{{
                   items.title
                 }}</span>
                 <svg
