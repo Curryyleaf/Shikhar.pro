@@ -325,6 +325,14 @@ it('checking if it goes back to default' ,()=>{
   
   const table= wrapper.findAll('tbody')
   expect(table).not.toContain('tr')
+  // expect(wrapper.props.products).toEqual([])
+   
+  // TESTING METHODS AS WELL 
+  // const selectitem = wrapper.find('.selectItem')
+  // selectitem.trigger('click');
+  // expect(wrapper.vm.selectitem).not.toBeCalled()
+   wrapper.vm.togglePrice()
+  expect(wrapper.vm.togglePrice).toBeCalled();
 })
 
   })
