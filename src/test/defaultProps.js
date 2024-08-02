@@ -1,6 +1,5 @@
 import { vi } from "vitest";
 
-
 const defaultProps = {
   tableHeadConfig: [
 
@@ -38,6 +37,7 @@ export const myMethods = [
   "togglePrice",
   "closePriceToggle",
   "toggleDropDown",
+  // "toggleAllSelect",
   "selectItem",
   "sorting",
   "deleteProduct",
