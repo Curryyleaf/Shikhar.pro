@@ -172,7 +172,9 @@ describe("MyComponent", () => {
         });
 
         // TESTING METHODS IN tbody
-        it("testing methods in tnody", () => {});
+        it("testing methods in tnody", () => {
+
+        });
 
         it("extensive testing of the toggleAllselected methods as it influences both tbody and thead", async () => {
           wrapper.setProps({
@@ -314,7 +316,7 @@ describe("MyComponent", () => {
     ];
     beforeEach(async () => {
       await wrapper.setProps({
-        products:{} ,
+        products:'products' ,
         tableHeadConfig: tableHeadConfig,
         visibleColumns: 'i am column',
         PriceBracket: ["0-100", "100-500", "500+"],
@@ -331,6 +333,7 @@ it('checking if it goes back to default' ,()=>{
   // const selectitem = wrapper.find('.selectItem')
   // selectitem.trigger('click');
   // expect(wrapper.vm.selectitem).not.toBeCalled()
+  // expect(wrapper.props.products).toBe(null)
    wrapper.vm.togglePrice()
   expect(wrapper.vm.togglePrice).toBeCalled();
 })
