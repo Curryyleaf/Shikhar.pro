@@ -135,18 +135,16 @@ export default {
     tableHeadConfig: {
       type: Array,
       default:[
-         { title: "column 1", sortby: "yourSort", sortable: true, show: false, id: 1, priceGrouping: false },
-      { title: "column 2", sortby: "yourSort", sortable: true, show: false, id: 2, priceGrouping: false },
-      { title: "column 3", sortby: "yourSort", sortable: false, show: false, id: 3, priceGrouping: false },
-      { title: "column 4", sortby: "yourSort", sortable: false, show: false, id: 4, priceGrouping: false },
-      { title: "column 4", sortby: "yourSort", sortable: false, show: false, id: 5, priceGrouping: false },
+         { title: " ", sortby: " ", sortable: true, show: false, id: 1, priceGrouping: false },
+      { title: " ", sortby: " ", sortable: true, show: false, id: 2, priceGrouping: false },
+      { title: " ", sortby: " ", sortable: false, show: false, id: 3, priceGrouping: false },
+      { title: " ", sortby: " ", sortable: false, show: false, id: 4, priceGrouping: false },
+      { title: " ", sortby: " ", sortable: false, show: false, id: 5, priceGrouping: false },
       ]
     },
   togglePrice: {
     type: Function,
-    default:()=>{
-      // logic
-    }
+    default:()=> Void
     
   },
   closePriceToggle: {
@@ -162,7 +160,7 @@ export default {
 
     visibleColumns: {
       type:Array ,
-      default:[true , true , true , true , true , true]
+      default:[]
 
     },
 
