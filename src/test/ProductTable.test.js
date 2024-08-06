@@ -16,15 +16,15 @@ describe("MyComponent", () => {
     wrapper.unmount();
   });
 
-  describe("testing with default props ", () => {
+  describe("testing with default or empty  props ", () => {
     it(" checkking if the applications renders even without any props", () => {
       // table head
       const ourTableHead = wrapper.findAll("thead > tr > th");
       ourTableHead.forEach((componenet) => {
         expect(componenet.exists()).toBe(true);
-        expect(componenet.text()).toBe("All");
+        
       });
-      expect(ourTableHead.length).toBe(1);
+      expect(ourTableHead.length).toBe(2);
 
       // tableBody
       const ourTablebody = wrapper.findAll("tbody > tr > td");
@@ -36,7 +36,6 @@ describe("MyComponent", () => {
         let methodCheck = vi.spyOn(wrapper.vm, method);
         expect(methodCheck).toBeDefined();
       });
-
     });
   });
 
@@ -87,7 +86,7 @@ describe("MyComponent", () => {
       tableHeads.forEach((componenet) => {
         expect(componenet.exists()).toBe(true);
       });
-      expect(tableHeads.length).toBe(3);
+      expect(tableHeads.length).toBe(4);
 
       // our table head suceesfully reflects the number of loop
     });
@@ -172,9 +171,7 @@ describe("MyComponent", () => {
         });
 
         // TESTING METHODS IN tbody
-        it("testing methods in tnody", () => {
-
-        });
+        it("testing methods in tnody", () => {});
 
         it("extensive testing of the toggleAllselected methods as it influences both tbody and thead", async () => {
           wrapper.setProps({
@@ -231,117 +228,109 @@ describe("MyComponent", () => {
             priceGrouping: false,
           },
         ],
-        visibleColumns: {} ,
+        visibleColumns: {},
         PriceBracket: ["0-100", "100-500", "500+"],
       });
     });
-
 
     describe("when the props are missing and incorrect", async () => {
       //   const secondWrapper = mount(MyComponent , {incorrectProps , toggleDropDown:vi.fn()})
-      
-            it("testing Ui  in thead", () => {
-              const thead = wrapper.find("thead");
-              expect(thead.exists()).toBe(true);
-              expect(thead.exists('thead > tr')).toBe(true);
-              expect(thead.exists('thead > tr >th')).toBe(true);
-              expect(thead.exists('thead > tr >div')).toBe(true);
-            });
-            it("testing Ui  in tbody", () => {
-              const tbody = wrapper.find("tbody");
-              expect(tbody.exists()).toBe(true);
-              expect(tbody.exists('tbody > tr')).toBe(true);
-              expect(tbody.exists('tbody > tr >td')).toBe(true);
-              expect(tbody.exists('tbody > tr >div')).toBe(true);
-            });
 
-              // myMethods.forEach((test)=>{
-              //    const testy = wrapper.props(`.${test}`);
-              //    testy.trigger("click");
-              // })
-                      it("testing methods in thead", () => {
-                        const thead = wrapper.find("thead");
-                        expect(thead.exists()).toBe(true);
+      it("testing Ui  in thead", () => {
+        const thead = wrapper.find("thead");
+        expect(thead.exists()).toBe(true);
+        expect(thead.exists("thead > tr")).toBe(true);
+        expect(thead.exists("thead > tr >th")).toBe(true);
+        expect(thead.exists("thead > tr >div")).toBe(true);
+      });
+      it("testing Ui  in tbody", () => {
+        const tbody = wrapper.find("tbody");
+        expect(tbody.exists()).toBe(true);
+        expect(tbody.exists("tbody > tr")).toBe(true);
+        expect(tbody.exists("tbody > tr >td")).toBe(true);
+        expect(tbody.exists("tbody > tr >div")).toBe(true);
+      });
 
-                        // TESTING toggleAllselected
-                        const toggleAllSelected = thead.find(
-                          "#select-all-checkbox"
-                        );
-                        toggleAllSelected.trigger("change");
-                        expect(wrapper.vm.toggleAllSelect).toHaveBeenCalled();
+      // myMethods.forEach((test)=>{
+      //    const testy = wrapper.props(`.${test}`);
+      //    testy.trigger("click");
+      // })
+      it("testing methods in thead", () => {
+        const thead = wrapper.find("thead");
+        expect(thead.exists()).toBe(true);
 
-                        // TESTING togglePrice
-                        const togglePrice = wrapper.find(".togglePrice");
-                        togglePrice.trigger("click");
-                        expect(wrapper.vm.togglePrice).toHaveBeenCalled();
+        // TESTING toggleAllselected
+        const toggleAllSelected = thead.find("#select-all-checkbox");
+        toggleAllSelected.trigger("change");
+        expect(wrapper.vm.toggleAllSelect).toHaveBeenCalled();
 
-                        // TESTING toggleDropDown
-                        const toggleDropDown = wrapper.find(".toggleDropDown");
-                        expect(toggleDropDown.exists()).toBe(false);
-                        // toggleDropDown.trigger("click");
-                        // expect(wrapper.vm.toggleDropDown).toHaveBeenCalled();
+        // TESTING togglePrice
+        const togglePrice = wrapper.find(".togglePrice");
+        togglePrice.trigger("click");
+        expect(wrapper.vm.togglePrice).toHaveBeenCalled();
 
-                        // TESTING sorting
-                        // const sorting = wrapper.find(".sorting");
-                        // sorting.trigger("click");
-                        // expect(wrapper.vm.sorting).toHaveBeenCalled();
+        // TESTING toggleDropDown
+        const toggleDropDown = wrapper.find(".toggleDropDown");
+        expect(toggleDropDown.exists()).toBe(false);
+        // toggleDropDown.trigger("click");
+        // expect(wrapper.vm.toggleDropDown).toHaveBeenCalled();
 
-                      
-                      });
-
-
-
-  });
-
-  describe(' when propps is of wrong type ' , ()=>{
-
-
-    const tableHeadConfig = [
-      {
-        title: "test-title",
-        sortby: "test-title",
-        sortable: true,
-        show: true,
-        id: 1,
-        priceGrouping: false,
-      },
-      {
-        title: "test-title2",
-        sortby: "test-title-2",
-        sortable: true,
-        show: true,
-        id: 2,
-        priceGrouping: false,
-      },
-    ];
-    beforeEach(async () => {
-      await wrapper.setProps({
-        products:'products' ,
-        tableHeadConfig: tableHeadConfig,
-        visibleColumns: 'i am column',
-        PriceBracket: ["0-100", "100-500", "500+"],
+        // TESTING sorting
+        // const sorting = wrapper.find(".sorting");
+        // sorting.trigger("click");
+        // expect(wrapper.vm.sorting).toHaveBeenCalled();
       });
     });
 
-it('checking if it goes back to default' ,()=>{
-  
-  const table= wrapper.findAll('tbody')
-  expect(table).not.toContain('tr')
-  // expect(wrapper.props.products).toEqual([])
-   
-  // TESTING METHODS AS WELL 
-  // const selectitem = wrapper.find('.selectItem')
-  // selectitem.trigger('click');
-  // expect(wrapper.vm.selectitem).not.toBeCalled()
-  // expect(wrapper.props.products).toBe(null)
-   wrapper.vm.togglePrice()
-  expect(wrapper.vm.togglePrice).toBeCalled();
-})
-
-  })
 
 
 
+    describe(" when propps is of wrong type ", () => {
+      const tableHeadConfig = [
+        {
+          title: "test-title",
+          sortby: "test-title",
+          sortable: true,
+          show: true,
+          id: 1,
+          priceGrouping: false,
+        },
+        {
+          title: "test-title2",
+          sortby: "test-title-2",
+          sortable: true,
+          show: true,
+          id: 2,
+          priceGrouping: false,
+        },
+      ];
+      beforeEach(async () => {
+        await wrapper.setProps({
+          products: "products",
+          tableHeadConfig: tableHeadConfig,
+          visibleColumns: "i am column",
+          PriceBracket: ["0-100", "100-500", "500+"],
+        });
+      });
 
-})
-})
+      it("", () => {
+        expect(wrapper.exists()).toBe(true);
+        const table = wrapper.findAll("tbody");
+        expect(table).not.toContain("tr");
+        // expect(wrapper.props.products).toEqual([])
+
+        // TESTING METHODS AS WELL
+        // const selectitem = wrapper.find('.selectItem')
+        // selectitem.trigger('click');
+        // expect(wrapper.vm.selectitem).not.toBeCalled()
+        // expect(wrapper.props.products).toBe(null)
+        wrapper.vm.togglePrice();
+        wrapper.vm.selectItem();
+        expect(wrapper.vm.togglePrice).toBeCalled();
+    
+        
+       
+      });
+    });
+  });
+});

@@ -93,11 +93,11 @@ export default {
   data() {
     return {
         tableHeadConfig: [
-      { title: "Product", sortby: "title", sortable: true, show: false, id: 1, priceGrouping: false },
-      { title: "Category", sortby: "category", sortable: true, show: false, id: 2, priceGrouping: false },
-      { title: "Price", sortby: "price", sortable: false, show: false, id: 3, priceGrouping: false },
-      { title: "ID", sortby: "id", sortable: false, show: false, id: 4, priceGrouping: false },
-      { title: "Action", sortby: "action", sortable: false, show: false, id: 5, priceGrouping: false },
+      { title: "Product", sortby: "title", sortable: true, show: false, id: 1, priceGrouping: false  , },
+      { title: "Category", sortby: "category", sortable: true, show: false, id: 2, priceGrouping: false  , },
+      { title: "Price", sortby: "price", sortable: false, show: false, id: 3, priceGrouping: false  , } ,
+      { title: "ID", sortby: "id", sortable: false, show: false, id: 4, priceGrouping: false  , },
+     
     ],
       visibleColumns: [true , true , true , true , true  , true],
 
@@ -233,7 +233,7 @@ togglePrice(id) {
           ...product,
           priceBracket: this.getPriceBracket(product.price),
           checked: false,
-          action:'Delete'
+        
         })
       );
       } catch (error) {
@@ -253,6 +253,8 @@ togglePrice(id) {
       this.$router.push({ name: "AddNewProduct" });
     },
     async deleteProduct(id) {
+      
+      
       const NewProducts = this.products.filter((item) => item.id !== id);
       this.products = NewProducts;
     },

@@ -102,7 +102,8 @@
                   <button 
                   @click.away="setCategory(category)"
                     href="#"
-                    class=" block px-4 pt-2 pb-0 hover:text-gray-900  "
+                    data-setCategory="setCategory"
+                    class="setCategoryBtn block px-4 pt-2 pb-0 hover:text-gray-900  "
                     >
                     {{ category }}
                   </button>
@@ -169,6 +170,7 @@ import { useStore } from "@/store/pinia";
 export default {
   data() {
     return {
+
       dropDownn: false,
       
     };

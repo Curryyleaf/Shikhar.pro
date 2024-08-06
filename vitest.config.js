@@ -3,6 +3,7 @@ import { defineConfig } from "vitest/config";
 import { configDefaults } from "vitest/config";
 import path from "path";
 import vue from "@vitejs/plugin-vue";
+// remember we had to import vue without {} . find why 
 import jsdom from "jsdom";
 
 export default defineConfig({

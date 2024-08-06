@@ -10,12 +10,13 @@
             <div class="flex items-center justify-center">
               <input
                id="select-all-checkbox"
+               type="checkbox"
                 :checked="isAllSelected"
                 @change="toggleAllSelect"
                 class="toggleAllSelect w-4 h-4"
               />
               <!-- HERERERERERERER -->
-              <p class=" ml-1 flex justify-center items-center p-0 m-0">All</p>
+              <p class=" ml-1 flex justify-center items-center p-0 m-0"></p>
             </div>
           </th>
 
@@ -81,6 +82,7 @@
             </div>
             </div>
           </th>
+          <th><span>Action</span></th>
           <!-- Category -->
         </tr>
       </thead>
@@ -92,7 +94,7 @@
           @click.stop="selectItem(product.id)"
           class="selectItem  bg-white hover:bg-gray-50 max-h-16 min-h-12"
         >
-          <td class="  py-1 flex  pl-5 text-center  items-center ">
+          <td class="  py-1 flex  pl-4 pr-[0.6rem] text-center  items-center ">
             <input
               :id="product.id"
               type="checkbox"
@@ -105,11 +107,14 @@
          <template v-for="column in tableHeadConfig" :key="column.id" class="flex justify-center items-center">
            <td class=" tracking-wide font-medium pl-9  max-w-72 ">
       
-             <span v-html="product[column.sortby]" class=" table-rows w-full"></span>
-              
-         
+             <span v-html="product[column.sortby]"  class=" table-rows w-full"></span>
+
           </td>
+      
          </template>
+             <td>
+            <button @click="deleteProduct(product.id)" class="hover:text-blue-500 text-blue-400 font-medium tracking-wide" >Delete</button>
+          </td>
           <!-- even if you add flex to td it wil have same problem even if you wrap td with another dic or templated -->
 
           <!-- product title -->
