@@ -6,11 +6,21 @@
         <p class="text-gray-700">Welcome to your home page content.</p>
       </div>
     </div>
+     <button> i am button   <i class="bi bi-0-circle"></i></button>
+
   </div>
 </template>
 
+
+    
+
+
 <script>
+import Button from '@/components/Button.vue';
 export default {
+  components:{
+
+  },
   methods: {
     logout() {
       localStorage.removeItem("token");
