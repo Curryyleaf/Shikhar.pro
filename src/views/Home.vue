@@ -1,13 +1,23 @@
 <template>
   <div class="">
+
     <div class="flex justify-center mt-24 max-w-screen-xl rounded-lg mx-auto items-center h-screen bg-gray-100">
       <div class="max-w-2xl px-4 py-8 bg-white shadow-lg rounded-lg">
         <h1 class="text-2xl font-semibold mb-4">Home Page</h1>
+             <Button
+:buttonColor="'green'"
+buttonShape='round'
+:buttonSize="'extraLarge'"
+  :icon="'fa-solid'"
+  :iconLibrary="'fa-bars'"
+>
+   </Button>
         <p class="text-gray-700">Welcome to your home page content.</p>
       </div>
     </div>
-     <button> i am button   <i class="bi bi-0-circle"></i></button>
 
+   <!--     :buttonBorderSize=""
+    :buttonBorderColor=""  -->
   </div>
 </template>
 
@@ -19,7 +29,7 @@
 import Button from '@/components/Button.vue';
 export default {
   components:{
-
+    Button
   },
   methods: {
     logout() {
