@@ -5,11 +5,12 @@
       <div class="max-w-2xl px-4 py-8 bg-white shadow-lg rounded-lg">
         <h1 class="text-2xl font-semibold mb-4">Home Page</h1>
              <Button
-:buttonColor="'green'"
+
 buttonShape='round'
 :buttonSize="'extraLarge'"
   :icon="'fa-solid'"
   :iconLibrary="'fa-bars'"
+  :variant="'test'"
 >
    </Button>
         <p class="text-gray-700">Welcome to your home page content.</p>

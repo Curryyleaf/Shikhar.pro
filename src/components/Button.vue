@@ -1,15 +1,15 @@
 <template>
   <div>
     <button
-      :class="[baseVariantClasses, buttonClasses]"
+      :class="[baseVariantClasses, buttonClasses ,'focus:outline-none active:scale-95']"
       :style="buttonStyles"
       :type="buttonType"
       @click="buttonFunction"
     >
-      <span :class="textClasses" >{{ computedButtonText }}</span>
-      <i :class="iconClass"></i>
+      <span v-if="variantCheck" :class="textClasses" >{{ computedButtonText }}</span>
+      <i v-if="icon" :class="iconClass"></i>
       <slot name="icon"></slot>
-      <button type=""></button>
+      <div v-if="variant==='loading'" class="animate-spin border-blue-200 border-solid border-t-transparent border-2 rounded-full w-6 h-6 relative z-50"></div>
     </button>
   </div>
 </template>
@@ -22,6 +22,10 @@ export default {
     }
   } ,
   props: {
+    loading:{
+       type:Boolean ,
+       default:true
+    },
     buttonBorderColor: {
       type: String,
       default: ''
@@ -78,8 +82,8 @@ export default {
     },
     variant: {
       type: String,
-      default: 'dark',
-      validator: value => ['light', 'dark', 'primary', 'secondary'].includes(value)
+      default: 'loading',
+      validator: value => ['light', 'dark', 'primary', 'secondary' ,'loading' ,'sucess'].includes(value)
     },
     buttonFunction: {
       type: Function,
@@ -96,13 +100,17 @@ export default {
      }
   } ,
   computed: {
+    variantCheck(){
+   const valid=  [ 'light', 'dark', 'primary', 'secondary' , 'sucess' , 'test' ,'register' ,'submit']
+         return valid.includes(this.variant)
+    },
     baseVariantClasses() {
       const variants = {
         light: "bg-white text-black border border-gray-300 py-2 px-4 rounded hover:bg-gray-100",
         dark: "bg-black text-white border border-gray-700 py-2 px-4 rounded hover:bg-gray-800",
         primary: "bg-blue-500 text-white border-none py-2 px-4 rounded hover:bg-blue-700",
         secondary: "bg-gray-500 text-white border-none py-2 px-4 rounded hover:bg-gray-700" ,
-        sucess:"bg-gradient-to-r from-green-400 to-green-600 text-white border-none hover:opacity-90" ,
+        sucess:"bg-gradient-to-r from-green-500 to-green-600 text-white border-none hover:opacity-90" ,
         links:'bg-transparent text-blue-600 border-none hover:underline' ,
         loading:'bg-blue-500 text-white border-none relative flex items-center justify-center p-3'
       };
@@ -191,11 +199,12 @@ export default {
       computedButtonText() {
       const defaultTexts = {
   
+        sucess:'Sucess' ,
         submit: 'Submit',
         register: 'Register',
         test: 'Test'
       };
-      return this.buttonText || defaultTexts[this.variant] || 'Click';
+      return  defaultTexts[this.variant] || 'Click';
     },
     iconClass() {
       return `${this.iconLibrary} ${this.icon}`.trim();
