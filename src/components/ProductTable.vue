@@ -149,7 +149,7 @@ export default {
     },
   togglePrice: {
     type: Function,
-    default:()=> Void
+    default:()=> {}
     
   },
   closePriceToggle: {

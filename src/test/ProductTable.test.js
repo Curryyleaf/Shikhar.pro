@@ -1,9 +1,9 @@
 import { mount } from "@vue/test-utils";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import MyComponent from "@/components/ProductTable.vue";
-import defaultProps from "@/test/defaultProps";
-import {myMethods} from "@/test/defaultProps";
-
+import defaultProps from "./DefaultProps";
+import { myMethods } from "./DefaultProps";
+// import { incorrectProps } from "./defaultProps";
 
 describe("MyComponent", () => {
   let wrapper;

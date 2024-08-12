@@ -1,9 +1,7 @@
 import { vi } from "vitest";
 
 const defaultProps = {
-  tableHeadConfig: [
-
-  ],
+  tableHeadConfig: [],
 
   products: [],
   visibleColumns: [],
@@ -57,9 +55,7 @@ export const incorrectProps = {
   groupProductsByPriceBracket: vi.fn(),
   closeDropdown: vi.fn(),
   product: {},
-  tableHeadConfig: [
-   
-  ],
+  tableHeadConfig: [],
   visibleColumns: {},
   sorting: [],
 };

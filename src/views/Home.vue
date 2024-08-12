@@ -7,10 +7,12 @@
              <Button
 
 buttonShape='round'
-:buttonSize="'extraLarge'"
+
   :icon="'fa-solid'"
   :iconLibrary="'fa-bars'"
-  :variant="'test'"
+  
+  :buttonSize="'large'"
+  :buttonColor="'red'"
 >
    </Button>
         <p class="text-gray-700">Welcome to your home page content.</p>

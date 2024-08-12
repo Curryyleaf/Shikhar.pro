@@ -10,10 +10,8 @@ describe("NavBar.vue", () => {
   let wrapper;
 
   beforeEach(async () => {
-    // Clear module cache to ensure fresh mocks
     vi.resetModules();
 
-    // Dynamically mock the @/store/pinia module with non-empty data
     vi.doMock("@/store/pinia", () => ({
       useStore: () => ({
         fetchProducts: vi.fn(() =>
@@ -53,10 +51,8 @@ describe("NavBar.vue", () => {
       }),
     }));
 
-    // Import the component after setting up the mock
     const { default: Navbar } = await import("@/components/Navbar.vue");
 
-    // Mount the component
     wrapper = mount(Navbar, {
       data() {
         return {
@@ -104,10 +100,8 @@ describe("NavBar.vue", () => {
   });
 
   it("displays correct categories", async () => {
-    // Ensure that data is fetched and processed
     await wrapper.vm.list;
 
-    // Find all category elements
     const categories = wrapper.findAll('[data-setCategory="setCategory"]');
     expect(categories.length).toEqual(3);
     expect(categories[0].text()).toBe("All");
@@ -116,15 +110,12 @@ describe("NavBar.vue", () => {
   });
 });
 
-// Additional describe block for empty API data
 describe("NavBar.vue with empty API data", () => {
   let wrapper;
 
   beforeEach(async () => {
-    // Clear module cache to ensure fresh mocks
     vi.resetModules();
 
-    // Dynamically mock the @/store/pinia module with empty data
     vi.doMock("@/store/pinia", () => ({
       useStore: () => ({
         fetchProducts: vi.fn(() => Promise.resolve([])),
@@ -134,10 +125,8 @@ describe("NavBar.vue with empty API data", () => {
       }),
     }));
 
-    // Import the component after setting up the mock
     const { default: Navbar } = await import("@/components/Navbar.vue");
 
-    // Mount the component
     wrapper = mount(Navbar, {
       data() {
         return {
@@ -164,12 +153,10 @@ describe("NavBar.vue with empty API data", () => {
   });
 
   it("displays no categories when API returns empty data", async () => {
-    // Ensure that data is fetched and processed
     await wrapper.vm.list;
 
-    // Find all category elements
     const categories = wrapper.findAll('[data-setCategory="setCategory"]');
-    expect(categories.length).toEqual(1); // Only "All" category should be present
+    expect(categories.length).toEqual(1);
     expect(categories[0].text()).toBe("All");
   });
 });
