@@ -24,6 +24,10 @@ export default {
     placeholder: {
       type:String ,
       default:''
+    } ,
+    labels: {
+      type:String ,
+      default:''
     }
   },
 };
