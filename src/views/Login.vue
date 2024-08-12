@@ -4,13 +4,13 @@
       <InputField
         v-model="username"
         type="text"
-        label="Username"
+        placeholder="Username"
         class="mb-4"
       ></InputField>
       <InputField
         v-model="password"
         type="password"
-        label="Password"
+        placeholder="Password"
         class="mb-4"
 
       ></InputField>

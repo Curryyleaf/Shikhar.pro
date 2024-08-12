@@ -1,8 +1,7 @@
 import { mount } from "@vue/test-utils";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import MyComponent from "@/components/ProductTable.vue";
-import defaultProps from "./DefaultProps";
-import { myMethods } from "./DefaultProps";
+import defaultProps, { myMethods } from "@/test/DefaultProps"
 // import { incorrectProps } from "./defaultProps";
 
 describe("MyComponent", () => {

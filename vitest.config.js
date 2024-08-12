@@ -27,6 +27,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
+      components: "/src/components",
+      views: "/src/views",
     },
   },
 });
