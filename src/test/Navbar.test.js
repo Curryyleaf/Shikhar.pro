@@ -126,7 +126,7 @@ describe("NavBar.vue with empty API data", () => {
     }));
 
     const { default: Navbar } = await import("@/components/Navbar.vue");
-
+// or you can use the  vi.hoisted as well 
     wrapper = mount(Navbar, {
       data() {
         return {
