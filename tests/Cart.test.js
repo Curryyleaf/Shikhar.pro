@@ -1,13 +1,16 @@
 import test from "@playwright/test";
 import { expect } from "@playwright/test";
 import login from "./Authnetication";
+import  interceptApi from "./Utils/IntercpetApi";
 
 // wastedd your over 2 hr time because you stupididly imported vitest expect here instead of playwright and kept on looking for ans why we had a type error in the global use of matchers object inside node modules/pnpm/vitest/expect/dist/index.js
 // in your idiocy you kept on making global setup files for both test framework to resolve that
 
 test.describe( 'cart test', ()=> {
   test.beforeEach(async ({ page }) => {
+  await   interceptApi("http://localhost:5173/auth/login" , page , 2000);
     await login(page);
+   await  interceptApi("http://localhost:5173/cart" , page , 3000);
     await page.goto("http://localhost:5173/cart");
   });
 
@@ -24,6 +27,7 @@ test.describe( 'cart test', ()=> {
     });
     await categoriesBtn.click();
     await page.getByRole("button", { name: "All" }).click();
+
     await page.waitForURL("http://localhost:5173/categories");
 
     // adding a product
@@ -64,12 +68,24 @@ test.describe( 'cart test', ()=> {
     await page.getByRole("button", { name: "Add to cart" }).click();
 
     // removing item that is just added
+    await interceptApi("http://localhost:5173/cart" , page , 3000)
     await page.goto("http://localhost:5173/cart");
 
     const removeBtn= page.getByLabel("remove button")
+
    await  expect(removeBtn).toBeVisible()
     await removeBtn.click()
-    expect(locator('#1')).not.toBeVisible
+   await  expect(page.locator('div[id="1"][aria-label="cart item"]')).toBeHidden()
 
   });
 });
+
+
+
+// await page.waitForSelector('#element-id', { state: 'visible' });
+
+// HANDLE ASYNC OPERATIONS
+// await Promise.all([
+//   page.click('#submit-button'),
+//   page.waitForNavigation()
+// ]);

@@ -19,7 +19,7 @@ test.describe("Login Page Tests", () => {
   });
 
   test("should login successfully with valid credentials", async ({ page }) => {
-  page.route("http://localhost:5173/auth/login" , (route)=>{
+ await  page.route("http://localhost:5173/auth/login" , (route)=>{
     console.log("Intercepted login request");
     route.fulfill({
       status: 200,

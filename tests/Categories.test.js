@@ -1,6 +1,7 @@
 import test from "@playwright/test";
 import { expect } from "@playwright/test";
 import login from "./Authnetication";
+import interceptApi from "./Utils/IntercpetApi";
 test.describe("", () => {
   test.beforeEach(async ({ page }) => {
     await login(page);
@@ -40,8 +41,10 @@ test.describe("", () => {
 
   test('category change test ' ,async ({page})=>{
 await page.getByRole("button", { name: "Categories" }).click();
-    const all =await page.getByRole("button", { name: "electronics" })
-    await all.click();
+    const electornic = await page.getByRole("button", { name: "electronics" });
+    
+    await electornic.click();
+
      await page.waitForURL("http://localhost:5173/categories");
 
       const initialProducts = await page.getByLabel('product item').evaluateAll(nodes => 
@@ -49,11 +52,10 @@ await page.getByRole("button", { name: "Categories" }).click();
 
    
         await page.getByRole("button", { name: "Categories" }).click();
-        await page.getByRole("button", { name: "Electronics" }).click();
+        await page.getByRole("button", { name: "jewelery" }).click();
 
    
-        const updatedProducts = await page
-          .locator(".product-item")
+        const updatedProducts = await page.getByLabel('product-item')
           .evaluateAll((nodes) => nodes.map((node) => node.id));
 
   
