@@ -33,7 +33,7 @@ export const useStore = defineStore("main", {
           `/products/categories`
         );
         this.selectedCategory = response.data;
-        console.log("catgeoriess now ", response);
+        console.log("API API API AS IT IS  ", response);
       } catch (error) {}
     },
 

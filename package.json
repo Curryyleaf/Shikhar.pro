@@ -15,22 +15,24 @@
     "dotenv": "^16.4.5",
     "jwt-decode": "^4.0.0",
     "pinia": "^2.1.7",
-    "requirejs": "^2.3.6",
     "vue": "^3.4.29",
     "vue-clickaway": "^2.2.2",
     "vue-router": "^4.3.3",
     "vue-toastification": "2.0.0-rc.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.46.0",
     "@testing-library/vue": "^8.1.0",
-    "@vitejs/plugin-vue": "^5.0.5",
+    "@types/node": "^22.3.0",
+    "@vitejs/plugin-vue": "^5.1.2",
     "@vitest/ui": "^2.0.4",
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.19",
     "jsdom": "^24.1.1",
+    "nodemon": "^3.1.4",
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.4",
-    "vite": "^5.3.1",
-    "vitest": "^2.0.4"
+    "vite": "^5.4.1",
+    "vitest": "^2.0.5"
   }
 }

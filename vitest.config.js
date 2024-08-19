@@ -5,10 +5,12 @@ import path from "path";
 import vue from "@vitejs/plugin-vue";
 // remember we had to import vue without {} . find why 
 import jsdom from "jsdom";
+import './setupTest.js'
 
 export default defineConfig({
   plugins: [vue()],
   test: {
+    setupFiles: "./setupTest.js",
     environment: "jsdom",
     globals: true,
     // it allows  you to use the describe , expect and  it anywhere
