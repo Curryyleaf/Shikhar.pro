@@ -73,7 +73,7 @@
                 type="number"
                 v-model.stop="productQuantities[product.id]"
                 min="1"
-            
+                role=" input for number of item"
                 @click.prevent.stop="preventNavigation"
                 class="border border-gray-300 w-6 inline-flex h-6 text-center justify-center items-center m-2 no-spinner"
               />
@@ -97,6 +97,7 @@
             <button
               @click.prevent.stop="addToCart(product.id)"
               class="font-bold text-xs text-white bg-red-600 px-3 py-1 m-2 rounded"
+              aria-label="cart button"
             >
               Add to cart
             </button>
