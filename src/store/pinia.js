@@ -39,7 +39,7 @@ export const useStore = defineStore("main", {
 
     async fetchProducts() {
       try {
-        const response = await axios.get(`${getConfigValue("myUrl")}/products`);
+        const response = await axios.get('/products');
 
         this.products = response.data;
       } catch (error) {

@@ -8,16 +8,16 @@ import  interceptApi from "./Utils/IntercpetApi";
 
 test.describe( 'cart test', ()=> {
   test.beforeEach(async ({ page }) => {
-  await   interceptApi("http://localhost:5173/auth/login" , page , 2000);
+  await   interceptApi("/auth/login" , page , 2000);
     await login(page);
-   await  interceptApi("http://localhost:5173/cart" , page , 3000);
-    await page.goto("http://localhost:5173/cart");
+   await  interceptApi("/cart" , page , 3000);
+    await page.goto("/cart");
   });
 
   test("should render all major componenet ", async ({ page }) => {
-    expect(page.getByRole("heading", { name: "Shopping Cart" })).toBeVisible();
-    expect(page.getByRole("link", { name: "Continue Shopping" })).toBeVisible;
-    expect(page.getByRole("link", { name: "cart" })).toBeVisible();
+ await    expect(page.getByRole("heading", { name: "Shopping Cart" })).toBeVisible();
+  await   expect(page.getByRole("link", { name: "Continue Shopping" })).toBeVisible;
+  await   expect(page.getByRole("link", { name: "cart" })).toBeVisible();
   });
 
   test("should appear on cart after adding ", async ({ page }) => {
@@ -28,7 +28,7 @@ test.describe( 'cart test', ()=> {
     await categoriesBtn.click();
     await page.getByRole("button", { name: "All" }).click();
 
-    await page.waitForURL("http://localhost:5173/categories");
+    await page.waitForURL("/categories");
 
     // adding a product
     const initialproduct = await page.locator(
@@ -43,7 +43,7 @@ test.describe( 'cart test', ()=> {
     await page.getByRole("button", { name: "Add to cart" }).click();
 
     // checking if product is added
-    await page.goto("http://localhost:5173/cart");
+    await page.goto("/cart");
     const foundProduct = await page.locator('[aria-label="cart item"]');
     await expect(foundProduct).toBeVisible();
     const foundId = await foundProduct.getAttribute("id");
@@ -56,7 +56,7 @@ test.describe( 'cart test', ()=> {
     });
     await categoriesBtn.click();
     await page.getByRole("button", { name: "All" }).click();
-    await page.waitForURL("http://localhost:5173/categories");
+    await page.waitForURL("/categories");
 
     // adding item to cart
     const ourItem = page.locator('div[id="1"][aria-label="product-item"]');
@@ -68,8 +68,8 @@ test.describe( 'cart test', ()=> {
     await page.getByRole("button", { name: "Add to cart" }).click();
 
     // removing item that is just added
-    await interceptApi("http://localhost:5173/cart" , page , 3000)
-    await page.goto("http://localhost:5173/cart");
+    await interceptApi("/cart" , page , 3000)
+    await page.goto("/cart");
 
     const removeBtn= page.getByLabel("remove button")
 

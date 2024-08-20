@@ -15,11 +15,11 @@ import { test, expect } from "@playwright/test";
 // you can also reduce your code reduency by using a test.use cuz you are loggin in again and again on every code . or you can also use a helper functionn that  takes argument of username password and page
 test.describe("Login Page Tests", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("http://localhost:5173/login");
+    await page.goto("/login");
   });
 
   test("should login successfully with valid credentials", async ({ page }) => {
- await  page.route("http://localhost:5173/auth/login" , (route)=>{
+ await  page.route("/auth/login" , (route)=>{
     console.log("Intercepted login request");
     route.fulfill({
       status: 200,
@@ -37,7 +37,7 @@ test.describe("Login Page Tests", () => {
     await page.getByLabel("Submit").click();
 
     await page.waitForURL("**/");
-    await expect(page).toHaveURL("http://localhost:5173/");
+    await expect(page).toHaveURL("/");
     await page.context().storageState({ path: "test-results/state.json" });
     await expect(page.getByRole("link", { name: "The Basket" })).toBeVisible();
   });
@@ -123,7 +123,7 @@ test.describe("Login Page Tests", () => {
     await page.reload();
 
     // Verify login is required
-    await expect(page).toHaveURL("http://localhost:5173/login");
+    await expect(page).toHaveURL("/login");
   });
  
   test('it should not ask for login when page reloads' , async({page})=>{
@@ -133,7 +133,7 @@ test.describe("Login Page Tests", () => {
     await  page.getByLabel('Submit').click();
     await page.waitForURL('**/')
    
-  await  expect(page).toHaveURL("http://localhost:5173/");
+  await  expect(page).toHaveURL("/");
 await expect(page.getByRole("link", { name: "The Basket" })).toBeVisible();
     await page.reload()
 

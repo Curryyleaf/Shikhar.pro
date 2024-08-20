@@ -1,16 +1,14 @@
 import { defineConfig } from "vitest/config";
-// it should be on the top 
+// it should be on the top
 import { configDefaults } from "vitest/config";
 import path from "path";
 import vue from "@vitejs/plugin-vue";
-// remember we had to import vue without {} . find why 
+// remember we had to import vue without {} . find why
 import jsdom from "jsdom";
-import './setupTest.js'
 
 export default defineConfig({
   plugins: [vue()],
   test: {
-    setupFiles: "./setupTest.js",
     environment: "jsdom",
     globals: true,
     // it allows  you to use the describe , expect and  it anywhere

@@ -3,15 +3,15 @@ import { test, expect } from "@playwright/test";
 
 test.describe('Navbar test' , ()=>{
   test.beforeEach(async ({ page }) => {
-    page.goto("http://localhost:5173/login");
+    page.goto("/login");
    await page.fill('input[placeholder="Username"]', "mor_2314");
    await page.fill('input[placeholder="Password"]', "83r5^_");
 
    await page.getByLabel("Submit").click();
 
    await page.waitForURL("**/");
-   await expect(page).toHaveURL("http://localhost:5173/");
-    await page.goto("http://localhost:5173/");
+   await expect(page).toHaveURL("/");
+    await page.goto("/");
   });
 
   test('it should display everything properly ' , async({page})=>{
@@ -28,12 +28,12 @@ test.describe('Navbar test' , ()=>{
     // navigatest to the cart
  page.getByRole("link", { name: "cart" }).click();
     await page.waitForURL("**/cart");
-    await expect(page).toHaveURL("http://localhost:5173/cart");
+    await expect(page).toHaveURL("/cart");
 
     // logs out
     page.getByRole("button", { name: "Logout" }).click();
     await page.waitForURL('**/login')
-   await  expect(page).toHaveURL("http://localhost:5173/login");
+   await  expect(page).toHaveURL("/login");
 
   })
 

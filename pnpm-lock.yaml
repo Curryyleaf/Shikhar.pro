@@ -17,6 +17,9 @@ dependencies:
   jwt-decode:
     specifier: ^4.0.0
     version: 4.0.0
+  login-project:
+    specifier: 'link:'
+    version: 'link:'
   pinia:
     specifier: ^2.1.7
     version: 2.1.7(vue@3.4.31)

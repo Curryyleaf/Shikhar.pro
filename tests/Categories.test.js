@@ -5,7 +5,7 @@ import interceptApi from "./Utils/IntercpetApi";
 test.describe("", () => {
   test.beforeEach(async ({ page }) => {
     await login(page);
-    page.goto("http://localhost:5173/");
+    page.goto("/");
   });
 
   test("comprehensive dropdown test", async ({ page }) => {
@@ -21,9 +21,9 @@ test.describe("", () => {
     // triggering All button inside drop down
     const allBtn = page.getByRole("button", { name: "All" });
     await allBtn.click();
-    await page.waitForURL("http://localhost:5173/categories");
+    await page.waitForURL("/categories");
     // sucessfully changes Url
-    expect(page).toHaveURL("http://localhost:5173/categories");
+    expect(page).toHaveURL("/categories");
 
     // products are displayed accrodingly and can be interacted
     const productCard = await page.getByText("White Gold Plated Princess9.");
@@ -45,7 +45,7 @@ await page.getByRole("button", { name: "Categories" }).click();
     
     await electornic.click();
 
-     await page.waitForURL("http://localhost:5173/categories");
+     await page.waitForURL("/categories");
 
       const initialProducts = await page.getByLabel('product item').evaluateAll(nodes => 
     nodes.map(node => node.id));
@@ -68,13 +68,13 @@ await page.getByRole("button", { name: "Categories" }).click();
   await cartLinkBtn.click();
 
     await page.waitForURL("**/cart");
-    await expect(page).toHaveURL("http://localhost:5173/cart");
+    await expect(page).toHaveURL("/cart");
 
     // logout check 
     const logoutBtn= await   page.getByRole("button", { name: "Logout" });
     await logoutBtn.click();
      await page.waitForURL("**/login");
-     await expect(page).toHaveURL("http://localhost:5173/login");
+     await expect(page).toHaveURL("/login");
    
   } )
 });

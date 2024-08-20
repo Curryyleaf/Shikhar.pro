@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "vitest",
+    "e2e":"playwright test",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
@@ -14,6 +15,7 @@
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "jwt-decode": "^4.0.0",
+    "login-project": "link:",
     "pinia": "^2.1.7",
     "vue": "^3.4.29",
     "vue-clickaway": "^2.2.2",
