@@ -33,7 +33,7 @@ test.describe("", () => {
     await productCard.hover();
     await page.getByRole("spinbutton").focus();
     await page.getByRole("spinbutton").fill("123456");
-    await page.getByRole("button", { name: "Add to cart" }).click();
+    await page.getByLabel('cart button').click();
     // notification upon itemm added
     const notifiy = await page.getByText("Items Added! ×");
   await   expect(notifiy).toBeVisible();

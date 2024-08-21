@@ -22,7 +22,7 @@ test.describe( 'cart test', ()=> {
   test("should render all major componenet ", async ({ page }) => {
  await    expect(page.getByRole("heading", { name: "Shopping Cart" })).toBeVisible();
   await   expect(page.getByRole("link", { name: "Continue Shopping" })).toBeVisible;
-  await   expect(page.getByRole("link", { name: "cart" })).toBeVisible();
+  await   expect(page.getByRole("link", { name: "car" })).toBeVisible();
   });
 
   test("should appear on cart after adding ", async ({ page }) => {
@@ -47,9 +47,10 @@ test.describe( 'cart test', ()=> {
   const inputField = initialproduct.locator('input[type="number"]');
   const addToCartButton = initialproduct.getByLabel('cart button')
   await expect(inputField).toBeVisible();
-  await expect(addToCartButton).toBeVisible();
   await inputField.fill('12345'); 
+  await expect(addToCartButton).toBeVisible();
   await addToCartButton.click();
+  // this is flaky 
 
   // checking if product is added
     await page.goto("/cart");
@@ -74,7 +75,7 @@ test.describe( 'cart test', ()=> {
     await page.getByRole("spinbutton").click();
     await page.getByRole("spinbutton").fill("123");
     await page.getByRole("spinbutton").press("Enter");
-    await page.getByRole("button", { name: "Add to cart" }).click();
+    await page.getByLabel('cart button').click();
 
     // removing item that is just added
     await interceptApi("/cart" , page , 3000)

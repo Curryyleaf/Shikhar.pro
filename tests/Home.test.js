@@ -1,27 +1,21 @@
 // src/test/components/Navbar.spec.js
 import { test, expect } from "@playwright/test";
-
+import login from "./Authnetication";
 test.describe('Navbar test' , ()=>{
   test.beforeEach(async ({ page }) => {
-    page.goto("/login");
-   await page.fill('input[placeholder="Username"]', "mor_2314");
-   await page.fill('input[placeholder="Password"]', "83r5^_");
-
-   await page.getByLabel("Submit").click();
-
-   await page.waitForURL("**/");
-   await expect(page).toHaveURL("/");
-    await page.goto("/");
+  await login(page)
   });
 
   test('it should display everything properly ' , async({page})=>{
-    expect(page.getByRole("link", { name: "The Basket" })).toBeVisible();
-    expect(page.getByRole("link", { name: "Home" })).toBeVisible();
-    expect(page.getByRole("button", { name: "Categories" })).toBeVisible();
-    expect(page.getByRole("link", { name: "Services" })).toBeVisible();
-    expect(page.getByRole("link", { name: "Contact" })).toBeVisible();
-    expect(page.getByRole("link", { name: "Pricing" })).toBeVisible();
-    expect(page.getByText("Home Page Click Welcome to")).toBeVisible();
+   await page.waitForLoadState('load')
+await expect(page.locator('role=link[name="The Basket"]')).toBeVisible();
+await expect(page.locator('role=link[name="Home"]')).toBeVisible();
+await expect(page.locator('role=button[name="Categories"]')).toBeVisible();
+await expect(page.locator('role=link[name="Services"]')).toBeVisible();
+await expect(page.locator('role=link[name="Contact"]')).toBeVisible();
+await expect(page.locator('role=link[name="Pricing"]')).toBeVisible();
+await expect(page.getByText("Welcome to your home page")).toBeVisible();
+
   });
   test('should navigate acoordingly' , async({page})=>{
 
