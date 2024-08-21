@@ -22,7 +22,7 @@ test.describe( 'cart test', ()=> {
   test("should render all major componenet ", async ({ page }) => {
  await    expect(page.getByRole("heading", { name: "Shopping Cart" })).toBeVisible();
   await   expect(page.getByRole("link", { name: "Continue Shopping" })).toBeVisible;
-  await   expect(page.getByRole("link", { name: "car" })).toBeVisible();
+  await   expect(page.getByRole("link", { name: "cart" })).toBeVisible();
   });
 
   test("should appear on cart after adding ", async ({ page }) => {
@@ -49,6 +49,8 @@ test.describe( 'cart test', ()=> {
   await expect(inputField).toBeVisible();
   await inputField.fill('12345'); 
   await expect(addToCartButton).toBeVisible();
+ await addToCartButton.waitFor({state:"attached"})
+
   await addToCartButton.click();
   // this is flaky 
 
