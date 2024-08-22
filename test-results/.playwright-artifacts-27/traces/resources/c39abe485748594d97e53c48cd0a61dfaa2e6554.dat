@@ -1,0 +1,48 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/App.vue");
+import Navbar from "/src/components/Navbar.vue"
+import ErrorNotification from "/src/components/ErrorNotification.vue";
+const _sfc_main = {
+  components: {
+    Navbar
+  },
+  computed: {
+    isAdminRoute() {
+      return this.$route.meta.isAdmin;
+    }
+  }
+};
+
+import { resolveComponent as _resolveComponent, openBlock as _openBlock, createBlock as _createBlock, createCommentVNode as _createCommentVNode, createVNode as _createVNode, createElementBlock as _createElementBlock } from "/node_modules/.vite/deps/vue.js?v=789c31f0"
+
+const _hoisted_1 = {
+  id: "app",
+  class: "box-border m-0 p-0 overflow-x-hidden"
+}
+
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  const _component_Navbar = _resolveComponent("Navbar")
+  const _component_router_view = _resolveComponent("router-view")
+
+  return (_openBlock(), _createElementBlock("div", _hoisted_1, [
+    (!$options.isAdminRoute)
+      ? (_openBlock(), _createBlock(_component_Navbar, { key: 0 }))
+      : _createCommentVNode("v-if", true),
+    _createVNode(_component_router_view)
+  ]))
+}
+
+
+_sfc_main.__hmrId = "7a7a37b1"
+typeof __VUE_HMR_RUNTIME__ !== 'undefined' && __VUE_HMR_RUNTIME__.createRecord(_sfc_main.__hmrId, _sfc_main)
+import.meta.hot.accept(mod => {
+  if (!mod) return
+  const { default: updated, _rerender_only } = mod
+  if (_rerender_only) {
+    __VUE_HMR_RUNTIME__.rerender(updated.__hmrId, updated.render)
+  } else {
+    __VUE_HMR_RUNTIME__.reload(updated.__hmrId, updated)
+  }
+})
+import _export_sfc from "/@id/__x00__plugin-vue:export-helper"
+export default /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],['__file',"D:/Vue/new-login/login project/src/App.vue"]])
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRDovVnVlL25ldy1sb2dpbi9sb2dpbiBwcm9qZWN0L3NyYy9BcHAudnVlIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkFwcC52dWUiXSwic291cmNlc0NvbnRlbnQiOlsiPHRlbXBsYXRlPlxyXG4gIDxkaXYgaWQ9XCJhcHBcIiBjbGFzcz1cImJveC1ib3JkZXIgbS0wIHAtMCBvdmVyZmxvdy14LWhpZGRlblwiPlxyXG4gICAgPE5hdmJhciB2LWlmPVwiIWlzQWRtaW5Sb3V0ZVwiPjwvTmF2YmFyPlxyXG4gICAgPHJvdXRlci12aWV3Pjwvcm91dGVyLXZpZXc+XHJcbiAgPC9kaXY+XHJcbjwvdGVtcGxhdGU+XHJcblxyXG48c2NyaXB0PlxyXG5pbXBvcnQgTmF2YmFyIGZyb20gJ0AvY29tcG9uZW50cy9OYXZiYXIudnVlJ1xyXG5pbXBvcnQgRXJyb3JOb3RpZmljYXRpb24gZnJvbSAnLi9jb21wb25lbnRzL0Vycm9yTm90aWZpY2F0aW9uLnZ1ZSc7XHJcbmV4cG9ydCBkZWZhdWx0IHtcclxuICBjb21wb25lbnRzOiB7XHJcbiAgICBOYXZiYXJcclxuICB9LFxyXG4gIGNvbXB1dGVkOiB7XHJcbiAgICBpc0FkbWluUm91dGUoKSB7XHJcbiAgICAgIHJldHVybiB0aGlzLiRyb3V0ZS5tZXRhLmlzQWRtaW47XHJcbiAgICB9XHJcbiAgfVxyXG59O1xyXG48L3NjcmlwdD5cclxuXHJcbjxzdHlsZT5cclxuXHJcbjwvc3R5bGU+XHJcbiJdLCJtYXBwaW5ncyI6IjtBQVFBLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUM7QUFDM0MsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUM7QUFDbEUsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsRUFBRTtFQUNiLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsRUFBRTtJQUNWLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQztFQUNQLENBQUM7RUFDRCxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsRUFBRTtJQUNSLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsRUFBRTtNQUNiLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0lBQ2pDO0VBQ0Y7QUFDRixDQUFDOzs7OztFQWxCTSxFQUFFLEVBQUMsS0FBSztFQUFDLEtBQUssRUFBQyxzQ0FBc0M7Ozs7Ozs7d0JBQTFELG9CQUdNLE9BSE4sVUFHTTtNQUZXLHFCQUFZO3VCQUEzQixhQUFzQyxxQkFGMUMsS0FBQTtRQUFBO0lBR0ksYUFBMkIiLCJpZ25vcmVMaXN0IjpbXX0=

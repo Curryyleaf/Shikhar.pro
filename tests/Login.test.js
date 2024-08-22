@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { Console } from "console";
 
 // test.beforeEach(async ({ page }) => {
 //   const authToken = process.env.AUTH_TOKEN;
@@ -11,7 +12,6 @@ import { test, expect } from "@playwright/test";
 //   }
 // });
 
-
 // you can also reduce your code reduency by using a test.use cuz you are loggin in again and again on every code . or you can also use a helper functionn that  takes argument of username password and page
 test.describe("Login Page Tests", () => {
   test.beforeEach(async ({ page }) => {
@@ -19,20 +19,22 @@ test.describe("Login Page Tests", () => {
   });
 
   test("should login successfully with valid credentials", async ({ page }) => {
- await  page.route("/auth/login" , (route)=>{
-    console.log("Intercepted login request");
-    route.fulfill({
-      status: 200,
-      contentType: "application/json; charset=utf-8",
-      body:JSON.stringify({
-        data:{
-          token:'mockedToekn'
-        }
-      })
+    await page.route("/auth/login", (route) => {
+      console.log("Intercepted login request");
+      route.fulfill({
+        status: 200,
+        contentType: "application/json; charset=utf-8",
+        body: JSON.stringify({
+          data: {
+            token: "mockedToekn",
+          },
+        }),
+      });
     });
-  });
-    await page.fill('input[placeholder="Username"]', "mor_2314");
-    await page.fill('input[placeholder="Password"]', "83r5^_");
+    const username = process.env.USER_NAME;
+    const password = process.env.PASSWORD;
+    await page.fill('input[placeholder="Username"]', username);
+    await page.fill('input[placeholder="Password"]', password);
 
     await page.getByLabel("Submit").click();
 
@@ -77,8 +79,10 @@ test.describe("Login Page Tests", () => {
         headers: { "Content-Type": "application/json" },
       })
     );
-    await page.fill('input[placeholder="Username"]', "mor_2314");
-    await page.fill('input[placeholder="Password"]', "83r5^_");
+    const username = process.env.USER_NAME;
+    const password = process.env.PASSWORD;
+    await page.fill('input[placeholder="Username"]', username);
+    await page.fill('input[placeholder="Password"]', password);
 
     await page.click('button[type="submit"]');
 
@@ -91,8 +95,10 @@ test.describe("Login Page Tests", () => {
     await page.route("**/auth/login", (route) => {
       route.abort();
     });
-    await page.fill('input[placeholder="Username"]', "mor_2314");
-    await page.fill('input[placeholder="Password"]', "83r5^_");
+    const username = process.env.USER_NAME;
+    const password = process.env.PASSWORD;
+    await page.fill('input[placeholder="Username"]', username);
+    await page.fill('input[placeholder="Password"]', password);
 
     await page.click('button[type="submit"]');
 
@@ -105,17 +111,21 @@ test.describe("Login Page Tests", () => {
   test("should save token in local storage and require login after removal", async ({
     page,
   }) => {
-    await page.fill('input[placeholder="Username"]', "mor_2314");
-    await page.fill('input[placeholder="Password"]', "83r5^_");
+    const username = process.env.USER_NAME;
+    const password = process.env.PASSWORD;
+    console.log(username);
+    console.log(password);
+
+    await page.fill('input[placeholder="Username"]', username);
+    await page.fill('input[placeholder="Password"]', password);
+
     await page.click('button[type="submit"]');
 
     await page.waitForURL("**/");
 
     // Check if token is saved
     await page.waitForFunction(() => localStorage.getItem("token") !== null);
-    const token = await page.evaluate(() =>
-     localStorage.getItem('token')
-    );
+    const token = await page.evaluate(() => localStorage.getItem("token"));
     expect(token).not.toBeNull();
 
     // Remove token and reload
@@ -125,20 +135,20 @@ test.describe("Login Page Tests", () => {
     // Verify login is required
     await expect(page).toHaveURL("/login");
   });
- 
-  test('it should not ask for login when page reloads' , async({page})=>{
-    await  page.getByPlaceholder('Username').fill("mor_2314");
-    await  page.getByPlaceholder("Password").fill("83r5^_");
 
-    await  page.getByLabel('Submit').click();
-    await page.waitForURL('**/')
-   
-  await  expect(page).toHaveURL("/");
-await expect(page.getByRole("link", { name: "The Basket" })).toBeVisible();
-    await page.reload()
+  test("it should not ask for login when page reloads", async ({ page }) => {
+    const username = process.env.USER_NAME;
+    const password = process.env.PASSWORD;
+    await page.getByPlaceholder("Username").fill(username);
+    await page.getByPlaceholder("Password").fill(password);
 
+    await page.getByLabel("Submit").click();
+    await page.waitForURL("**/");
 
-  })
+    await expect(page).toHaveURL("/");
+    await expect(page.getByRole("link", { name: "The Basket" })).toBeVisible();
+    await page.reload();
+  });
 });
 
 // Here are additional test case scenarios for in-depth testing:

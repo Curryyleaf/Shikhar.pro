@@ -3,11 +3,17 @@
 import { defineConfig, devices } from "@playwright/test";
 import './playwright-global-setup'
 import './playwright-global-teardown'
+import dotenv from "dotenv";
+import path from "path";
+
+
+// Load environment variables from .env file
+dotenv.config({ path: path.resolve(".env") });
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+
 
 /**
  * @see https://playwright.dev/docs/test-configuration

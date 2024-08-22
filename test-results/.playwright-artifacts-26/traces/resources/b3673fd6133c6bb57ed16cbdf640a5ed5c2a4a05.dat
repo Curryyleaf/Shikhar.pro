@@ -1,0 +1,38 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/Inventory.vue");
+const _sfc_main = {
+    name:'Inventory' ,
+
+};
+
+import { createElementVNode as _createElementVNode, openBlock as _openBlock, createElementBlock as _createElementBlock } from "/node_modules/.vite/deps/vue.js?v=789c31f0"
+
+const _hoisted_1 = { class: "w-full" }
+const _hoisted_2 = /*#__PURE__*/_createElementVNode("div", { class: "flex justify-center bg-white max-w-screen-xl mx-auto items-center h-screen border rounded-lg" }, [
+  /*#__PURE__*/_createElementVNode("div", { class: "max-w-2xl px-4 py-8 bg-white shadow-lg rounded-lg" }, [
+    /*#__PURE__*/_createElementVNode("h1", { class: "text-2xl font-semibold mb-4" }, "Inventory"),
+    /*#__PURE__*/_createElementVNode("p", { class: "text-gray-700" }, "Welcome to Inventory")
+  ])
+], -1 /* HOISTED */)
+const _hoisted_3 = [
+  _hoisted_2
+]
+
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (_openBlock(), _createElementBlock("div", _hoisted_1, [..._hoisted_3]))
+}
+
+
+_sfc_main.__hmrId = "82ee60e1"
+typeof __VUE_HMR_RUNTIME__ !== 'undefined' && __VUE_HMR_RUNTIME__.createRecord(_sfc_main.__hmrId, _sfc_main)
+import.meta.hot.accept(mod => {
+  if (!mod) return
+  const { default: updated, _rerender_only } = mod
+  if (_rerender_only) {
+    __VUE_HMR_RUNTIME__.rerender(updated.__hmrId, updated.render)
+  } else {
+    __VUE_HMR_RUNTIME__.reload(updated.__hmrId, updated)
+  }
+})
+import _export_sfc from "/@id/__x00__plugin-vue:export-helper"
+export default /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],['__file',"D:/Vue/new-login/login project/src/components/Inventory.vue"]])
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRDovVnVlL25ldy1sb2dpbi9sb2dpbiBwcm9qZWN0L3NyYy9jb21wb25lbnRzL0ludmVudG9yeS52dWUiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiSW52ZW50b3J5LnZ1ZSJdLCJzb3VyY2VzQ29udGVudCI6WyI8dGVtcGxhdGU+XHJcbiAgPGRpdiBjbGFzcz1cInctZnVsbFwiPlxyXG4gICAgPGRpdiBjbGFzcz1cImZsZXgganVzdGlmeS1jZW50ZXIgYmctd2hpdGUgbWF4LXctc2NyZWVuLXhsICBteC1hdXRvIGl0ZW1zLWNlbnRlciBoLXNjcmVlbiBib3JkZXIgcm91bmRlZC1sZ1wiPlxyXG4gICAgICA8ZGl2IGNsYXNzPVwibWF4LXctMnhsIHB4LTQgcHktOCBiZy13aGl0ZSBzaGFkb3ctbGcgcm91bmRlZC1sZ1wiPlxyXG4gICAgICAgIDxoMSBjbGFzcz1cInRleHQtMnhsIGZvbnQtc2VtaWJvbGQgbWItNFwiPkludmVudG9yeTwvaDE+XHJcbiAgICAgICAgPHAgY2xhc3M9XCJ0ZXh0LWdyYXktNzAwXCI+V2VsY29tZSB0byBJbnZlbnRvcnk8L3A+XHJcbiAgICAgIDwvZGl2PlxyXG4gICAgPC9kaXY+XHJcbiAgPC9kaXY+XHJcbjwvdGVtcGxhdGU+XHJcblxyXG48c2NyaXB0PlxyXG5leHBvcnQgZGVmYXVsdCB7XHJcbiAgICBuYW1lOidJbnZlbnRvcnknICxcclxuXHJcbn07XHJcbjwvc2NyaXB0PlxyXG5cclxuPHN0eWxlPjwvc3R5bGU+XHJcbiJdLCJtYXBwaW5ncyI6IjtBQVlBLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLEVBQUU7SUFDWCxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxFQUFFOztBQUVyQixDQUFDOzs7O3FCQWRNLEtBQUssRUFBQyxRQUFRO2dDQUNqQixvQkFLTSxTQUxELEtBQUssRUFBQyw4RkFBK0Y7ZUFDeEcsb0JBR00sU0FIRCxLQUFLLEVBQUMsbURBQW1EO2lCQUM1RCxvQkFBc0QsUUFBbEQsS0FBSyxFQUFDLDZCQUE2QixJQUFDLFdBQVM7aUJBQ2pELG9CQUFpRCxPQUE5QyxLQUFLLEVBQUMsZUFBZSxJQUFDLHNCQUFvQjs7OztFQUhqRCxVQUtNOzs7O3dCQU5SLG9CQU9NLE9BUE4sVUFPTSxFQVJSIiwiaWdub3JlTGlzdCI6W119

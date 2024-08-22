@@ -50,7 +50,7 @@ test.describe( 'cart test', ()=> {
   await inputField.fill('12345'); 
   await expect(addToCartButton).toBeVisible();
  await addToCartButton.waitFor({state:"attached"})
-
+  
   await addToCartButton.click();
   // this is flaky 
 
@@ -74,6 +74,7 @@ test.describe( 'cart test', ()=> {
     const ourItem = page.locator('div[id="1"][aria-label="product-item"]');
   await   expect(ourItem).toBeVisible()
     await ourItem.hover();
+    
     await page.getByRole("spinbutton").click();
     await page.getByRole("spinbutton").fill("123");
     await page.getByRole("spinbutton").press("Enter");

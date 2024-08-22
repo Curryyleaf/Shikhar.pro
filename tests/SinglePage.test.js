@@ -5,7 +5,6 @@ import interceptApi from "./Utils/IntercpetApi";
 
 test.describe('single page test ' , ()=>{
     test.beforeEach(async ({page})=>{
- await interceptApi('/product/1' , page , 3000)
  await login(page);
  await page.goto("/product/1");
     })

@@ -1,0 +1,40 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/views/About.vue");
+const _sfc_main = {
+  name: "About",
+};
+
+import { createElementVNode as _createElementVNode, createTextVNode as _createTextVNode, openBlock as _openBlock, createElementBlock as _createElementBlock } from "/node_modules/.vite/deps/vue.js?v=789c31f0"
+
+const _hoisted_1 = { class: "flex justify-center items-center h-screen bg-gray-100" }
+const _hoisted_2 = /*#__PURE__*/_createElementVNode("div", { class: "max-w-2xl px-4 py-8 bg-white shadow-lg rounded-lg" }, [
+  /*#__PURE__*/_createElementVNode("h1", { class: "text-2xl font-semibold mb-4" }, "About"),
+  /*#__PURE__*/_createElementVNode("p", { class: "text-gray-700" }, [
+    /*#__PURE__*/_createTextVNode("Welcome to your "),
+    /*#__PURE__*/_createElementVNode("span", { class: "bg-cyan-500 border border-cyan-500 rounded" }, "About"),
+    /*#__PURE__*/_createTextVNode(" page content.")
+  ])
+], -1 /* HOISTED */)
+const _hoisted_3 = [
+  _hoisted_2
+]
+
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (_openBlock(), _createElementBlock("div", _hoisted_1, [..._hoisted_3]))
+}
+
+import "/src/views/About.vue?vue&type=style&index=0&lang.css"
+
+_sfc_main.__hmrId = "f22b56f8"
+typeof __VUE_HMR_RUNTIME__ !== 'undefined' && __VUE_HMR_RUNTIME__.createRecord(_sfc_main.__hmrId, _sfc_main)
+import.meta.hot.accept(mod => {
+  if (!mod) return
+  const { default: updated, _rerender_only } = mod
+  if (_rerender_only) {
+    __VUE_HMR_RUNTIME__.rerender(updated.__hmrId, updated.render)
+  } else {
+    __VUE_HMR_RUNTIME__.reload(updated.__hmrId, updated)
+  }
+})
+import _export_sfc from "/@id/__x00__plugin-vue:export-helper"
+export default /*#__PURE__*/_export_sfc(_sfc_main, [['render',_sfc_render],['__file',"D:/Vue/new-login/login project/src/views/About.vue"]])
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRDovVnVlL25ldy1sb2dpbi9sb2dpbiBwcm9qZWN0L3NyYy92aWV3cy9BYm91dC52dWUiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiQWJvdXQudnVlIl0sInNvdXJjZXNDb250ZW50IjpbIjx0ZW1wbGF0ZT5cbiAgPGRpdiBjbGFzcz1cImZsZXgganVzdGlmeS1jZW50ZXIgaXRlbXMtY2VudGVyIGgtc2NyZWVuIGJnLWdyYXktMTAwXCI+XG4gICAgPGRpdiBjbGFzcz1cIm1heC13LTJ4bCBweC00IHB5LTggYmctd2hpdGUgc2hhZG93LWxnIHJvdW5kZWQtbGdcIj5cbiAgICAgIDxoMSBjbGFzcz1cInRleHQtMnhsIGZvbnQtc2VtaWJvbGQgbWItNFwiPkFib3V0PC9oMT5cbiAgICAgIDxwIGNsYXNzPVwidGV4dC1ncmF5LTcwMFwiPldlbGNvbWUgdG8geW91ciA8c3BhbiBjbGFzcz1cImJnLWN5YW4tNTAwIGJvcmRlciBib3JkZXItY3lhbi01MDAgcm91bmRlZFwiID5BYm91dDwvc3Bhbj4gIHBhZ2UgY29udGVudC48L3A+XG4gICAgPC9kaXY+XG4gIDwvZGl2PlxuPC90ZW1wbGF0ZT5cblxuPHNjcmlwdD5cbmV4cG9ydCBkZWZhdWx0IHtcbiAgbmFtZTogXCJBYm91dFwiLFxufTtcbjwvc2NyaXB0PlxuXG48c3R5bGU+XG4vKiBBZGQgc29tZSBiYXNpYyBzdHlsaW5nICovXG48L3N0eWxlPlxuIl0sIm1hcHBpbmdzIjoiO0FBVUEsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsRUFBRTtFQUNiLENBQUMsQ0FBQyxDQUFDLENBQUMsRUFBRSxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBQ2YsQ0FBQzs7OztxQkFYTSxLQUFLLEVBQUMsdURBQXVEO2dDQUNoRSxvQkFHTSxTQUhELEtBQUssRUFBQyxtREFBbUQ7ZUFDNUQsb0JBQWtELFFBQTlDLEtBQUssRUFBQyw2QkFBNkIsSUFBQyxPQUFLO2VBQzdDLG9CQUFrSSxPQUEvSCxLQUFLLEVBQUMsZUFBZTtpQkFKOUIsaUJBSStCLGtCQUFnQjtpQkFBQSxvQkFBc0UsVUFBaEUsS0FBSyxFQUFDLDRDQUE0QyxJQUFFLE9BQUs7aUJBSjlHLGlCQUlxSCxnQkFBZTs7OztFQUZoSSxVQUdNOzs7O3dCQUpSLG9CQUtNLE9BTE4sVUFLTSxFQU5SIiwiaWdub3JlTGlzdCI6W119
