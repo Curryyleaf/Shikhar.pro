@@ -15,6 +15,9 @@ coverage
 *.local
 
 /.env/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
 /test-results/
 /cypress/videos/
 /cypress/screenshots/
