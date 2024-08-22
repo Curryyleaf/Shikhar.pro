@@ -8,6 +8,7 @@
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
       :id="labels"
+       data-user-credential="inputField"
     />
   </div>
 </template>

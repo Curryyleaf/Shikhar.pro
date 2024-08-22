@@ -33,7 +33,7 @@ test.describe("Login Page Tests", () => {
     });
     const username = process.env.USER_NAME;
     const password = process.env.PASSWORD;
-    await page.fill('input[placeholder="Username"]', username);
+      await page.locator('[data-input="userCredential"] input').fill(username);
     await page.fill('input[placeholder="Password"]', password);
 
     await page.getByLabel("Submit").click();
@@ -48,7 +48,7 @@ test.describe("Login Page Tests", () => {
     page,
   }) => {
     // put username and passwor here
-    await page.fill('input[placeholder="Username"]', "wronguser");
+    await page.locator('[data-input="userCredential"] input').fill("wrongusername");
     await page.fill('input[placeholder="Password"]', "wrongpassword");
 
     await page.click('button[type="submit"]');
@@ -61,7 +61,8 @@ test.describe("Login Page Tests", () => {
   test("should show message when username and password is empty", async ({
     page,
   }) => {
-    await page.fill('input[placeholder="Username"]', "");
+   await page.locator('[data-input="userCredential"] input').fill('');
+   
     await page.fill('input[placeholder="Password"]', "");
 
     await page.click('button[type="submit"]');
@@ -81,7 +82,8 @@ test.describe("Login Page Tests", () => {
     );
     const username = process.env.USER_NAME;
     const password = process.env.PASSWORD;
-    await page.fill('input[placeholder="Username"]', username);
+  const inputField = page.locator('[data-input="userCredential"] input');
+  await inputField.fill(username)
     await page.fill('input[placeholder="Password"]', password);
 
     await page.click('button[type="submit"]');
@@ -97,7 +99,8 @@ test.describe("Login Page Tests", () => {
     });
     const username = process.env.USER_NAME;
     const password = process.env.PASSWORD;
-    await page.fill('input[placeholder="Username"]', username);
+     const inputField = page.locator('[data-input="userCredential"] input');
+     await inputField.fill(username);
     await page.fill('input[placeholder="Password"]', password);
 
     await page.click('button[type="submit"]');
@@ -115,8 +118,8 @@ test.describe("Login Page Tests", () => {
     const password = process.env.PASSWORD;
     console.log(username);
     console.log(password);
-
-    await page.fill('input[placeholder="Username"]', username);
+  const inputField = page.locator('[data-input="userCredential"] input');
+  await inputField.fill(username);
     await page.fill('input[placeholder="Password"]', password);
 
     await page.click('button[type="submit"]');
@@ -139,7 +142,8 @@ test.describe("Login Page Tests", () => {
   test("it should not ask for login when page reloads", async ({ page }) => {
     const username = process.env.USER_NAME;
     const password = process.env.PASSWORD;
-    await page.getByPlaceholder("Username").fill(username);
+    const inputField = page.locator('[data-input="userCredential"] input');
+    await inputField.fill(username);
     await page.getByPlaceholder("Password").fill(password);
 
     await page.getByLabel("Submit").click();

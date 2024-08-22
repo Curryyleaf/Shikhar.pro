@@ -13,9 +13,9 @@
         v-model="username"
         type="text"
         placeholder="Username"
-        labels="username"
         class="mb-4"
         aria-label="Username"
+        data-input="userCredential"
       ></InputField>
       <InputField
         v-model="password"
