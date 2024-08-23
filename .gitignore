@@ -14,11 +14,10 @@ dist-ssr
 coverage
 *.local
 
-/.env/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/test-results/
+.env
+
+
+
 /cypress/videos/
 /cypress/screenshots/
 
@@ -33,3 +32,7 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
