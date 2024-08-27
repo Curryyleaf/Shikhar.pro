@@ -393,7 +393,6 @@
 import { useStore } from "@/store/pinia";
 import { useToast } from "vue-toastification";
 import axios from "@/plugins/axios";
-import { getConfigValue } from "@/components/config";
 
 export default {
   name: "SingleProduct",

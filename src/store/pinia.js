@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 // import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { getConfigValue } from "@/components/config";
 import axios from "@/plugins/axios";
 
 export const useStore = defineStore("main", {
