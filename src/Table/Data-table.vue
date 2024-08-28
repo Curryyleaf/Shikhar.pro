@@ -12,36 +12,36 @@
     />
     <table class="divide-y max-w-full divide-gray-200 mt-7">
       <thead
-        class="text-white rounded-t-lg z-30 fixed text-lg flex justify-center items-center text-center"
+        class="text-white w-full rounded-t-lg z-30 table text-lgjustify-center items-center text-center"
       >
-        <tr class="h-12 py-10 bg-jade rounded-t-lg">
+        <tr class="h-12 w-full py-10 bg-jade rounded-t-lg">
           <th
             class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider"
           >
             Login
           </th>
           <th
-            class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider"
+            class="px-2 py-3 text-left text-xs font-xs  uppercase tracking-wider"
           >
             Avatar
           </th>
           <th
-            class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider"
+            class="px-2 py-3 text-left text-xs font-xs uppercase tracking-wider"
           >
             ID
           </th>
           <th
-            class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider"
+            class="px-2 py-3 text-left text-xs font-xs uppercase tracking-wider"
           >
             Link Address
           </th>
           <th
-            class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider"
+            class="px-2 py-3 text-left text-xs font-xs  uppercase tracking-wider"
           >
             Created
           </th>
           <th
-            class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider"
+            class="px-2 py-3 text-left text-xs font-xs  uppercase tracking-wider"
           >
             Repository
           </th>
@@ -168,9 +168,7 @@ table {
   table-layout: default;
 }
 
-thead {
-  display: table-header-group;
-}
+
 
 tbody {
   display: block;
@@ -178,14 +176,10 @@ tbody {
   margin-top: 35px;
 }
 
-tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
+
 
 td {
-  display: table-cell;
+
   height: 40px;
 }
 

@@ -33,7 +33,7 @@ export const useDataStore = defineStore("data", {
         }));
         
         console.log('this.allllllldata' , this.allData);
-        
+         this.isLoading = false;
       } catch (error) {
         this.error = "Failed to fetch data";
       } finally {
