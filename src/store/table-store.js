@@ -3,12 +3,12 @@ import axios from "axios";
 
 export const useDataStore = defineStore("data", {
   state: () => ({
-    allData: [], // Entire dataset
-    chunkSize: 50, // Number of items per chunk
+    allData: [], 
+    chunkSize: 50, 
     currentIndex: 0,
-    currentchunk:[],// Index to keep track of the last loaded chunk
-    isLoading: false, // Loading state
-    error: null, // Error state
+    currentchunk:[],
+    isLoading: false, 
+    error: null, 
   }),
   actions: {
     async fetchData() {
@@ -18,8 +18,21 @@ export const useDataStore = defineStore("data", {
         const response = await axios.get(
           "https://raw.githubusercontent.com/json-iterator/test-data/master/large-file.json"
         );
-        this.allData = response.data;
-        // Initialize with the first chunk
+       
+        this.allData = response.data.map((item) => ({
+        
+            login: item.actor.login,
+            avatar_url: item.actor.avatar_url,
+            id: item.actor.id,
+            url: item.actor.url,
+          
+          created_at: item.created_at,
+          
+            name: item.repo.name,
+          
+        }));
+        
+        console.log('this.allllllldata' , this.allData);
         
       } catch (error) {
         this.error = "Failed to fetch data";
