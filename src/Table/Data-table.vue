@@ -1,78 +1,54 @@
-<template class="w-screen mt-24">
-  <section
-    class="scroll-container h-screen max-w-full mx-auto absolute border border-solid box-border m-0 p-0"
-    @scroll="handleScroll"
-  >
+<template>
+  <div class="w-screen mt-24">
     <input
       type="text"
-      placeholder="Search "
-      class="w-2/5 border-2 border-solid focus:border-jade mr-auto fixed"
+      placeholder="Search"
+      class="w-full md:w-2/5 border-2 border-gray-300 ml-4 focus:border-teal-500 rounded-lg p-2 mb-4  bg-white shadow-md transition-all duration-300"
       @input="search"
       v-model="searchedquery"
     />
-    <table class="divide-y max-w-full divide-gray-200 mt-7">
-      <thead
-        class="text-white w-full rounded-t-lg z-30 table text-lgjustify-center items-center text-center"
-      >
-        <tr class="h-12 w-full py-10 bg-jade rounded-t-lg">
-          <th
-            class="px-2 py-3 text-left text-xs font-medium uppercase tracking-wider"
-          >
-            Login
-          </th>
-          <th
-            class="px-2 py-3 text-left text-xs font-xs  uppercase tracking-wider"
-          >
-            Avatar
-          </th>
-          <th
-            class="px-2 py-3 text-left text-xs font-xs uppercase tracking-wider"
-          >
-            ID
-          </th>
-          <th
-            class="px-2 py-3 text-left text-xs font-xs uppercase tracking-wider"
-          >
-            Link Address
-          </th>
-          <th
-            class="px-2 py-3 text-left text-xs font-xs  uppercase tracking-wider"
-          >
-            Created
-          </th>
-          <th
-            class="px-2 py-3 text-left text-xs font-xs  uppercase tracking-wider"
-          >
-            Repository
-          </th>
-        </tr>
-      </thead>
-      <tbody
-        :style="{
-          height: totalHeight + 'px',
-          transform: `translateY(${scrollTop}px)`,
-          maxWidth: '100%',
-        }"
-      >
-        <tr
-          v-for="(item, index) in visibleData"
-          :key="index"
-          class="max-w-full box-border text-xs text-wrap"
-        >
-          <td class="px-2 py-2">{{ item.login }}</td>
-          <td class="px-2 py-2">
-            <img v-lazy="item.avatar_url" alt="Item Image" class="lazy-image" />
-          </td>
-          <td class="px-2 py-2">{{ item.id }}</td>
-          <td class="px-2 py-2">{{ item.url }}</td>
-          <td class="px-2 py-2">{{ item.created_at }}</td>
-          <td class="px-2 py-2">{{ item.name }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div v-if="isLoading">Loading...</div>
-  </section>
+    <section v-if="!print"
+      class="scroll-container h-screen max-w-full mx-auto absolute border border-solid border-gray-200 bg-gray-50 p-4"
+      @scroll="handleScroll"
+    >
+    <!-- this h screen changes a lot of things  -->
+    <table class=" divide-y  divide-gray-200 bg-white rounded-lg shadow-md">
+<thead class="bg-teal-500 text-white sticky top-0 z-10">
+  <tr class="h-12">
+    <th class="pl-6 py-2 text-left w-36 text-xs font-medium uppercase tracking-wider">Login</th>
+    <th class="px-4 py-2 text-left w-32 text-xs font-medium uppercase tracking-wider">Avatar</th>
+    <th class="px-4 py-2 text-xs text-center font-medium uppercase tracking-wider w-28">ID</th>
+    <th class="px-4 py-2 text-center text-xs font-medium uppercase tracking-wider">Link Address</th>
+    <th class="px-4 py-2 text-center text-xs  font-medium uppercase tracking-wider">Created</th>
+    <th class="px-4 py-2 text-left text-xs font-medium uppercase tracking-wider">Repository</th>
+  </tr>
+</thead>
+<tbody :style="{
+  height: totalHeight + 'px',
+  transform: `translateY(${scrollTop}px)`,
+  maxWidth: '100%',
+}" class="bg-white">
+  <tr v-for="(item, index) in visibleData" :key="index" class="border-b border-gray-200 hover:bg-gray-100">
+    <td class="pl-6 py-2 w-36 text-left text-sm">{{ item.login }}</td>
+    <td class="px-2 py-2 w-32 text-center text-sm">
+      <img v-lazy="item.avatar_url" alt="Item Image" class="w-10 h-10 rounded-full object-cover" />
+    </td>
+    <td class="px-2 py-2 text-center text-sm w-28">{{ item.id }}</td>
+    <td class="pl-14 py-2 text-sm">{{ item.url }}</td>
+    <td class="px-2 py-2 text-center  text-sm">{{ item.created_at }}</td>
+    <td class="px-2 py-2 text-left text-sm">{{ item.name }}</td>
+  </tr>
+</tbody>
+
+      </table>
+      <div v-if="isLoading" class="text-center text-teal-500 font-semibold mt-4">Loading...</div>
+      <div v-if="print" ></div>
+    </section>
+  </div>
 </template>
+
+
+
 
 <script>
 import { useDataStore } from "@/store/table-store";
@@ -87,7 +63,8 @@ export default {
       scrollTop: 0,
       visibleCount: 0,
       scrollDebounced: null,
-      searchedquery:''
+      searchedquery:'' ,
+      print:false
     };
   },
   computed: {
@@ -168,7 +145,9 @@ table {
   table-layout: default;
 }
 
-
+thead {
+  display: table-header-group;
+}
 
 tbody {
   display: block;
@@ -176,10 +155,14 @@ tbody {
   margin-top: 35px;
 }
 
-
+tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
 
 td {
-
+ 
   height: 40px;
 }
 
