@@ -54,6 +54,7 @@
       class="relative  h-screen max-w-full mx-auto overflow-auto border border-solid border-gray-200 bg-gray-50 p-4"
       @scroll="handleScroll"
     >
+    <!-- this h-screen is very crucial without this the rendering fails  -->
     <p class="text-xs text-teal-300 underline-offset-0">this is not print version </p>
       <table class="divide-y divide-gray-200 bg-white rounded-lg shadow-md">
         <thead class="bg-teal-500 text-white sticky top-0 z-10">
@@ -163,7 +164,10 @@ export default {
       const query = this.searchedquery.toLowerCase();
       this.DisplayData = this.store.allData.filter(item => {
         return Object.values(item).some(value =>
+          // this line takes the value of the object makes its array
+        // some looks for match if at one element matches in the array 
           value.toString().toLowerCase().includes(query)
+           // vlaue represents the item being iterated over , it could be id , url , name
         );
       });
     },
