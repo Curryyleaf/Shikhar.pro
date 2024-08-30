@@ -8,9 +8,9 @@
     </SearchInput>
 
     <PrintComponenet 
-    :tableConfig="tableConfig"></PrintComponenet>
+    tableConfig="tableConfig"></PrintComponenet>
 
-    <ScrollComponenet    :tableConfig="tableConfig"></ScrollComponenet>
+    <ScrollComponenet    tableConfig="tableConfig"></ScrollComponenet>
     <!-- Print Button -->
   </div>
 </template>
