@@ -2,13 +2,17 @@
   <section
     ref="continerHolder"
     v-if="!print"
-    class="relative box-border h-screen max-w-full  overflow-y-auto border border-solid border-gray-200 bg-gray-50 p-4"
+    class="relative box-border h-screen max-w-full mx-auto overflow-y-auto  border border-solid border-gray-200 bg-gray-50 p-4"
     @scroll="handleScroll"
   >
+ 
+    <!-- this h-screen is very crucial without this the rendering fails  -->
     <p class="text-xs text-teal-300 underline-offset-0">
-      This is not print version
+      this is not print version
     </p>
-    <table class="divide-y w-full table-auto divide-gray-200 bg-white rounded-lg shadow-md">
+    <table
+      class="divide-y w-full table-auto  divide-gray-200 bg-white rounded-lg shadow-md"
+    >
       <thead class="bg-teal-500 text-white sticky top-0 z-10">
         <tr class="h-12">
           <th
@@ -18,20 +22,26 @@
           >
             {{ item.tableHeader }}
           </th>
+         
         </tr>
       </thead>
+    
       <tbody
         ref="scrollContainer"
-        :style="{ transform: `translateY(${scrollTop}px)` }"
-        class="bg-white box-border overflow-y-auto h-auto table-auto"
+        :style="{
+          // height: totalHeight + 'px',
+          transform: `translateY(${scrollTop}px)`,
+          maxWidth: '100%',
+        }"
+        class="bg-white box-border scroll-smooth overflow-y-auto h-auto table-auto"
       >
         <tr
           v-for="(item, index) in visibleData"
           :key="index"
-          class="border-b h-auto border-gray-200 hover:bg-gray-100"
+          class="border-b  border-gray-200 hover:bg-gray-100"
         >
           <template v-for="list in tableConfig">
-            <td class="px-6 py-2 text-left text-sm">
+            <td class="px-6 py-2  text-left text-sm">
               <img
                 v-if="list.img"
                 v-lazy="item[list.tableHeader]"
@@ -41,6 +51,7 @@
               <p v-if="!list.img">{{ item[list.tableHeader] }}</p>
             </td>
           </template>
+
         </tr>
       </tbody>
     </table>
@@ -48,8 +59,7 @@
       Loading...
     </div>
   </section>
-</template>
-
+  </template>
 
 <script>
 import { useDataStore } from '@/store/table-store';
@@ -60,18 +70,26 @@ export default {
     return {
       scrollTop:0 ,
       scrollDebounced: null,
+      rowHeight:40 ,
     };
   },
   computed: {
     store(){
 return useDataStore()
     } ,
-    visibleData() {
-      return this.store.visibleData;
+        visibleData() {
+
+const store = useDataStore()
+      const startIndex = Math.floor(this.scrollTop / this.rowHeight);
+      const endIndex = Math.min(startIndex + this.visibleCount || 10);
+      console.log("visiblecount", this.visibleCount);
+
+      console.log("startIndex", startIndex);
+      console.log("lastIndex", endIndex);
+
+      return store.DisplayData.slice(startIndex , endIndex +10)
     },
-    DisplayData() {
-      return this.store.DisplayData;
-    },
+
     print() {
       return this.store.print;
     },
@@ -86,16 +104,21 @@ return useDataStore()
     handleScroll(event) {
       const store=useDataStore()
       const scrollTop = event.target.scrollTop;
-    store.scrollTop=scrollTop
+      this.scrollTop=scrollTop
       this.updateVisibleCount()
+    //   const containerHeight = this.$refs.continerHolder.clientHeight;
+    //   const visibleCount = Math.ceil(containerHeight / this.store.rowHeight) + 2;
+    // store.scrollTop=scrollTop
+    //  store.visibleCount=visibleCount
     },
     updateVisibleCount() {
-    
-      
-      const containerHeight = this.$refs.continerHolder.clientHeight;
+          const containerHeight = this.$refs.continerHolder.clientHeight;
       const visibleCount = Math.ceil(containerHeight / this.store.rowHeight) + 2;
-      this.store.visibleCount=visibleCount
-        console.log('hiiii' , this.store.visibleCount);
+
+     this.visibleCount=visibleCount
+      
+      
+      
    
     },
     async fetch() {

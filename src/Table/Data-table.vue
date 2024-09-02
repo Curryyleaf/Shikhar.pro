@@ -1,16 +1,16 @@
-<template class="box-border m-0 p-0 overflow-x-hidden">
-  <div class="w-screen box-border mx-0 px-0 overflow-x-hidden  mt-14">
+<template class="box-border ">
+  <div class="w-screen box-border  mt-14">
     <SearchInput
       :buttonFunction="prepareForPrint"
       buttonMsg="Print all data"
       placeHolder="Search"
     >
     </SearchInput>
+    <ScrollComponenet    :tableConfig="tableConfig"></ScrollComponenet>
 
     <PrintComponenet 
     :tableConfig="tableConfig"></PrintComponenet>
 
-    <ScrollComponenet    :tableConfig="tableConfig"></ScrollComponenet>
   </div>
 </template>
 <script>

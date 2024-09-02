@@ -28,10 +28,10 @@ console.log('visibleData');
       console.log("lastIndex", endIndex);
       console.log(
         "DisplayData",
-        this.DisplayData.slice(startIndex, endIndex + 10)
+       this.DisplayData
       );
 
-      return this.DisplayData.slice(startIndex, endIndex + 10);
+      return this.DisplayData.slice(startIndex , startIndex + 50)
     },
   },
   actions: {
@@ -39,10 +39,10 @@ console.log('visibleData');
     totalHeight() {
       return this.allData.length * this.rowHeight;
     },
-    async handleScroll(scrollTop) {
-      this.scrollTop = scrollTop;
+    // async handleScroll(scrollTop) {
+    //   this.scrollTop = scrollTop;
    
-    },
+    // },
     // updateVisibleCount(count) {
     //   console.log('count' , count);
 

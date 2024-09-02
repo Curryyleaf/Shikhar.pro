@@ -1,6 +1,5 @@
 <template>
 <aside>
-    {{searchedquery}}
         <div class="flex ">
       <input
       type="text"
