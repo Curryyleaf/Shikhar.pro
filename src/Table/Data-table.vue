@@ -1,16 +1,17 @@
-<template class="box-border ">
-  <div class="w-screen box-border  mt-14">
+<template>
+  <div class="w-screen mt-14">
     <SearchInput
       :buttonFunction="prepareForPrint"
       buttonMsg="Print all data"
       placeHolder="Search"
     >
     </SearchInput>
-    <ScrollComponenet    :tableConfig="tableConfig"></ScrollComponenet>
 
     <PrintComponenet 
     :tableConfig="tableConfig"></PrintComponenet>
 
+    <ScrollComponenet    :tableConfig="tableConfig"></ScrollComponenet>
+    <!-- Print Button -->
   </div>
 </template>
 <script>
@@ -55,7 +56,7 @@ export default {
   },
   methods: {
     async prepareForPrint() {
-      this.store.PrintData = true;
+      this.store.print = true;
       this.store.loadingMessage = "Please wait, preparing data for printing...";
 
       setTimeout(() => {}, 10000);

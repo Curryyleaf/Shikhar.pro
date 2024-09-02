@@ -1,10 +1,10 @@
-<template>
+<template v-if="!print">
 <aside>
         <div class="flex ">
       <input
       type="text"
       :placeholder="placeHolder"
-      class="w-full md:w-2/5 border-2 border-gray-300 ml-4 focus:border-teal-500 rounded-lg p-2 mb-4 bg-white shadow-md transition-all duration-300"
+      class="w-full md:w-2/5 border-2 border-gray-300 ml-4 focus:border-teal-500 rounded-lg p-2 pb-4 bg-white shadow-md transition-all duration-300"
       @input="search"
       v-model="searchedquery"
     />
@@ -36,8 +36,9 @@ export default{
        
     } ,
     computed:{
-     isloading(){
-
+     print(){
+     const store=useDataStore()
+     return store.print
      } , 
      
     },
