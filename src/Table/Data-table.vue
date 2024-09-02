@@ -42,7 +42,7 @@ export default {
        tableConfig:[
         { img:false ,  tableHeader:'login'},
         { img:true ,  tableHeader:'avatar'},
-        { img:false ,  tableHeader:'Id'},
+        { img:false ,  tableHeader:'id'},
         { img:false ,  tableHeader:'link'},
         { img:false ,  tableHeader:'created'},
         { img:false ,  tableHeader:'repo'},

@@ -2,7 +2,7 @@
   <section
     ref="continerHolder"
     v-if="!print"
-    class="relative h-screen max-w-full mx-auto overflow-auto border border-solid border-gray-200 bg-gray-50 p-4"
+    class="relative box-border h-screen max-w-full mx-auto overflow-y-auto  border border-solid border-gray-200 bg-gray-50 p-4"
     @scroll="handleScroll"
   >
  
@@ -11,39 +11,37 @@
       this is not print version
     </p>
     <table
-      class="divide-y w-full divide-gray-200 bg-white rounded-lg shadow-md"
+      class="divide-y w-full table-auto  divide-gray-200 bg-white rounded-lg shadow-md"
     >
       <thead class="bg-teal-500 text-white sticky top-0 z-10">
         <tr class="h-12">
           <th
             v-for="(item, index) in tableConfig"
             :key="index"
-            class="pl-6 py-2 text-left text-xs font-medium uppercase tracking-wider"
+            class="pl-6 py-2 px-6 text-left text-xs font-medium uppercase tracking-wider"
           >
             {{ item.tableHeader }}
           </th>
          
         </tr>
       </thead>
-       <th v-for="list in DisplayData">
-            <p>{{ list.repo }}</p>
-          </th>
+    
       <tbody
         ref="scrollContainer"
         :style="{
-          height: totalHeight + 'px',
+          // height: totalHeight + 'px',
           transform: `translateY(${scrollTop}px)`,
           maxWidth: '100%',
         }"
-        class="bg-white overflow-auto"
+        class="bg-white box-border overflow-y-auto h-auto table-auto"
       >
         <tr
           v-for="(item, index) in visibleData"
           :key="index"
-          class="border-b overflow-auto border-gray-200 hover:bg-gray-100"
+          class="border-b  border-gray-200 hover:bg-gray-100"
         >
           <template v-for="list in tableConfig">
-            <td class="px-2 py-2 w-32 text-center text-sm">
+            <td class="px-6 py-2  text-left text-sm">
               <img
                 v-if="list.img"
                 v-lazy="item[list.tableHeader]"
@@ -53,6 +51,7 @@
               <p v-if="!list.img">{{ item[list.tableHeader] }}</p>
             </td>
           </template>
+
         </tr>
       </tbody>
     </table>
@@ -62,57 +61,43 @@
   </section>
 </template>
 <script>
-import { useStore } from "@/store/pinia";
+// import { useStore } from "@/store/pinia";
 import { useDataStore } from "@/store/table-store";
 import debounce from "lodash/debounce";
 export default {
   data() {
-    
+    // REMEMBER THAT THE DATA IS VSIBLE EVEN WHEN WE ARE DONG THIS.DATA BUT WHEN THE CHANGE IS HAPPENNG BUT NOT AFTER WARDS , MUST BE STHG RELATED WTH THE REACTIVITY 
     return {
-      
+     Data:[],
       visibleCount: 0,
       rowHeight: 40,
       scrollTop: 0,
+      // we need to keep the scroll top here so it remains reactive 
       scrollDebounced: null,
    
     };
   },
-  methods: {
- async   visibleData() {
+
+  computed: {
+
+     visibleData() {
+      const store=useDataStore()
       const startIndex = Math.floor(this.scrollTop / this.rowHeight);
       const endIndex = Math.min(
         startIndex + this.visibleCount,
-        this.store.allData.length
+        store.allData.length
       );
+    //    console.log('Start Index:', startIndex);
+    // console.log('End Index:', endIndex);
+    // console.log('Data:', this.Data);
       
-     return this.DisplayData.slice(startIndex, endIndex);
+     return this.Data.slice(startIndex, endIndex + 20);
       console.log('new 3' , this.visibleData);
 
     },
-    handleScroll(event) {
-      this.scrollTop = event.target.scrollTop;
-      this.updateVisibleCount();
-    },
-    updateVisibleCount() {
-      const containerHeight = this.$refs.continerHolder.clientHeight;
-      // here $el means the root element
-      this.visibleCount = Math.ceil(containerHeight / this.rowHeight) + 2;
-    },
-    fetch(){
-           const store = useDataStore()
-  console.log('now' , this.DisplayData);
-  console.log('now2' , this.visibleData);
-  
-      
-    }
-  },
-  computed: {
-
    async DisplayData() {
-   const store = useDataStore()
-  console.log('now' , store.DisplayData);
-  console.log('now2' , this.DisplayData);
-  
+   const store = useDataStore()  
+   
       return store.DisplayData;
     },
    
@@ -128,9 +113,36 @@ export default {
     totalHeight() {
         const store=useDataStore()
       const numberOfRows = store.allData.length;
-      return numberOfRows > 0 ? numberOfRows * this.rowHeight : this.rowHeight;
+      return  numberOfRows * this.rowHeight 
     },
   },
+    methods: {
+
+    handleScroll(event) {
+      this.scrollTop = event.target.scrollTop;
+      // since the conatiner height is fixed why do we need to calll ths function on scroll ?
+      this.updateVisibleCount();
+      // While the container height is fixed, the number of visible rows can change as you scroll up or down. Updating the count ensures that the table displays the correct number of rows that fit within the visible area.
+    },
+    updateVisibleCount() {
+      const containerHeight = this.$refs.continerHolder.clientHeight;
+      // here $el means the root element
+      this.visibleCount = Math.ceil(containerHeight / this.rowHeight) + 2;
+    },
+   async fetch(){
+           const store = useDataStore()
+           this.Data= await store.DisplayData
+ 
+  // console.log('ddddddddddddddddddddddddd' , store.DisplayData);
+  // console.log('nowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww' , this.data);
+  
+      
+    }
+  },
+watch(){
+
+} ,
+
   beforeDestroy() {
     if (this.scrollDebounced) {
       this.$refs.scrollContainer.removeEventListener(
@@ -139,13 +151,15 @@ export default {
       );
     }
   },
-  async created() {
-  this.fetch()
-  },
   async mounted() {
-    
-    this.scrollDebounced = debounce(this.handleScroll);
+ const store = useDataStore();
+  await store.fetchData();
+  await this.fetch()
+
+    this.scrollDebounced = debounce(this.handleScroll , 10000);
+    // why is the debounce assigned to the data??
     this.$refs.scrollContainer.addEventListener("scroll", this.scrollDebounced);
+    // for reactiiviity and making it avaialabe n other methods
     this.updateVisibleCount();
   },
   props: {
@@ -157,3 +171,37 @@ export default {
   },
 };
 </script>
+<!-- <style scoped>
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: default;
+}
+
+thead {
+  display: table-header-group;
+}
+
+tbody {
+  width: 100%;
+  margin-top: 35px;
+}
+
+tr {
+  display: table;
+  width: 100%;
+  table-layout: auto;
+}
+th{
+  table-layout: auto;
+}
+td {
+  height: 40px;
+  
+}
+
+.lazy-image {
+  width: 34px;
+  height: 34px;
+}
+</style> -->

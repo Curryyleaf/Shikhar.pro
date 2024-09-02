@@ -26,9 +26,7 @@ export const useDataStore = defineStore("data", {
           avatar: item.actor.avatar_url,
           id: item.actor.id,
           link: item.actor.url,
-
           created: item.created_at,
-
           repo: item.repo.name,
         }));
         this.DisplayData = this.allData;
@@ -54,14 +52,10 @@ export const useDataStore = defineStore("data", {
         );
       });
     },
-    loadNextChunk() {
-      if (this.isLoading || this.currentIndex >= this.allData.length) return;
-
-      const start = this.currentIndex;
-      const end = start + this.chunkSize;
-      this.currentIndex = end;
-
-      return this.allData.slice(start, end);
+    search(query) {
+      this.searchedquery = query;
+      this.currentPage = 1; 
+      this.DisplayData = this.paginatedData;
     },
   },
 });

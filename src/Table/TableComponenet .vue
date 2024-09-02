@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen mt-14">
+  <div class=" box-border overflow-hidden w-screen mt-14">
     <SearchInput
       :buttonFunction="prepareForPrint"
       buttonMsg="Print all data"

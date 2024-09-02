@@ -1,5 +1,6 @@
 <template>
 <aside>
+    {{searchedquery}}
         <div class="flex ">
       <input
       type="text"
@@ -27,18 +28,19 @@ export default{
       loadingMessage:''
         } 
     } , 
-    computed:{
-       store(){
-        return useDataStore()
-       },
-
-       Assgning(){
-       this.store.searchedquery=this.searchedquery
-       this.loadingMessage=this.store.loadingMessage
-       } ,
+    methods:{
        search(){
-        return this.store.search()
-       } , 
+        const store=useDataStore()
+        const searching=store.searching
+        searching(this.searchedquery)
+       } ,
+       
+    } ,
+    computed:{
+     isloading(){
+
+     } , 
+     
     },
     props:{
         buttonMsg:{

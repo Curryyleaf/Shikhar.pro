@@ -43,6 +43,10 @@ app.config.errorHandler = (err, instance, info) => {
   rootElement.appendChild(errorElement);
 };
 
+  // app.mount("#app");
+
+
+
 const MountTable = true;
 
 if (MountTable) {
@@ -54,5 +58,5 @@ if (MountTable) {
     .mount("#app2");
 } else {
 
-  // app.mount("#app");
+  app.mount("#app");
 }

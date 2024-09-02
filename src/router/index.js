@@ -28,7 +28,7 @@ const routes = [
     path: "/adminDashboard",
     name: "AdminDashboard",
     component: AdminDashboard,
-    meta: { requiresAuth: true, isAdmin: true },
+    meta: { requiresAuth: false, isAdmin: true },
     children: [
       {
         path: "addnewproduct",
