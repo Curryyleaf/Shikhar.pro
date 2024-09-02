@@ -31,8 +31,8 @@ export default{
     methods:{
        search(){
         const store=useDataStore()
-        const searching=store.searching
-        searching(this.searchedquery)
+       store.searchedquery=this.searchedquery
+       store.search()
        } ,
        
     } ,

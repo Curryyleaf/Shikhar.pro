@@ -30,7 +30,6 @@ export default {
   data() {
     const store = useDataStore()
     return {
-      DisplayData: [],
       rowHeight: 40,
       scrollTop: 0,
       visibleCount: 0,
@@ -58,9 +57,6 @@ export default {
     async prepareForPrint() {
       this.store.PrintData = true;
       this.store.loadingMessage = "Please wait, preparing data for printing...";
-
-      setTimeout(() => {}, 10000);
-
       this.store.DisplayData = this.store.allData;
       await this.$nextTick();
       await this.waitForRender();

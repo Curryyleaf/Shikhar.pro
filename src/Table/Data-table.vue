@@ -1,5 +1,5 @@
-<template>
-  <div class="w-screen mt-14">
+<template class="box-border m-0 p-0 overflow-x-hidden">
+  <div class="w-screen box-border mx-0 px-0 overflow-x-hidden  mt-14">
     <SearchInput
       :buttonFunction="prepareForPrint"
       buttonMsg="Print all data"
@@ -11,7 +11,6 @@
     :tableConfig="tableConfig"></PrintComponenet>
 
     <ScrollComponenet    :tableConfig="tableConfig"></ScrollComponenet>
-    <!-- Print Button -->
   </div>
 </template>
 <script>
