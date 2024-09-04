@@ -4,7 +4,7 @@
   >
 
     <table
-      class="divide-y mx-auto box-border   divide-gray-200 bg-white rounded-lg shadow-md"
+      class="divide-y mx-auto box-border table auto  divide-gray-200 bg-white rounded-lg shadow-md"
     >
       <thead class="bg-teal-500 sticky top-0 text-white">
         <tr class="h-12">
@@ -39,7 +39,7 @@
         </tr>
       </tbody>
     </table>
-        <aside class="flex ">
+        <aside class="flex " v-if="printData">
       <div class="flex justify-center p-2 w-1/2 ml-auto text-2xl items-center">
         <button class="text-jade mr-3" @click="prevChunk"><</button>
         <span
@@ -49,7 +49,7 @@
         <button class="text-jade ml-3" @click="nextChunk">></button>
 
         <button
-          class="h-10 ml-auto mr-12 justify-center flex items-center text-lg p-2 bg-rose-300 text-white rounded-lg shadow-md"
+         @click="startPrinting" class="h-10 ml-auto mr-12 justify-center flex items-center text-lg p-2 bg-rose-300 text-white rounded-lg shadow-md"
         >
           Print Now
         </button>
@@ -76,7 +76,7 @@ export default {
     },
 
     printData() {
-      return this.store.PrintData;
+      return this.store.printData;
     },
     // currentChunk() {
     //   return this.paginatedData[this.currentChunkIndex] || [];
@@ -96,13 +96,16 @@ paginatedData() {
       console.log("dataaaaaaaaaaa", this.data);
     },
     async startPrinting() {
+      
+      const store =useDataStore()
       this.currentChunkIndex = 0;
-      this.printMode = true;
+      store.printData = false;
 
       // Delay print dialog to ensure all content is rendered
       await this.$nextTick();
       await this.waitForRender();
       window.print();
+      store.prinData=true
     },
     waitForRender() {
       return new Promise((resolve) => {
@@ -144,6 +147,7 @@ paginatedData() {
 
     await store.fetchData();
     await this.fetch();
+    store.printData=true
  this.chunkSize = this.store.printInfo || 50
 
     // this.paginatedData()

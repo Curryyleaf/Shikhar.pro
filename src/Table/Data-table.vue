@@ -1,7 +1,7 @@
 <template>
   <div class="w-screen ">
     <SearchInput 
-    v-if="!printPerPage"
+    v-if="!printPerPage && printData"
       :buttonFunction="prepareForPrint"
       buttonMsg="Print data"
       placeHolder="Search"
@@ -63,6 +63,9 @@ export default {
     } ,
     print(){
       return this.store.print
+    } ,
+    printData(){
+      return this.store.printData
     }
   },
   methods: {

@@ -12,7 +12,7 @@ export const useDataStore = defineStore("data", {
     isLoading: false,
     error: null,
     printInfo:'', 
-    PrintData: false,
+    printData: false,
     printPerPage:false ,
     print: false,
     loadingMessage: "",
