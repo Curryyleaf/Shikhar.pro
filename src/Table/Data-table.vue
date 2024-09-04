@@ -1,24 +1,28 @@
 <template>
-  <div class="w-screen mt-14">
-    <SearchInput
+  <div class="w-screen ">
+    <SearchInput 
+    v-if="!printPerPage"
       :buttonFunction="prepareForPrint"
-      buttonMsg="Print all data"
+      buttonMsg="Print data"
       placeHolder="Search"
+      :buttonVisible="!print"
+      :rows="print"
     >
     </SearchInput>
 
-    <PrintComponenet 
+    <PrintComponenet v-if="print"
     :tableConfig="tableConfig"></PrintComponenet>
 
-    <ScrollComponenet    :tableConfig="tableConfig"></ScrollComponenet>
-    <!-- Print Button -->
-  </div>
+    <ScrollComponenet v-if="!printPerPage"   :tableConfig="tableConfig"></ScrollComponenet>
+    <PrintPerPage v-if="printPerPage"></PrintPerPage>
+</div>
 </template>
 <script>
 import { useDataStore } from "@/store/table-store";
 import SearchInput from "./SearchInput.vue";
 import PrintComponenet from "./PrintComponenet.vue";
 import ScrollComponenet from "./ScrollComponenet.vue";
+import PrintPerPage from './PrintPerPage.vue'
 
 export default {
   name: "TableComponenet ",
@@ -26,6 +30,7 @@ export default {
     SearchInput,
     PrintComponenet,
     ScrollComponenet,
+    PrintPerPage
   },
   data() {
     const store = useDataStore()
@@ -52,44 +57,52 @@ export default {
   computed: {
     store(){
         return useDataStore()
+    } ,
+    printPerPage(){
+      return this.store.printPerPage
+    } ,
+    print(){
+      return this.store.print
     }
   },
   methods: {
     async prepareForPrint() {
-      this.store.print = true;
+  
+      
+      this.store.printPerPage = true;
       this.store.loadingMessage = "Please wait, preparing data for printing...";
+    console.log('buton clicked' ,this.store.printPerPage  );
+      // setTimeout(() => {}, 10000);
 
-      setTimeout(() => {}, 10000);
-
-      this.store.DisplayData = this.store.allData;
-      await this.$nextTick();
-      await this.waitForRender();
-      this.triggerPrintDialog();
+      // this.store.DisplayData = this.store.allData;
+      // await this.$nextTick();
+      // await this.waitForRender();
+      // this.triggerPrintDialog();
     },
 
-    waitForRender() {
-      return new Promise((resolve) => {
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            resolve();
-          });
-        });
-      });
-    },
+    // waitForRender() {
+    //   return new Promise((resolve) => {
+    //     requestAnimationFrame(() => {
+    //       requestAnimationFrame(() => {
+    //         resolve();
+    //       });
+    //     });
+    //   });
+    // },
 
-    triggerPrintDialog() {
-      window.print();
-      window.onafterprint = () => {
-        this.print = false;
-        this.store.loadingMessage = "";
-      };
-    },
+    // triggerPrintDialog() {
+    //   window.print();
+    //   window.onafterprint = () => {
+    //     this.print = false;
+    //     this.store.loadingMessage = "";
+    //   };
+    // },
   },
   async created() {
     await this.store.fetchData();
-    if (this.PrintData) {
-      this.store.PrintData = true;
-    }
+    // if (this.PrintData) {
+    //   this.store.PrintData = true;
+    // }
   },
 
   props: {

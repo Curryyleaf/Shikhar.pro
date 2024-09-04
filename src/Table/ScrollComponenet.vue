@@ -2,13 +2,11 @@
   <section
     ref="continerHolder"
     v-if="!print"
-    class="relative right-0 left-0 top-0 box-border h-screen max-w-full mx-auto overflow-y-auto border border-solid border-gray-200 bg-gray-50 p-4"
+    class="relative right-0  left-0 top-0 box-border h-screen max-w-full mx-auto overflow-y-auto border border-solid border-gray-200 bg-gray-50 p-4 pt-0"
     @scroll="handleScroll"
   >
     <!-- this h-screen is very crucial without this the rendering fails  -->
-    <p class="text-xs text-teal-300 underline-offset-0">
-      this is not print version
-    </p>
+
     <table
       class="divide-y w-full table-auto divide-gray-200 bg-white rounded-lg shadow-md"
     >
@@ -35,15 +33,15 @@
         <tr
           v-for="(item, index) in visibleData"
           :key="index"
-          class="border-b border-gray-200 hover:bg-gray-100"
+          class="border-b h-10 box-border border-gray-200 hover:bg-gray-100"
         >
           <template v-for="list in tableConfig">
-            <td class="px-6 py-2 text-left text-sm">
+            <td class="px-6 whitespace-nowrap  box-border h-10 py-2 text-left text-sm">
               <img
                 v-if="list.img"
                 v-lazy="item[list.tableHeader]"
                 alt="Item Image"
-                class="w-10 h-10 rounded-full object-cover"
+                class="w-8 h-8 rounded-full object-cover"
               />
               <p v-if="!list.img">{{ item[list.tableHeader] }}</p>
             </td>
@@ -54,6 +52,7 @@
     <div v-if="isLoading" class="text-center text-teal-500 font-semibold mt-4">
       Loading...
     </div>
+
   </section>
 </template>
 
@@ -67,9 +66,14 @@ export default {
       scrollTop: 0,
       scrollDebounced: null,
       rowHeight: 40,
+      printData: "",
+      visibleCount: null,
     };
   },
   computed: {
+    printinfoAssign() {
+      this.store.printInfo = this.printData;
+    },
     store() {
       return useDataStore();
     },
@@ -84,16 +88,16 @@ export default {
 
       return store.DisplayData.slice(startIndex, endIndex + 10);
     },
-
+    printPerPage(){
+   return this.store.printPerPage
+    } ,
     print() {
       return this.store.print;
     },
     isLoading() {
       return this.store.isLoading;
     },
-    totalHeight() {
-      return this.store.totalHeight;
-    },
+
   },
   methods: {
     handleScroll(event) {
@@ -113,13 +117,13 @@ export default {
 
       this.visibleCount = visibleCount;
     },
-    async fetch() {
-      await this.store.handleScroll(this.scrollTop);
-    },
+    // async fetch() {
+    //   await this.store.handleScroll(this.scrollTop);
+    // },
   },
   async mounted() {
-    await this.fetch();
-    this.scrollDebounced = debounce(this.handleScroll, 100);
+    // await this.fetch();
+    this.scrollDebounced = debounce(this.handleScroll, 1000);
     this.$refs.scrollContainer.addEventListener("scroll", this.scrollDebounced);
     this.updateVisibleCount();
   },

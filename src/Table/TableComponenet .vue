@@ -1,5 +1,5 @@
 <template>
-  <div class=" box-border overflow-hidden w-screen mt-14">
+  <div class=" box-border overflow-hidden w-screen h-screen mt-14">
     <SearchInput
       :buttonFunction="prepareForPrint"
       buttonMsg="Print all data"
@@ -55,37 +55,32 @@ export default {
   },
   methods: {
     async prepareForPrint() {
-      this.store.PrintData = true;
-      this.store.loadingMessage = "Please wait, preparing data for printing...";
-      this.store.DisplayData = this.store.allData;
-      await this.$nextTick();
-      await this.waitForRender();
-      this.triggerPrintDialog();
+     this.store.print=true
     },
 
-    waitForRender() {
-      return new Promise((resolve) => {
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            resolve();
-          });
-        });
-      });
-    },
+    // waitForRender() {
+    //   return new Promise((resolve) => {
+    //     requestAnimationFrame(() => {
+    //       requestAnimationFrame(() => {
+    //         resolve();
+    //       });
+    //     });
+    //   });
+    // },
 
-    triggerPrintDialog() {
-      window.print();
-      window.onafterprint = () => {
-        this.print = false;
-        this.store.loadingMessage = "";
-      };
-    },
+    // triggerPrintDialog() {
+    //   window.print();
+    //   window.onafterprint = () => {
+    //     this.print = false;
+    //     this.store.loadingMessage = "";
+    //   };
+    // },
   },
   async created() {
     await this.store.fetchData();
-    if (this.PrintData) {
-      this.store.PrintData = true;
-    }
+  // if (this.PrintData) {
+  //   this.store.PrintData = true;
+  // }
   },
 
   props: {
