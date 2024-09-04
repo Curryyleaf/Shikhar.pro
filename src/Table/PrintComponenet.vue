@@ -105,7 +105,9 @@ paginatedData() {
       await this.$nextTick();
       await this.waitForRender();
       window.print();
-      store.prinData=true
+      store.printData=true
+      console.log(this.printData);
+      
     },
     waitForRender() {
       return new Promise((resolve) => {

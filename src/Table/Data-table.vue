@@ -1,7 +1,7 @@
 <template>
   <div class="w-screen ">
     <SearchInput 
-    v-if="!printPerPage && printData"
+    v-if="!printPerPage "
       :buttonFunction="prepareForPrint"
       buttonMsg="Print data"
       placeHolder="Search"
