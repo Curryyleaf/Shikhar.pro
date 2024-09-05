@@ -13,7 +13,10 @@
     <PrintComponenet v-if="print"
     :tableConfig="tableConfig"></PrintComponenet>
 
-    <ScrollComponenet v-if="!printPerPage"   :tableConfig="tableConfig"></ScrollComponenet>
+    <TableScroll v-if="!printPerPage" 
+      :tableConfig="tableConfig"
+      :btn-function="editTableRow"
+      ></TableScroll>
     <PrintPerPage v-if="printPerPage"></PrintPerPage>
 </div>
 </template>
@@ -21,7 +24,7 @@
 import { useDataStore } from "@/store/table-store";
 import SearchInput from "./SearchInput.vue";
 import PrintComponenet from "./PrintComponenet.vue";
-import ScrollComponenet from "./ScrollComponenet.vue";
+import TableScroll from "./TableScroll.vue";
 import PrintPerPage from './PrintPerPage.vue'
 
 export default {
@@ -29,7 +32,7 @@ export default {
   components: {
     SearchInput,
     PrintComponenet,
-    ScrollComponenet,
+    TableScroll,
     PrintPerPage
   },
   data() {
@@ -45,12 +48,13 @@ export default {
 
       isLoading: null,
        tableConfig:[
-        { img:false ,  tableHeader:'login'},
+        {  tableHeader:'login'},
         { img:true ,  tableHeader:'avatar'},
-        { img:false ,  tableHeader:'id'},
-        { img:false ,  tableHeader:'link'},
-        { img:false ,  tableHeader:'created'},
-        { img:false ,  tableHeader:'repo'},
+        {  tableHeader:'id'},
+        {  tableHeader:'link'},
+        {  tableHeader:'created'},
+        {  tableHeader:'repo'},
+        { btn:true ,  tableHeader:'edit' , btnText:'edit'},
        ]
     };
   },
@@ -69,6 +73,11 @@ export default {
     }
   },
   methods: {
+    editTableRow(id){
+     const store= useDataStore()
+     store.isEditing=true;
+     store.editID=id
+    } ,
     async prepareForPrint() {
   
       
