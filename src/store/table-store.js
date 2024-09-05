@@ -16,6 +16,9 @@ export const useDataStore = defineStore("data", {
     printPerPage:false ,
     print: false,
     loadingMessage: "",
+    editValues:[] ,
+    editID:'' ,
+    isEditing:false
   }),
   getters: {
         visibleData() {
@@ -37,7 +40,16 @@ console.log('visibleData');
     },
   },
   actions: {
-
+    replaceEditValues(){
+    const item = this.allData.find((element)=> element.id = this.editID);
+    if(item){
+      Object.assign(item , this.editValues)
+    }
+   
+    } ,
+   setEditValues(values ){
+     this.editValues = values
+   } , 
     totalHeight() {
       return this.allData.length * this.rowHeight;
     },

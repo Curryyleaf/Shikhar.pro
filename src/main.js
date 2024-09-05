@@ -11,7 +11,7 @@ import { useStore } from "./store/pinia";
 import VueLazyLoad from "vue3-lazyload";
 
 // Import the Table component
-import Table from './Table/Data-table.vue'
+import Table from './Table/TableComponenet.vue'
 import VueVirtualScroller from "vue-virtual-scroller";
 
 const pinia = createPinia();
