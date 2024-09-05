@@ -77,10 +77,10 @@ export default {
      const store= useDataStore()
      store.isEditing=true;
      store.editID=id
+     console.log('id' , store.editID);
+     
     } ,
     async prepareForPrint() {
-  
-      
       this.store.printPerPage = true;
       this.store.loadingMessage = "Please wait, preparing data for printing...";
     console.log('buton clicked' ,this.store.printPerPage  );
@@ -136,34 +136,3 @@ export default {
 };
 </script>
 
-<style scoped>
-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: default;
-}
-
-thead {
-  display: table-header-group;
-}
-
-tbody {
-  width: 100%;
-  margin-top: 35px;
-}
-
-tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-
-td {
-  height: 40px;
-}
-
-.lazy-image {
-  width: 34px;
-  height: 34px;
-}
-</style>

@@ -45,7 +45,8 @@ console.log('visibleData');
     if(item){
       Object.assign(item , this.editValues)
     }
-   
+   this.editID = "";
+   this.isEditing=false
     } ,
    setEditValues(values ){
      this.editValues = values
