@@ -1,10 +1,10 @@
 <template >
   <section
-    class="relative  w-screen box-border top-0 right-0 left-0 p-5 pt-0  bg-white border border-s-gray-100  mt-0"
+    class="relative box-border  w-screen h-screen top-0 right-0 left-0 p-5 pt-0  bg-white border border-s-gray-100  mt-0"
   >
 
     <table
-      class="divide-y mx-auto box-border table auto  divide-gray-200 bg-white rounded-lg shadow-md"
+      class="divide-y  box-border table auto max-w-full  divide-gray-200 bg-white rounded-lg shadow-md"
     >
       <thead class="bg-teal-500 sticky top-0 text-white">
         <tr class="h-12">
@@ -17,15 +17,15 @@
           </th>
         </tr>
       </thead>
-      <tbody ref="printTableBody">
+      <tbody ref="printTableBody" class="max-w-full">
         <tr
           v-for="(item, index) in paginatedData"
           :key="index"
-          class="border-b h-10 box-border border-gray-200 hover:bg-gray-100"
+          class="border-b h-10 box-border max-w-full border-gray-200 hover:bg-gray-100"
         >
           <template v-for="list in tableConfig">
             <td
-              class="px-6 whitespace-nowrap box-border h-10 py-2 text-left text-sm"
+              class="px-6  box-border h-10 py-2 text-left text-sm"
             >
               <img
                 v-if="list.img"

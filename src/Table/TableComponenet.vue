@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen ">
+  <div class="w-screen box-border m-0 p-0 ">
     <SearchInput 
     v-if="!printPerPage "
       :buttonFunction="prepareForPrint"

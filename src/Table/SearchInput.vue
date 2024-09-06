@@ -1,5 +1,5 @@
 <template >
-  <aside>
+  <aside class="max-w-full">
     <div class="flex box-border mt-2 mb-2">
       <input
         type="text"
