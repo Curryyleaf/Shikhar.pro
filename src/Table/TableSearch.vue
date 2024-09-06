@@ -1,20 +1,20 @@
 <template >
-  <aside class="max-w-full box-border">
+  <aside class="max-w-full">
     <div class="flex box-border mt-2 mb-2">
       <input
         type="text"
         :placeholder="placeHolder"
-        class="w-full box-border md:w-2/5 border-2  border-gray-300  focus:border-teal-500 rounded-lg p-2  bg-white shadow-md transition-all duration-300"
+        class="w-full box-border md:w-2/5 border-2 ml-4 border-gray-300  focus:border-teal-500 rounded-lg p-2  bg-white shadow-md transition-all duration-300"
         @input="$emit('update:modelValue', $event.target.value)"
         :value="modelValue"
       />
       <button v-if="buttonVisible"
-        @click="btnFunction"
-        class="h-10 ml-auto  p-2 bg-teal-500 text-white rounded-lg shadow-md"
+        @click="buttonFunction"
+        class="h-10 ml-auto mr-12 p-2 bg-teal-500 text-white rounded-lg shadow-md"
       >
         {{ buttonMsg }}
       </button>
-      
+      <p v-if="rows" class="h-10 ml-auto mr-12 p-2 bg-teal-500 text-white rounded-lg shadow-md">Total no of Rows :<span class="text-black">{{ totalRows }}</span></p>
     </div>
    
 
@@ -27,31 +27,28 @@
   </aside>
 </template>
 <script>
-
+import { useDataStore } from "@/store/tableStore";
 export default {
   data() {
     return {
-      searchedquery: "",
       loadingMessage: "",
     };
   },
   methods: {
+
   },
-  // computed: {
-  //   totalRows(){
-  //   const store = useDataStore();
-  //   return store.DisplayData.length
-  //   } , 
-  //   print() {
-  //     const store = useDataStore();
-  //     return store.print;
-  //   },
-  // },
+  computed: {
+    totalRows(){
+    const store = useDataStore();
+    return store.DisplayData.length
+    } , 
+    print() {
+      const store = useDataStore();
+      return store.print;
+    },
+  },
   props: {
-    modelValue:{
-     type:String ,
-     default:''
-    } ,
+    modelValue:String ,
     buttonMsg: {
       type: String,
       default: " Print ",
@@ -60,14 +57,18 @@ export default {
       type: String,
       default: "Search",
     },
-    btnFunction: {
+    buttonFunction: {
       type: Function,
+      required: true,
     },
     buttonVisible:{
         type:Boolean ,
         default:false
     } ,
-
+    rows:{
+        type:Boolean ,
+        default:false
+    }
   },
 };
 </script>

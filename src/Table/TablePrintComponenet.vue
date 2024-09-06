@@ -75,6 +75,7 @@
 </template>
 
 <script>
+import { useDataStore } from "@/store/tableStore";
 export default {
   data() {
     return {

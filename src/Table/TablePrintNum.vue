@@ -22,6 +22,7 @@
  
 
 <script>
+import { useDataStore } from "@/store/tableStore";
 
 export default {
   emits:['printCount'] ,

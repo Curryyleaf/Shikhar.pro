@@ -25,6 +25,12 @@ export const useDataStore = defineStore("data", {
   },
   actions: {
 
+    setEditValues(values) {
+      this.editValues = values;
+    },
+    totalHeight() {
+      return this.allData.length * this.rowHeight;
+    },
     // async handleScroll(scrollTop) {
     //   this.scrollTop = scrollTop;
 
@@ -35,14 +41,7 @@ export const useDataStore = defineStore("data", {
     //   this.visibleCount = count;
     // },
 
-    search() {
-      const query = this.searchedquery.toLowerCase();
-      this.DisplayData = this.allData.filter((item) =>
-        Object.values(item).some((value) =>
-          value.toString().toLowerCase().includes(query)
-        )
-      );
-    },
+
     // searching(query) {
     //   this.searchedquery = query;
     //   this.search();
