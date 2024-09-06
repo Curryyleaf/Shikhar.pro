@@ -1,5 +1,4 @@
 // src/main.js
-
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import "./assets/tailwind.css"; // Import Tailwind CSS first
@@ -8,11 +7,10 @@ import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 import App from "./App.vue";
 import router from "./router";
-import { useStore } from "./store/pinia";
 import VueLazyLoad from "vue3-lazyload";
 
 // Import the Table component
-import Table from './Table/TableComponenet.vue'
+import Table from "./Table/TableComponenet.vue";
 import VueVirtualScroller from "vue-virtual-scroller";
 
 const pinia = createPinia();
@@ -44,10 +42,7 @@ app.config.errorHandler = (err, instance, info) => {
   rootElement.appendChild(errorElement);
 };
 
-  // app.mount("#app");
-
-
-
+// app.mount("#app");
 const MountTable = true;
 
 if (MountTable) {
@@ -58,6 +53,5 @@ if (MountTable) {
     .use(router)
     .mount("#app2");
 } else {
-
   app.mount("#app");
 }

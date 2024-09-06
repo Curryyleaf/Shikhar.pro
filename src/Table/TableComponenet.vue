@@ -9,7 +9,6 @@
       :rows="print"
     >
     </SearchInput>
-
     <PrintComponenet v-if="print"
     :tableConfig="tableConfig"></PrintComponenet>
 
