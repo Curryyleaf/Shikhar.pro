@@ -60,7 +60,7 @@
     <ProductTable
       :tableHeadConfig="tableHeadConfig"
       :products="products"
-       :visibleColumns="visibleColumns"
+      :visibleColumns="visibleColumns"
       :closeDropdown="closeDropdown"
       :isAllSelected="isAllSelected"
       :toggleAllSelect="toggleAllSelect"
@@ -72,7 +72,6 @@
       :PriceBracket="PriceBracket"
       :togglePrice="togglePrice"
       :closePriceToggle="closePriceToggle"
-      
     />
   </div>
 </template>
@@ -92,17 +91,44 @@ export default {
   },
   data() {
     return {
-        tableHeadConfig: [
-      { title: "Product", sortby: "title", sortable: true, show: false, id: 1, priceGrouping: false },
-      { title: "Category", sortby: "category", sortable: true, show: false, id: 2, priceGrouping: false },
-      { title: "Price", sortby: "price", sortable: false, show: false, id: 3, priceGrouping: false },
-      { title: "ID", sortby: "id", sortable: false, show: false, id: 4, priceGrouping: false },
-      { title: "Action", sortby: "action", sortable: false, show: false, id: 5, priceGrouping: false },
-    ],
-      visibleColumns: [true , true , true , true , true  , true],
+      tableHeadConfig: [
+        {
+          title: "Product",
+          sortby: "title",
+          sortable: true,
+          show: false,
+          id: 1,
+          priceGrouping: false,
+        },
+        {
+          title: "Category",
+          sortby: "category",
+          sortable: true,
+          show: false,
+          id: 2,
+          priceGrouping: false,
+        },
+        {
+          title: "Price",
+          sortby: "price",
+          sortable: false,
+          show: false,
+          id: 3,
+          priceGrouping: false,
+        },
+        {
+          title: "ID",
+          sortby: "id",
+          sortable: false,
+          show: false,
+          id: 4,
+          priceGrouping: false,
+        },
+      ],
+      visibleColumns: [true, true, true, true, true, true],
 
       columns: [{}, {}, {}],
-      // it was my idea that i didnot do but eeping fro refrence just ini case if i do in future 
+      // it was my idea that i didnot do but eeping fro refrence just ini case if i do in future
       searchedQuery: "",
       ascending: false,
       products: [],
@@ -118,18 +144,18 @@ export default {
         }
       });
     },
-togglePrice(id) {
-  this.tableHeadConfig = this.tableHeadConfig.map(item => {
-    if (item.id === id) {
-      return { ...item, priceGrouping: !item.priceGrouping };
-    }
-    return item;
-  });
-},
+    togglePrice(id) {
+      this.tableHeadConfig = this.tableHeadConfig.map((item) => {
+        if (item.id === id) {
+          return { ...item, priceGrouping: !item.priceGrouping };
+        }
+        return item;
+      });
+    },
 
-    closePriceToggle(){
-     this.tableHeadConfig.priceGrouping = false
-     console.log('heyu');
+    closePriceToggle() {
+      this.tableHeadConfig.priceGrouping = false;
+      console.log("heyu");
     },
     toggleAllSelect(event) {
       const isChecked = event.target.checked;
@@ -144,7 +170,7 @@ togglePrice(id) {
       });
     },
     closeDropdown(id) {
-      console.log('hiii');
+      console.log("hiii");
       this.tableHeadConfig = this.tableHeadConfig.map((item) => {
         if (item.id === id) {
           return { ...item, show: false };
@@ -233,10 +259,7 @@ togglePrice(id) {
           ...product,
           priceBracket: this.getPriceBracket(product.price),
           checked: false,
-          action:'Delete'
         }));
-
-        
       } catch (error) {
         console.log(error);
       }

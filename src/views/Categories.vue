@@ -28,9 +28,11 @@
           v-for="product in displayingLogic"
           @click.prevent.stop="navigateToSingle(product.id)"
           :key="product.id"
+          :id="product.id"
           class="hover:shadow-2xl border rounded-xl p-2 hover:scale-105 transition duration-300 ease-in-out"
           @mouseover="mouseOver(product.id)"
           @mouseleave="mouseLeave(product.id)"
+          aria-label="product-item"
         >
           <div class="aspect-h-1 aspect-w-1 w-full xl:aspect-h-8 xl:aspect-w-7">
             <img
@@ -71,6 +73,7 @@
                 type="number"
                 v-model.stop="productQuantities[product.id]"
                 min="1"
+                role=" input for number of item"
                 @click.prevent.stop="preventNavigation"
                 class="border border-gray-300 w-6 inline-flex h-6 text-center justify-center items-center m-2 no-spinner"
               />
@@ -94,6 +97,7 @@
             <button
               @click.prevent.stop="addToCart(product.id)"
               class="font-bold text-xs text-white bg-red-600 px-3 py-1 m-2 rounded"
+              aria-label="cart button"
             >
               Add to cart
             </button>

@@ -9,6 +9,8 @@
       >
         <h3 class="text-lg font-semibold mb-4">Product Image</h3>
         <div class="flex flex-col items-center">
+
+          
           <label
             for="fileInput"
             class="relative flex flex-col items-center justify-center bg-gray-200 border-2 border-gray-300 border-solid rounded-lg w-72 h-64 hover:border-gray-400"

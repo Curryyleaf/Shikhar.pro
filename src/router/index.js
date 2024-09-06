@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
+import Button from "@/components/Button.vue";
 import Register from "../components/Register.vue";
 import About from "../views/About.vue";
 import Categories from "../views/Categories.vue";
@@ -11,7 +12,13 @@ import AddNewProduct from "@/components/AddNewProduct.vue";
 import AdminPage from "@/components/AdminPage.vue";
 import Inventory from "@/components/Inventory.vue";
 
+
 const routes = [
+  {
+    path: "/Button",
+    name: "button",
+    component: Button,
+  },
   {
     path: "/product/:id",
     name: "product",
@@ -21,7 +28,7 @@ const routes = [
     path: "/adminDashboard",
     name: "AdminDashboard",
     component: AdminDashboard,
-    meta: { requiresAuth: true, isAdmin: true },
+    meta: { requiresAuth: false, isAdmin: true },
     children: [
       {
         path: "addnewproduct",
@@ -68,7 +75,7 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
-    meta: {  isAdmin: true },
+    meta: { isAdmin: true },
   },
   {
     path: "/register",

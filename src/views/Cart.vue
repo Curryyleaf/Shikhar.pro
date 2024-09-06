@@ -10,6 +10,8 @@
         <div
           v-for="item in filteredCartItems"
           :key="item.id"
+          :id="item.id"
+          aria-label="cart item"
           class="md:flex items-strech py-6 md:py-4 lg:pt-1 border-t border-gray-300"
         >
           <div
@@ -51,6 +53,9 @@
                 </p>
                 <button
                   @click.prevent="removeFromCart(item.id)"
+                  aria-label="remove button"
+                  role="removes items from cart"
+                  
                   class="text-xs leading-3 underline text-red-500 pl-20 cursor-pointer"
                 >
                   Remove
