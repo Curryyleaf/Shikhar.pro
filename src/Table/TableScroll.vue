@@ -6,11 +6,55 @@
     class="relative right-0 left-0 top-0 no-scrollbar  overflow-x-clip  box-border h-screen w-screen mx-auto overflow-y-auto border border-solid border-gray-200 bg-gray-50 p-4 pt-0"
     @scroll="handleScroll"
   >
-    <!-- this h-screen is very crucial without this the rendering fails  -->
-<TableEdit v-if="isEditing"
-:tableDataNames="tableDataNames" >
 
-</TableEdit>
+  <!-- Edit from here  -->
+  <div v-if="isEditing">
+      <div class="fixed inset-0 bg-gray-200  bg-opacity-80  flex items-center justify-center z-50">
+    <div class="bg-white border-2 border-gray-300  rounded-lg shadow-lg w-full max-w-xl">
+      <div class="flex justify-between bg-teal-500  items-center border-b border-teal-300 p-4">
+        <h4 class="text-white text-lg font-semibold">Table Edit Box</h4>
+        <button class="text-teal-600 hover:text-teal-800" @click="closeModal">&times;</button>
+      </div>
+      <form @submit.prevent="saveChanges" class="p-6 ">
+        <div class="grid  text-black grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-4">
+          <div v-for="item in tableEditNames" :key="item.id" class="flex flex-col">
+            <label :for="item" class="block  mb-2">
+              <p class="font-medium pl-2">{{ item }}</p>
+              <input
+              ref="InputField"
+              @focus="$event.target.select()"
+                :type="item"
+                id="name"
+                v-model="formData[item]"
+                :placeholder="item"
+                required
+                class="w-full p-2  box-border gap-y-6 border border-teal-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+              />
+            </label>
+          </div>
+        </div>
+        <div class="flex justify-end space-x-4 mt-6">
+          <button
+            type="submit"
+            @click="onEditSubmit"
+            class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            class="bg-gray-200 text-teal-600 px-4 py-2 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            @click="cancelBtn"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+    <!-- this h-screen is very crucial without this the rendering fails  -->
+
     <table
       class="divide-y w-full table-auto divide-gray-200 bg-white rounded-lg shadow-md"
     >
@@ -54,7 +98,7 @@
               </p>
               <button
                 v-if="list.btn"
-                @click="btnFunction(item.id)"
+                @click="onEditClick(item.id)"
                 class="bg-teal-500 rounded-lg px-3 py-1 text-white "
               >
                 {{ list.btnText }}
@@ -71,17 +115,14 @@
 </template>
 
 <script>
-import { useDataStore } from "@/store/table-store";
+import { useDataStore } from "@/store/tableStore";
 import debounce from "lodash/debounce";
-import TableEdit from "./TableEdit.vue";
+
 
 export default {
-  components: {
-    TableEdit,
-  },
+
   data() {
     return {
-      tableDataNames: [],
       scrollTop: 0,
       scrollDebounced: null,
       rowHeight: 40,
@@ -90,12 +131,7 @@ export default {
     };
   },
   computed: {
-    printinfoAssign() {
-      this.store.printInfo = this.printData;
-    },
-    isEditing(){
-     return this.store.isEditing
-    } ,
+
     store() {
       return useDataStore();
     },
@@ -108,7 +144,7 @@ export default {
       console.log("startIndex", startIndex);
       console.log("lastIndex", endIndex);
 
-      return store.DisplayData.slice(startIndex, endIndex + 10);
+      return this.tableDatas.slice(startIndex, endIndex + 10);
     },
     printPerPage() {
       return this.store.printPerPage;
@@ -119,18 +155,14 @@ export default {
     isLoading() {
       return this.store.isLoading;
     },
+    tableEditNames() {
+return this.tableConfig.filter(item => item.tableHeader !== 'edit').map(item => item.tableHeader);
+
+    },
   },
   methods: {
-    AssigntableConfig() {
-     const names = this.tableConfig
-  .filter(item => item.tableHeader !== 'edit') 
-  .map(item => item.tableHeader);
-      console.log("names", names);
-      this.tableDataNames = names;
-    },
 
     handleScroll(event) {
-      const store = useDataStore();
       const scrollTop = event.target.scrollTop;
       this.scrollTop = scrollTop;
       this.updateVisibleCount();
@@ -152,7 +184,10 @@ export default {
   },
   async mounted() {
     // await this.fetch();
-    this.AssigntableConfig();
+    await this.formData
+
+  
+  
     this.scrollDebounced = debounce(this.handleScroll, 1000);
     this.$refs.scrollContainer.addEventListener("scroll", this.scrollDebounced);
     this.updateVisibleCount();
@@ -166,15 +201,57 @@ export default {
     }
   },
   props: {
+    modelValue:{
+      type:Object,
+      default:{}
+    },
     tableConfig: {
       type: Array,
       required: true,
       default: () => [],
     },
-    btnFunction: {
+    onEditClick: {
       type: Function,
       default: () => {},
     },
+    cancelBtn: {
+      type: Function,
+      default: () => {},
+    },
+    onEditSubmit: {
+      type: Function,
+      default: () => {},
+    },
+    tableDatas:{
+      type:Array ,
+      default:[]
+    } ,
+    isLoading:{
+      type:Boolean ,
+      default:false
+    } ,
+    isEditing:{
+      type:Boolean ,
+      default:false ,
+      required:true
+    } ,
+    canPrint:{
+      type:Boolean ,
+      default:false ,
+      required:true
+    } ,
+    isPrintPage:{
+      type:Boolean ,
+       default:false   
+       } ,
+    
+     formData:{
+      type:Object ,
+      default:{}
+     }  
+
+       
   },
+
 };
 </script>

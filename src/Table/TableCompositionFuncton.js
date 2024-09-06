@@ -1,5 +1,5 @@
 import { computed } from "vue";
-import { useDataStore } from "@/store/table-store";
+import { useDataStore } from "@/store/tableStore";
 
 export function useData() {
   const store = useDataStore();

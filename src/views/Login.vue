@@ -46,7 +46,7 @@
 
 <script>
 import axios from "axios";
-import InputField from "../components/InputField.vue";
+import InputField from "../components/ModularPrevInput.vue";
 
 export default {
   components: {

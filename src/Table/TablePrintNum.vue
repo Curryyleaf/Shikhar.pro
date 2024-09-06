@@ -21,7 +21,7 @@
  
 
 <script>
-import { useDataStore } from "@/store/table-store";
+import { useDataStore } from "@/store/tableStore";
 
 export default {
   name: "numberofpage",

@@ -218,8 +218,8 @@ export default {
 
       const store = useStore();
       store.fetchCategoryProducts(category);
-      if (this.$route.path !== "/categories") {
-        this.$router.replace("/categories");
+      if (this.$route.path !== "/productList") {
+        this.$router.replace("/productList");
       }
     },
   },

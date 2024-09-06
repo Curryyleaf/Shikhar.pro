@@ -1,28 +1,22 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
-import Button from "@/components/Button.vue";
 import Register from "../components/Register.vue";
 import About from "../views/About.vue";
-import Categories from "../views/Categories.vue";
 import Cart from "../views/Cart.vue";
-import SingleProduct from "../views/SingleProduct.vue";
 import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
-import AddNewProduct from "@/components/AddNewProduct.vue";
-import AdminPage from "@/components/AdminPage.vue";
-import Inventory from "@/components/Inventory.vue";
+import AdminPage from "@/views/Admin/AdminProductList.vue";
+import Inventory from "@/views/Inventory.vue";
+import ProductList from "../views/ProductList.vue";
+import ProductListSingle from "@/views/ProductListSingle.vue";
+import AdminAddNewProduct from "@/views/Admin/AdminAddNewProduct.vue";
 
 
 const routes = [
   {
-    path: "/Button",
-    name: "button",
-    component: Button,
-  },
-  {
-    path: "/product/:id",
-    name: "product",
-    component: SingleProduct,
+    path: "/singleProduct/:id",
+    name: "singleProduct",
+    component: ProductListSingle,
   },
   {
     path: "/adminDashboard",
@@ -33,7 +27,7 @@ const routes = [
       {
         path: "addnewproduct",
         name: "AddNewProduct",
-        component: AddNewProduct,
+        component: AdminAddNewProduct,
       },
       {
         path: "inventory",
@@ -54,9 +48,9 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/categories",
-    name: "Categories",
-    component: Categories,
+    path: "/ProductList",
+    name: "ProductList",
+    component: ProductList,
     meta: { requiresAuth: true },
   },
   {

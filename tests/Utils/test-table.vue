@@ -51,7 +51,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { useDataStore } from '@/store/table-store';
+import { useDataStore } from '@/store/tableStore';
 import { DynamicScroller } from 'vue-virtual-scroller';
 
 export default defineComponent({

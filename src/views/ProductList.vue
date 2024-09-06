@@ -110,7 +110,6 @@
 <script>
 import { useStore } from "@/store/pinia";
 import { useToast } from "vue-toastification";
-import SingleProduct from "./SingleProduct.vue";
 export default {
   data() {
     return {
@@ -148,7 +147,7 @@ export default {
       this.hover[productId] = false;
     },
     navigateToSingle(productid) {
-      this.$router.push({ name: "product", params: { id: productid } });
+      this.$router.push({ name: "singleProduct", params: { id: productid } });
     },
     async fetchData() {
       const store = useStore();

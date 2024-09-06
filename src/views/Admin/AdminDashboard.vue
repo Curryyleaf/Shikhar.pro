@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import AdminPage from "@/components/AdminPage.vue";
+import AdminPage from "@/views/Admin/AdminProductList.vue";
 
 export default {
   name: "AdminDashboard",

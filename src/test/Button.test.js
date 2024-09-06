@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, it, expect, vi } from "vitest";
- import Button from '@/components/Button.vue'
+ import Button from "@/components/ModularButton.vue";
 import { beforeEach } from "vitest";
 import { afterEach } from "vitest";
 

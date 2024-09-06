@@ -5,8 +5,8 @@
         type="text"
         :placeholder="placeHolder"
         class="w-full box-border md:w-2/5 border-2 ml-4 border-gray-300  focus:border-teal-500 rounded-lg p-2  bg-white shadow-md transition-all duration-300"
-        @input="search"
-        v-model="searchedquery"
+        @input="$emit('update:modelValue', $event.target.value)"
+        :value="modelValue"
       />
       <button v-if="buttonVisible"
         @click="buttonFunction"
@@ -27,20 +27,15 @@
   </aside>
 </template>
 <script>
-import { useDataStore } from "@/store/table-store";
+import { useDataStore } from "@/store/tableStore";
 export default {
   data() {
     return {
-      searchedquery: "",
       loadingMessage: "",
     };
   },
   methods: {
-    search() {
-      const store = useDataStore();
-      store.searchedquery = this.searchedquery;
-      store.search();
-    },
+
   },
   computed: {
     totalRows(){
@@ -53,6 +48,7 @@ export default {
     },
   },
   props: {
+    modelValue:String ,
     buttonMsg: {
       type: String,
       default: " Print ",

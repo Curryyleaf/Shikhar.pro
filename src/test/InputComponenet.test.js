@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { mount } from "@vue/test-utils";
-import InputComponent from "@/views/InputComponent.vue";
+import InputComponent from "@/components/ModularNewInput.vue";
 import { afterEach } from "vitest";
 import { beforeEach } from "vitest";
 

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
-import ErrorNotification from './components/ErrorNotification.vue';
+import Navbar from '@/views/Navbar.vue'
+
 export default {
   components: {
     Navbar

@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, it, beforeEach, afterEach, vi, expect } from "vitest";
-import InputField from "@/components/InputField.vue";
+import InputField from "@/components/ModularPrevInput.vue";
 
 describe("InputField.vue", () => {
   let wrapper;
