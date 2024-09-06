@@ -1,13 +1,14 @@
 <template>
   <div>
-    <label :for="inputfor" class="sr-only">{{ inputfor }}</label>
+    <label :for="labels" class="sr-only">{{ labels }}</label>
     <input
-      class="w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-purple-600"
+      class="inputs w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-purple-600"
       :type="type"
-      :placeholder="inputfor"
+      :placeholder="placeholder"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
-      :id="inputfor"
+      :id="labels"
+       data-user-credential="inputField"
     />
   </div>
 </template>
@@ -21,7 +22,14 @@ export default {
       type: String,
       default: "text",
     },
-    inputfor: String,
+    placeholder: {
+      type:String ,
+      default:''
+    } ,
+    labels: {
+      type:String ,
+      default:''
+    }
   },
 };
 </script>

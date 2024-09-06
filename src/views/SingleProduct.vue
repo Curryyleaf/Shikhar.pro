@@ -71,7 +71,7 @@
         </div>
 
         <div class="lg:col-span-2">
-          <h2 class="text-2xl font-extrabold text-gray-800">
+          <h2 aria-label="product title"ss="text-2xl font-extrabold text-gray-800">
             {{ product.title }}| {{ product.category }}
           </h2>
 
@@ -129,8 +129,8 @@
             <h4 class="text-gray-800 text-base">500 Reviews</h4>
           </div>
 
-          <div class="flex flex-wrap gap-4 mt-8">
-            <p class="text-gray-800 text-3xl font-bold">
+          <div aria-label="price section"class="flex flex-wrap gap-4 mt-8">
+            <p aria-label="product price"  class="text-gray-800 text-3xl font-bold">
               {{ product.price }}
             </p>
             <p class="text-gray-400 text-base">
@@ -179,7 +179,7 @@
         </div>
       </div>
 
-      <div class="mt-16 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] p-6">
+      <div aria-label="product information" class="mt-16 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] p-6">
         <h3 class="text-xl font-bold text-gray-800">Product information</h3>
         <ul class="mt-4 space-y-6 text-gray-800">
           <li class="text-sm">
@@ -392,8 +392,7 @@
 <script>
 import { useStore } from "@/store/pinia";
 import { useToast } from "vue-toastification";
-import axios from "axios";
-import { getConfigValue } from "@/components/config";
+import axios from "@/plugins/axios";
 
 export default {
   name: "SingleProduct",
@@ -413,9 +412,11 @@ export default {
    async myProduct() {
     
       const ids = this.$route.params.id;
+      console.log('loggin env env env' ,import.meta.env.VITE_API_BASE_URL);
+
       
 try {
-  const response = await axios.get(`${getConfigValue("myUrl")}/products/${ids}`);
+  const response = await axios.get(`/products/${ids}`);
    this.product = response.data
    console.log('abi' , response.data);
 } catch (error) {

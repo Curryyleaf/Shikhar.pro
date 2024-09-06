@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 // import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { getConfigValue } from "@/components/config";
 import axios from "@/plugins/axios";
 
 export const useStore = defineStore("main", {
@@ -33,13 +32,13 @@ export const useStore = defineStore("main", {
           `/products/categories`
         );
         this.selectedCategory = response.data;
-        console.log("catgeoriess now ", response);
+        console.log("API API API AS IT IS  ", response);
       } catch (error) {}
     },
 
     async fetchProducts() {
       try {
-        const response = await axios.get(`${getConfigValue("myUrl")}/products`);
+        const response = await axios.get('/products');
 
         this.products = response.data;
       } catch (error) {
