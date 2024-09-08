@@ -47,7 +47,7 @@ app.config.errorHandler = (err, instance, info) => {
 
 
 
-const MountTable = false;
+const MountTable = true;
 
 if (MountTable) {
   createApp(Table)

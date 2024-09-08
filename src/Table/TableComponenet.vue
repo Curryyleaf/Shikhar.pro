@@ -1,104 +1,44 @@
 <template>
   <div class="w-screen box-border m-0 p-0">
-    <SearchInput
-      v-if="!printPerPage"
-      :buttonFunction="prepareForPrint"
-      buttonMsg="Print data"
-      placeHolder="Search"
-      :buttonVisible="!print"
-      :rows="print"
-      v-model="searchedquery"
-    >
-    </SearchInput>
-
-    <PrintComponenet v-if="print" :tableConfig="tableConfig"></PrintComponenet>
-
     <TableScroll
       v-if="!printPerPage"
       :tableConfig="tableConfig"
-      :table-datas="DisplayData"
-      :isEditing="isEditing"
-      :can-print="true"
-      :is-print-page="true"
-      v-model="editValue"
-      :is-loading="false"
-      :formData="formData"
-      :onEditSubmit="replaceEditValues"
-      :cancel-btn="onEditCancel"
-      :onEditClick="editHandler"
-    ></TableScroll>
-
-    <PrintPerPage v-if="printPerPage"></PrintPerPage>
+      :DisplayData="DisplayData"
+      :Loading="isLoading"
+      :fullData="allData"
+      @editValues="handleEditValuesUpdate"
+    />
   </div>
 </template>
-<script>
-import axios from "axios";
 
-import { useDataStore } from "@/store/tableStore";
-import SearchInput from "./TableSearch.vue";
-import PrintComponenet from "./TablePrintComponenet.vue";
+<script>
+import axios from 'axios';
 import TableScroll from "./TableScroll.vue";
-import PrintPerPage from "./TablePrintNum.vue";
 
 export default {
-  name: "TableComponenet ",
+  name: "TableComponent",
   components: {
-    SearchInput,
-    PrintComponenet,
     TableScroll,
-    PrintPerPage,
   },
   data() {
-    const store = useDataStore();
     return {
       DisplayData: [],
       allData: [],
-      editValue:{},
-      formData: {},
-      rowHeight: 40,
-      scrollTop: 0,
-      visibleCount: 0,
-      scrollDebounced: null,
-      searchedquery: "",
-      print: null,
-      searchedquery: "",
+      error: '',
       isLoading: false,
-      isEditing:false,
       tableConfig: [
-        { tableHeader: "login" },
-        { img: true, tableHeader: "avatar" },
-        { tableHeader: "id" },
-        { tableHeader: "link" },
-        { tableHeader: "created" },
-        { tableHeader: "repo" },
-        { btn: true, tableHeader: "edit", btnText: "edit" },
+        { tableHeader: 'login' },
+        { img: true, tableHeader: 'avatar' },
+        { tableHeader: 'id' },
+        { tableHeader: 'link' },
+        { tableHeader: 'created' },
+        { tableHeader: 'repo' },
+        { btn: true, tableHeader: 'edit', btnText: 'edit' }
       ],
+      printPerPage: false
     };
   },
-  computed: {
-    store() {
-      return useDataStore();
-    },
-    printPerPage() {
-      return this.store.printPerPage;
-    },
-    print() {
-      return this.store.print;
-    },
-    printData() {
-      return this.store.printData;
-    },
-  },
   methods: {
-
-    search() {
-      const query = this.searchedquery.toLowerCase();
-      this.DisplayData = this.allData.filter((item) =>
-        Object.values(item).some((value) =>
-          value.toString().toLowerCase().includes(query)
-        )
-      );
-    },
     async fetchData() {
       this.isLoading = true;
       this.error = null;
@@ -112,7 +52,7 @@ export default {
           id: item.actor.id,
           link: item.actor.url,
           created: item.created_at,
-          repo: item.repo.name,
+          repo: item.repo.name
         }));
         this.DisplayData = this.allData;
       } catch (error) {
@@ -122,72 +62,21 @@ export default {
         this.isLoading = false;
       }
     },
-    onEditCancel(){
-     this.isEditing=false
-     this.editID=''
+    prepareForPrint() {
+      this.printPerPage = true;
     },
-    editHandler(id) {
-      this.isEditing = true;
-      this.editID = id;
-      this.intitalEditFormValue()
- 
-    },
-        replaceEditValues() {
-      const item = this.allData.find((element) => (element.id === this.editID));
-      console.log(item );
+    handleEditValuesUpdate(payload) {
+      console.log('nowowowowowow' , payload);
       
+      const { value, id } = payload;
+      const item = this.DisplayData.find(element => element.id === id);
       if (item) {
-        Object.assign(item, this.formData);
+        Object.assign(item, value);
       }
-    this.isEditing=false;
-    },
-        intitalEditFormValue(){
-   const item = this.DisplayData.find((element) => element.id=== this.editID )
-   this.formData ={...item}
-   console.log('fromdata' , this.formData);
-   
-  
-   
-   
-   
-    } ,
-    async prepareForPrint() {
-      this.store.printPerPage = true;
-      this.store.loadingMessage = "Please wait, preparing data for printing...";
-      console.log("buton clicked", this.store.printPerPage);
-      // setTimeout(() => {}, 10000);
-
-      // this.store.DisplayData = this.store.allData;
-      // await this.$nextTick();
-      // await this.waitForRender();
-      // this.triggerPrintDialog();
-    },
-
+    }
   },
   async created() {
     await this.fetchData();
-    this.intitalEditFormValue()
-    
-    // if (this.PrintData) {
-    //   this.store.PrintData = true;
-    // }
-  },
-
-  props: {
-    Data: {
-      type: Array,
-      default: [],
-    },
-    Loading: {
-      type: Boolean,
-    },
-    PrintData: {
-      type: Boolean,
-      default: false,
-    },
-    TableHeadData: {
-      type: Array,
-    },
-  },
+  }
 };
 </script>
