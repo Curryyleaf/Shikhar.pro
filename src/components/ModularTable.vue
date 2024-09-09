@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full">
+<section >
+  
+    <div class="w-full">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500">
       <thead
         class="text-base text-gray-700 rounded-lg pb-4 bg-gray-50 uppercase font-thin"
@@ -126,15 +128,12 @@
       </tbody>
     </table>
   </div>
+</section>
 </template>
 
 <script>
 export default {
-  data(){
-    return{
-     error:''
-    }
-  } ,
+
   props: {
 
     tableHeadConfig: {
@@ -146,6 +145,7 @@ export default {
       { title: " ", sortby: " ", sortable: false, show: false, id: 4, priceGrouping: false },
       { title: " ", sortby: " ", sortable: false, show: false, id: 5, priceGrouping: false },
       ]
+      
     },
   togglePrice: {
     type: Function,
@@ -214,6 +214,11 @@ export default {
     },
     PriceBracket: {
       type: Array,
+      validator(value){
+        if(typeof value !== Array){
+          throw console.error();
+        }
+      }
     },
     closeDropdown: {
       type: Function,
@@ -234,6 +239,7 @@ export default {
   //     },
   //   },
   created() {},
+
 };
 </script>
 
