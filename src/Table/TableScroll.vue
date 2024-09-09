@@ -3,26 +3,25 @@
     ref="containerHolder"
     v-if="!print"
     class="relative right-0 left-0 top-0 no-scrollbar overflow-x-clip box-border h-screen w-screen mx-auto overflow-y-auto border border-solid border-gray-200 bg-gray-50 p-4 pt-0"
-    @scroll="handleScroll"
+   
   >
 
-      <TableSearch 
+<div class="flex flex-col h-full">
+        <TableSearch 
       buttonMsg="Print Data"
       :buttonVisible="!print"
       v-model="searchedquery"
       @buttonFunction="handlePrint"
     ></TableSearch>
-    <TableEdit
-      v-if="isEditing"
-      :tableDataNames="tableDataNames"
-      :formData="formData"
-      @editSave="handleEditSave"
-      @close="closeEditBox"
-    />
-    <table
+
+<div
+ class="overflow-y-auto box-border h-auto relative"
+  @scroll="handleScroll"
+ >
+      <table
       class="divide-y w-full table-auto divide-gray-200 bg-white rounded-lg shadow-md"
     >
-      <thead class="bg-teal-500 text-white sticky top-0 z-10">
+      <thead class="bg-teal-500 text-white sticky top-0  left-0 right-0">
         <tr class="h-12">
           <th
             v-for="(item, index) in tableConfig"
@@ -67,6 +66,8 @@
         </tr>
       </tbody>
     </table>
+</div>
+</div>
     <div v-if="isLoading" class="text-center text-teal-500 font-semibold mt-4">
       Loading...
     </div>
@@ -129,6 +130,13 @@
     </aside>
   </section>
     </div>
+        <TableEdit
+      v-if="isEditing"
+      :tableDataNames="tableDataNames"
+      :formData="formData"
+      @editSave="handleEditSave"
+      @close="closeEditBox"
+    />
   </section>
 </template>
 
