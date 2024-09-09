@@ -1,10 +1,31 @@
-<template >
+<template>
   <section
-    class="relative box-border  w-screen h-screen top-0 right-0 left-0 p-5 pt-0  bg-white border border-s-gray-100  mt-0"
+    class=""
   >
+    <header class="w-full h-16 mt-2 flex items-center justify-between border-b border-gray-200 bg-black text-white">
+      <div class="flex items-center ml-4">
+        <h1 class="font-extrabold text-4xl mr-2">P</h1>
+        <span class="leading-4 tracking-wider text-xl">TheTitle</span>
+      </div>
+      <div class="flex items-center mr-4">
+        <button class="text-white bg-teal-700 p-1 rounded-lg shadow-md" @click="prevChunk">
+          <span class="text-lg"><</span>
+        </button>
+        <span class="mx-4 w-2 h-2 flex justify-center text-black items-center text-base p-2 text-center bg-gray-100 font-thin">1</span>
+        <button class="text-white bg-teal-700  p-1  rounded-lg shadow-md" @click="nextChunk">
+          <span class="text-lg">></span>
+        </button>
+        <button
+          @click="startPrinting"
+          class="h-10 ml-4 px-4 py-2 bg-rose-300 text-white rounded-lg shadow-md"
+        >
+          Print Now
+        </button>
+      </div>
+    </header>
 
     <table
-      class="divide-y  box-border table auto max-w-full  divide-gray-200 bg-white rounded-lg shadow-md"
+      class="divide-y box-border table-auto max-w-full divide-gray-200 bg-white rounded-lg shadow-md mt-4"
     >
       <thead class="bg-teal-500 sticky top-0 text-white">
         <tr class="h-12">
@@ -25,7 +46,7 @@
         >
           <template v-for="list in tableConfig">
             <td
-              class="px-6  box-border h-10 py-2 text-left text-sm"
+              class="px-6 box-border h-10 py-2 text-left text-sm"
             >
               <img
                 v-if="list.img"
@@ -34,79 +55,55 @@
                 class="w-8 h-8 rounded-full object-cover"
               />
               <p v-if="!list.img">{{ item[list.tableHeader] }}</p>
+              <button
+                v-if="list.btn"
+                @click="onEditClick(item.id)"
+                class="bg-teal-500 rounded-lg px-3 py-1 text-white"
+              >
+                {{ list.btnText }}
+              </button>
             </td>
           </template>
         </tr>
       </tbody>
     </table>
-        <aside class="flex " v-if="printData">
-      <div class="flex justify-center p-2 w-1/2 ml-auto text-2xl items-center">
-        <button class="text-jade mr-3" @click="prevChunk"><</button>
-        <span
-          class="w-6 h-6 flex justify-center items-center text-base p-2 text-center bg-gray-100 font-thin"
-          >1</span
-        >
-        <button class="text-jade ml-3" @click="nextChunk">></button>
 
-        <button
-         @click="startPrinting" class="h-10 ml-auto mr-12 justify-center flex items-center text-lg p-2 bg-rose-300 text-white rounded-lg shadow-md"
-        >
-          Print Now
-        </button>
-      </div>
-    </aside>
+    <footer class="mt-4 p-4 bg-gray-100 text-center text-gray-600">
+      <p>&copy; 2024 Your Company. All rights reserved.</p>
+    </footer>
   </section>
 </template>
+
 <script>
-import { useDataStore } from "@/store/tableStore";
 export default {
   data() {
     return {
       data: [],
       startIndex: 0,
-      chunkSize: null,
       // paginatedData: [],
       // currentChunkIndex: 0,
       printMode: false,
     };
   },
   computed: {
-    store() {
-      return useDataStore();
-    },
-
-    printData() {
-      return this.store.printData;
-    },
-    // currentChunk() {
-    //   return this.paginatedData[this.currentChunkIndex] || [];
-    // },
+chunkSize(){
+return this.printChunk
+} ,
 paginatedData() {
-    const endIndex = Math.min(this.startIndex + this.chunkSize, this.store.DisplayData.length);
-    return this.store.DisplayData.slice(this.startIndex, endIndex);
+    const endIndex = Math.min(this.startIndex + this.chunkSize, this.DisplayData.length);
+    return this.DisplayData.slice(this.startIndex, endIndex);
 }
 
   },
   methods: {
     // printInfoAssignment() {
     //   this.chunkSize = this.store.printInfo || 50
-    // },
-    async fetch() {
-      this.data = this.store.allData;
-      console.log("dataaaaaaaaaaa", this.data);
-    },
-    async startPrinting() {
-      
-      const store =useDataStore()
-      this.currentChunkIndex = 0;
-      store.printData = false;
 
+    async startPrinting() {
       // Delay print dialog to ensure all content is rendered
       await this.$nextTick();
       await this.waitForRender();
       window.print();
-      store.printData=true
-      console.log(this.printData);
       
     },
     waitForRender() {
@@ -129,7 +126,7 @@ paginatedData() {
       console.log('next');
       
       const endIndex = this.startIndex + this.chunkSize;
-      if (endIndex < this.store.allData.length) {
+      if (endIndex < this.DisplayData.length) {
         this.startIndex += this.chunkSize;
       }
     },
@@ -145,21 +142,21 @@ paginatedData() {
   // const paginatedData = paginateData(largeDataArray, 100);
 
   async created() {
-    const store = useDataStore();
 
-    await store.fetchData();
-    await this.fetch();
-    store.printData=true
- this.chunkSize = this.store.printInfo || 50
-
-    // this.paginatedData()
-    console.log(this.chunkSize);
   },
   props: {
     tableConfig: {
       type: Array,
       default: [],
     },
+    DisplayData:{
+      type:Array,
+      default:[]
+    } ,
+    printChunk:{
+      type:Number ,
+      default:0
+    }
   },
 };
 </script>

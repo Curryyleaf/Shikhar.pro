@@ -1,5 +1,5 @@
 <template >
-  <aside class="max-w-full">
+  <aside class="max-w-full box-border">
     <div class="flex box-border mt-2 mb-2">
       <input
         type="text"
@@ -9,7 +9,7 @@
         :value="modelValue"
       />
       <button v-if="buttonVisible"
-        @click="buttonFunction"
+        @click="btnFunction"
         class="h-10 ml-auto  p-2 bg-teal-500 text-white rounded-lg shadow-md"
       >
         {{ buttonMsg }}
@@ -60,7 +60,7 @@ export default {
       type: String,
       default: "Search",
     },
-    buttonFunction: {
+    btnFunction: {
       type: Function,
     },
     buttonVisible:{

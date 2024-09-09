@@ -1,24 +1,26 @@
 <template>
   <section
     ref="containerHolder"
-    v-if="!print"
     class="relative right-0 left-0 top-0 no-scrollbar overflow-x-clip box-border h-screen w-screen mx-auto overflow-y-auto border border-solid border-gray-200 bg-gray-50 p-4 pt-0"
    
   >
 
-<div class="flex flex-col h-full">
+<div v-if="!isPrinting" class="flex flex-col h-full ">
         <TableSearch 
       buttonMsg="Print Data"
-      :buttonVisible="!print"
+      :buttonVisible="!canPrint"
       v-model="searchedquery"
-      @buttonFunction="handlePrint"
+      :btnFunction="handlePrint"
     ></TableSearch>
 
 <div
+v-if="!isPrinting"
  class="overflow-y-auto box-border h-auto relative"
+ :style="{height:'50000px'}"
   @scroll="handleScroll"
  >
       <table
+      
       class="divide-y w-full table-auto divide-gray-200 bg-white rounded-lg shadow-md"
     >
       <thead class="bg-teal-500 text-white sticky top-0  left-0 right-0">
@@ -71,81 +73,40 @@
     <div v-if="isLoading" class="text-center text-teal-500 font-semibold mt-4">
       Loading...
     </div>
-    <div v-if="print">
-        <section
-    class="relative box-border  w-screen h-screen top-0 right-0 left-0 p-5 pt-0  bg-white border border-s-gray-100  mt-0"
-  >
-
-    <table
-      class="divide-y  box-border table auto max-w-full  divide-gray-200 bg-white rounded-lg shadow-md"
-    >
-      <thead class="bg-teal-500 sticky top-0 text-white">
-        <tr class="h-12">
-          <th
-            v-for="(item, index) in tableConfig"
-            :key="index"
-            class="pl-6 py-2 px-6 text-left text-xs font-medium uppercase tracking-wider"
-          >
-            {{ item.tableHeader }}
-          </th>
-        </tr>
-      </thead>
-      <tbody ref="printTableBody" class="max-w-full">
-        <tr
-          v-for="(item, index) in paginatedData"
-          :key="index"
-          class="border-b h-10 box-border max-w-full border-gray-200 hover:bg-gray-100"
-        >
-          <template v-for="list in tableConfig">
-            <td
-              class="px-6  box-border h-10 py-2 text-left text-sm"
-            >
-              <img
-                v-if="list.img"
-                v-lazy="item[list.tableHeader]"
-                alt="Item Image"
-                class="w-8 h-8 rounded-full object-cover"
-              />
-              <p v-if="!list.img">{{ item[list.tableHeader] }}</p>
-            </td>
-          </template>
-        </tr>
-      </tbody>
-    </table>
-        <aside class="flex " v-if="printData">
-      <div class="flex justify-center p-2 w-1/2 ml-auto text-2xl items-center">
-        <button class="text-jade mr-3" @click="prevChunk"><</button>
-        <span
-          class="w-6 h-6 flex justify-center items-center text-base p-2 text-center bg-gray-100 font-thin"
-          >1</span
-        >
-        <button class="text-jade ml-3" @click="nextChunk">></button>
-
-        <button
-         @click="startPrinting" class="h-10 ml-auto mr-12 justify-center flex items-center text-lg p-2 bg-rose-300 text-white rounded-lg shadow-md"
-        >
-          Print Now
-        </button>
-      </div>
-    </aside>
-  </section>
-    </div>
         <TableEdit
       v-if="isEditing"
       :tableDataNames="tableDataNames"
       :formData="formData"
       @editSave="handleEditSave"
       @close="closeEditBox"
+    
     />
+
+    <!-- print -->
+<TablePrintNum
+  @printCount="handlePrintCount"
+  :totalRows="totalRows"
+v-if="canPrint">
+</TablePrintNum>
+
+<TablePrintComponenet
+v-if="isPrinting"
+:DisplayData="DisplayData"
+:tableConfig="tableConfig"
+:printChunk="this.printNum"
+>
+
+</TablePrintComponenet>
   </section>
 </template>
 
 <script>
 import TableEdit from "./TableEdit.vue";
 import debounce from "lodash/debounce";
+import TablePrintNum from "./TablePrintNum.vue";
 import TableSearch from "./TableSearch.vue";
 import TablePrintComponenet from "./TablePrintComponenet.vue";
-import TablePrintNum from "./TablePrintNum.vue";
+
 
 
 export default {
@@ -177,6 +138,8 @@ export default {
   },
   data() {
     return {
+      printNum:'' ,
+      isPrinting:false,
       tableDataNames: [],
       allData: this.fullData,
       Data:[],
@@ -189,7 +152,7 @@ export default {
       visibleCount: null,
       isEditing: false,
       editID: "",
-      print: false
+      canPrint: false
     };
   },
   computed: {
@@ -201,6 +164,9 @@ export default {
   //     )
   //   );
   // } ,
+  totalRows(){
+ return this.DisplayData.length
+  } ,
     isLoading() {
       return this.Loading;
     },
@@ -217,9 +183,24 @@ export default {
     // }
   },
   methods: {
+        printSubmit(event) {
+      event.preventDefault();
+this.canPrint=false
+      this.inputnumber = "";
+      console.log('checking ' ,store.print);
+      
+    },
      handlePrint(){
-      this.print=true
-     this.$emit('Print' , )
+      console.log('hiii print here ');
+      this.canPrint=true
+
+     } ,
+     handlePrintCount(payload){
+      this.printNum=payload
+      this.canPrint=false
+      this.isPrinting=true
+    console.log('here',this.isPrinting);
+    
      } ,
  Assign(){
    this.Data=this.DisplayData
