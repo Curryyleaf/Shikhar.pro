@@ -10,6 +10,7 @@ import Inventory from "@/views/Inventory.vue";
 import ProductList from "../views/ProductList.vue";
 import ProductListSingle from "@/views/ProductListSingle.vue";
 import AdminAddNewProduct from "@/views/Admin/AdminAddNewProduct.vue";
+import Table from '@/components/ModularTable/ModularTableUse.vue'
 
 
 const routes = [
@@ -29,6 +30,7 @@ const routes = [
         name: "AddNewProduct",
         component: AdminAddNewProduct,
       },
+      
       {
         path: "inventory",
         name: "Inventory",
@@ -40,6 +42,12 @@ const routes = [
         component: AdminPage,
       },
     ],
+  },
+  {
+    path: "/table",
+    name: "Table",
+    component: Table,
+    meta: { requiresAuth: false, isAdmin: true },
   },
   {
     path: "/",

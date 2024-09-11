@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import MyComponent from "@/components/ModularTable.vue";
+import MyComponent from "@/components/Table.vue";
 import defaultProps, { myMethods } from "@/test/TestDefaultProps"
 // import { incorrectProps } from "./defaultProps";
 

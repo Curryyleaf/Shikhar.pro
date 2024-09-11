@@ -82,7 +82,7 @@
 import axios from "axios";
 import { useStore } from "@/store/pinia";
 import Submenu from "@/components/Submenu.vue";
-import ProductTable from "@/components/ModularTable.vue";
+import ProductTable from "@/components/Table.vue";
 
 export default {
   components: {

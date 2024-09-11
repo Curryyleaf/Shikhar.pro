@@ -52,6 +52,7 @@
                   />
                 </svg>
               </div>
+              
 
               <div
                 v-if="items.show && items.sortable"
