@@ -90,7 +90,6 @@ export default {
   } ,
     watch: {
     isScrolling(newValue) {
-      console.log('value changed ?' , this.isScrolling);
       
       if (newValue) {
         this.isOpen = false;

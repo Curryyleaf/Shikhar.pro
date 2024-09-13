@@ -11,9 +11,13 @@
          ref="scrollContainer"
       >
         <table
-          class="w-full table-auto divide-y divide-gray-300 bg-white rounded-lg shadow-md"
+                    :style="{
+              transform: `translateY(${scrollTop}px)`,
+              maxWidth: '100%',
+            }"
+          class="w-full table-auto divide-y  divide-gray-300 bg-white rounded-lg shadow-md"
         >
-          <thead class="sticky top-0 bg-gray-800 text-white">
+          <thead class=" z-50 bg-gray-800 text-white">
             <tr class="h-12">
               <th
                 v-for="(column, index) in tableConfig[0].config"
@@ -26,12 +30,10 @@
           </thead>
           <tbody
            
-            :style="{
-              transform: `translateY(${scrollTop}px)`,
-              maxWidth: '100%',
-            }"
+
             class="bg-gray-100 overflow-y-auto"
           >
+          <!-- the tablehead not sticking could be caused  ny this translate -->
             <tr
               v-for="(item, index) in visibleData"
               :key="index"
