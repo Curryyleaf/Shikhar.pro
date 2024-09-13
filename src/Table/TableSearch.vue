@@ -10,7 +10,7 @@
       />
       <button v-if="buttonVisible"
         @click="btnFunction"
-        class="h-10 ml-auto  p-2 bg-teal-500 text-white rounded-lg shadow-md"
+        class="h-10 ml-auto mr-4 p-2 bg-gray-800 text-white rounded-lg shadow-md"
       >
         {{ buttonMsg }}
       </button>

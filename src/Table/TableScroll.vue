@@ -49,7 +49,7 @@ v-if="!isPrinting"
             <td class="px-6 box-border h-10 py-2 text-left text-sm">
               <img
                 v-if="list.img"
-                v-lazy="item[list.tableHeader]"
+                :href="item[list.tableHeader]"
                 alt="Item Image"
                 class="w-8 h-8 rounded-full object-cover"
               />

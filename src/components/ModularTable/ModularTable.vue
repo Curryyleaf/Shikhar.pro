@@ -3,21 +3,28 @@
     ref="containerHolder"
     class="relative inset-0 no-scrollbar overflow-x-hidden overflow-y-auto box-border h-screen w-screen mx-auto border border-gray-300 bg-gray-100 p-4"
   >
-    <div class="flex flex-col h-full">
+    <TableSearch
+      v-if="!isPrinting"
+      buttonMsg="Print Data"
+      :buttonVisible="!canPrint"
+      v-model="searchedquery"
+      :btnFunction="handlePrint"
+    ></TableSearch>
+    <div v-if="!isPrinting" class="flex flex-col h-full">
       <div
-        class="relative h-auto overflow-y-auto box-border"
+        class="relative overflow-y-auto box-border"
         :style="{ height: totalHeight + 'px' }"
         @scroll="handleScroll"
-         ref="scrollContainer"
+        ref="scrollContainer"
       >
         <table
-                    :style="{
-              transform: `translateY(${scrollTop}px)`,
-              maxWidth: '100%',
-            }"
-          class="w-full table-auto divide-y  divide-gray-300 bg-white rounded-lg shadow-md"
+          :style="{
+            transform: `translateY(${scrollTop}px)`,
+            maxWidth: '100%',
+          }"
+          class="w-full table-auto divide-y divide-gray-300 bg-white rounded-lg shadow-md"
         >
-          <thead class=" z-50 bg-gray-800 text-white">
+          <thead class="z-50 bg-gray-800 text-white">
             <tr class="h-12">
               <th
                 v-for="(column, index) in tableConfig[0].config"
@@ -28,12 +35,8 @@
               </th>
             </tr>
           </thead>
-          <tbody
-           
-
-            class="bg-gray-100 overflow-y-auto"
-          >
-          <!-- the tablehead not sticking could be caused  ny this translate -->
+          <tbody class="bg-gray-100 overflow-y-auto">
+            <!-- the tablehead not sticking could be caused  ny this translate -->
             <tr
               v-for="(item, index) in visibleData"
               :key="index"
@@ -61,6 +64,20 @@
         </table>
       </div>
     </div>
+    <TablePrintNum
+      @printCount="handlePrintCount"
+      :totalRows="totalRows"
+      v-if="canPrint"
+    >
+    </TablePrintNum>
+
+    <TablePrintComponenet
+      v-if="isPrinting"
+      :DisplayData="datas"
+      :tableConfig="printConfig"
+      :printChunk="this.printNum"
+    >
+    </TablePrintComponenet>
   </section>
 </template>
 
@@ -77,8 +94,16 @@ import TableLink from "./TabelLink.vue";
 import TableImage from "./TabelImage.vue";
 import Tablechart from "./Tablechart.vue";
 import TableRating from "./TableRating.vue";
+import TableSearch from "@/Table/TableSearch.vue";
+import TablePrintNum from "@/Table/TablePrintNum.vue";
+import TablePrintComponenet from "@/Table/TablePrintComponenet.vue";
 export default {
-  emits: ["editValues", "dynamicClickHandler", "dynamicInputHandler" , "dynamicSelectionHandler"],
+  emits: [
+    "editValues",
+    "dynamicClickHandler",
+    "dynamicInputHandler",
+    "dynamicSelectionHandler",
+  ],
   components: {
     TableInput,
     TableAudio,
@@ -91,6 +116,9 @@ export default {
     TableButton,
     Tablechart,
     TableRating,
+    TableSearch,
+    TablePrintNum,
+    TablePrintComponenet,
   },
   props: {
     fullData: {
@@ -102,11 +130,19 @@ export default {
       required: true,
       default: [],
     },
+    printConfig:{
+    type:Array,
+    default:[]
+    } ,
     Loading: {
       type: Boolean,
       default: false,
     },
     DisplayData: {
+      type: Array,
+      default: [],
+    },
+    printConfig: {
       type: Array,
       default: [],
     },
@@ -116,6 +152,10 @@ export default {
       tableDataNames: [],
       allData: this.fullData,
       Data: [],
+      canPrint: false,
+      isPrinting: false,
+      printNum: "",
+      searchedquery: "",
       isScrolling: false,
       searchedquery: "",
       scrollTop: 0,
@@ -133,9 +173,15 @@ export default {
     //     )
     //   );
     // } ,
-    totalHeight(){
-       return this.DisplayData.length * this.rowHeight
-    } , 
+    totalHeight() {
+      const height = this.DisplayData.length * this.rowHeight;
+      console.log("tottal height", height);
+
+      return;
+    },
+    datas() {
+      return this.DisplayData;
+    },
     totalRows() {
       return this.DisplayData.length;
     },
@@ -202,6 +248,10 @@ export default {
     Assign() {
       this.Data = this.DisplayData;
     },
+    handlePrint() {
+      console.log("hiii print here ");
+      this.canPrint = true;
+    },
     handleScroll(event) {
       console.log("hanscroll call");
 
@@ -212,14 +262,29 @@ export default {
         this.isScrolling = false;
       }, 500);
     },
-    handleOptionsSelection(option , event) {
-      console.log('select value check in parent ' , option);
-      
-      this.$emit("dynamicSelectionHandler" , {option , event});
+    handlePrintCount(payload) {
+      this.printNum = payload;
+      this.canPrint = false;
+      this.isPrinting = true;
+      console.log("here", this.isPrinting);
+    },
+    handleOptionsSelection(option, event) {
+      console.log("select value check in parent ", option);
+
+      this.$emit("dynamicSelectionHandler", { option, event });
     },
     updateVisibleCount() {
       const containerHeight = this.$refs.containerHolder.clientHeight;
       this.visibleCount = Math.ceil(containerHeight / this.rowHeight) + 2;
+    },
+    search() {
+      const query = this.searchedquery.toLowerCase();
+      this.Data = this.DisplayData.filter((item) =>
+        Object.values(item).some((value) =>
+          value.toString().toLowerCase().includes(query)
+        )
+      );
+      console.log(this.data);
     },
   },
   async created() {

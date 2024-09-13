@@ -5,6 +5,7 @@
  @dynamic-click-handler="handleAllClick"
  @dynamic-input-handler="handleAllInput"
  @dynamicSelectionHandler="handleAllSelection"
+ :printConfig="printConfig"
 
   > </ModularTable>
 </template>
@@ -23,6 +24,15 @@ export default {
       allData: [],
       error: "",
       isLoading: false,
+      printConfig: [
+        { tableHeader: 'Login' },
+        { img: true, tableHeader: 'Avatar' },
+        { tableHeader: 'Id' },
+        { tableHeader: 'Link' },
+        { tableHeader: 'Created' },
+        { tableHeader: 'Repo' },
+        { btn: true, tableHeader: 'edit', btnText: 'edit' }
+      ], 
       tableConfig: [
         {
           theme: "",

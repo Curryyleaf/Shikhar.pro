@@ -1,6 +1,6 @@
 <template>
   <section
-    class=""
+    class="p-4 bg-black"
   >
     <header class="w-full h-16 mt-2 flex items-center justify-between border-b border-gray-200 bg-black text-white">
       <div class="flex items-center ml-4">
@@ -8,26 +8,27 @@
         <span class="leading-4 tracking-wider text-xl">TheTitle</span>
       </div>
       <div class="flex items-center mr-4">
-        <button class="text-white bg-teal-700 p-1 rounded-lg shadow-md" @click="prevChunk">
+        <button class=" text-teal-700  rounded-lg shadow-md" @click="prevChunk">
           <span class="text-lg"><</span>
         </button>
-        <span class="mx-4 w-2 h-2 flex justify-center text-black items-center text-base p-2 text-center bg-gray-100 font-thin">1</span>
-        <button class="text-white bg-teal-700  p-1  rounded-lg shadow-md" @click="nextChunk">
+        <span class="mx-4  flex text-white justify-center  items-center text-base  text-center  font-thin">1</span>
+        <button class=" text-teal-700    rounded-lg shadow-md" @click="nextChunk">
           <span class="text-lg">></span>
         </button>
         <button
           @click="startPrinting"
-          class="h-10 ml-4 px-4 py-2 bg-rose-300 text-white rounded-lg shadow-md"
+          class=" ml-4 px-4 py-2 bg-white text-black shadow-2xl  rounded-lg "
         >
           Print Now
         </button>
       </div>
     </header>
 
-    <table
-      class="divide-y box-border table-auto max-w-full divide-gray-200 bg-white rounded-lg shadow-md mt-4"
+<div>
+      <table
+      class="divide-y box-border table-auto max-w-full divide-gray-200 bg-white rounded-lg shadow-md "
     >
-      <thead class="bg-teal-500 sticky top-0 text-white">
+      <thead class="bg-black sticky top-0 text-white">
         <tr class="h-12">
           <th
             v-for="(item, index) in tableConfig"
@@ -38,11 +39,11 @@
           </th>
         </tr>
       </thead>
-      <tbody ref="printTableBody" class="max-w-full">
+      <tbody ref="printTableBody" class="max-w-full bg-gray-200 ">
         <tr
           v-for="(item, index) in paginatedData"
           :key="index"
-          class="border-b h-10 box-border max-w-full border-gray-200 hover:bg-gray-100"
+          class="border-b-black border-2   h-10 box-border max-w-full border-gray-200 hover:bg-gray-100"
         >
           <template v-for="list in tableConfig">
             <td
@@ -50,7 +51,7 @@
             >
               <img
                 v-if="list.img"
-                v-lazy="item[list.tableHeader]"
+                :href="item[list.tableHeader]"
                 alt="Item Image"
                 class="w-8 h-8 rounded-full object-cover"
               />
@@ -58,7 +59,7 @@
               <button
                 v-if="list.btn"
                 @click="onEditClick(item.id)"
-                class="bg-teal-500 rounded-lg px-3 py-1 text-white"
+                class="bg-black rounded-lg px-3 py-1 text-white"
               >
                 {{ list.btnText }}
               </button>
@@ -67,6 +68,7 @@
         </tr>
       </tbody>
     </table>
+</div>
 
     <footer class="mt-4 p-4 bg-gray-100 text-center text-gray-600">
       <p>&copy; 2024 Your Company. All rights reserved.</p>
@@ -142,6 +144,11 @@ paginatedData() {
   // const paginatedData = paginateData(largeDataArray, 100);
 
   async created() {
+await this.DisplayData
+await this.tableConfig
+console.log('data' , this.DisplayData);
+console.log('tableconfigdata' , this.tableConfig);
+console.log('paginateddata' , this.paginatedData);
 
   },
   props: {
