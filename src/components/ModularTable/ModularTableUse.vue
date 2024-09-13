@@ -1,6 +1,11 @@
 <template>
   <ModularTable 
   :table-config="tableConfig"
+  :-display-data="DisplayData"
+ @dynamic-click-handler="handleAllClick"
+ @dynamic-input-handler="handleAllInput"
+ @dynamicSelectionHandler="handleAllSelection"
+
   > </ModularTable>
 </template>
 <script>
@@ -19,43 +24,82 @@ export default {
       error: "",
       isLoading: false,
       tableConfig: [
-       {
-        theme:'' ,
-       config:[
-                {
-          component: "icon",
-          tableHead: "Testhead1",
-          props: { iconClass: "", class: "" },
-        },
         {
-          component: "rating",
-          tableHead: "Testhead2",
-          props: { totalStars: 4, class: "" },
+          theme: "",
+          config: [
+
+            {
+              component: ["TableImage"],
+              tableHead: "Avatar",
+              props: {src:"Avatar" , class: "rounded-lg " , alt:'althello'},
+            },
+
+            {
+              component: ["TableText"],
+              tableHead: "Text",
+              props: {tabelText:"Link" , class: " " },
+            },
+            {
+              component: ["TableLink"],
+              tableHead: "Link",
+              props: {linkAddress:"Repo" , class: "p-1 " },
+            },
+            {
+              component: ["TableInput" , ],
+              tableHead: "Input",
+              props: {inputType:"text" ,placeholder:'test palceholder' ,  class: "p-1 " },
+            },
+            {
+              component: ["TableButton"],
+              tableHead: "Button",
+              props: {btnType:"button" ,btnText:'test Btn' ,  class: "p-1 " , eventName:'SubmitButton' ,},  
+            },
+            {
+              component: ["TableDropDown"],
+              tableHead: "DropDown",
+              props: {options:['option1' ,'option2' ,' option 3' , ' option 4 '] ,selcted:'option1' , theme:'light' ,  class: "p-1 " },
+            },
+            {
+              component: ["TableRating"],
+              tableHead: "Rating",
+              props: {totalStars: 4 ,  },
+            },
+            {
+              component: ["TableLink"],
+              tableHead: "Link",
+              props: {linkAddress:"Link"  ,  },
+            },
+            {
+              component:[ "TableProgressBar"],
+              tableHead: "Progress",
+              props: {value: 50 , theme:'dark'  },
+            },
+            {
+              component: ["TableProgressBar" , 'TableIcon' , 'TableText'],
+              tableHead: "multiple",
+              props: {value: 50 ,tabelText:"testtext12" ,theme:'dark' ,btnType:"submit" ,btnText:'testButton ' ,  eventName:'Multibutton' },
+            },
+
+ 
+          ],
         },
-        {
-          component: "icon",
-          tableHead: "Testhead3",
-          props: { iconClass: "", class: "" },
-        },
-        {
-          component: "rating",
-          tableHead: "Testhead4",
-          props: { totalStars: 4, class: "" },
-        },
-        {
-          component: "icon",
-          tableHead: "Testhead5",
-          props: { iconClass: "", class: "" },
-        },
-       ]
-       } ,
-       
-       
       ],
     };
   },
   computed: {},
   methods: {
+    handleAllClick(payload){
+   console.log('button click checking' , payload);
+   
+    } ,
+    handleAllInput(payload){
+console.log('input value checking' , payload);
+
+    } ,
+    handleAllSelection(payload){
+console.log('select value checking' , payload);
+
+    } ,
     async fetchData() {
       this.isLoading = true;
       this.error = null;

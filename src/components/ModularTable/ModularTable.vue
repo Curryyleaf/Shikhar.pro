@@ -1,126 +1,121 @@
 <template>
   <section
     ref="containerHolder"
-    class="relative right-0 left-0 top-0 no-scrollbar overflow-x-clip box-border h-screen w-screen mx-auto overflow-y-auto border border-solid border-gray-200 bg-gray-50 p-4 pt-0"
-   
+    class="relative inset-0 no-scrollbar overflow-x-hidden overflow-y-auto box-border h-screen w-screen mx-auto border border-gray-300 bg-gray-100 p-4"
   >
-
-<div class="flex flex-col h-full ">
-        <TableSearch 
-      buttonMsg="Print Data"
-      :buttonVisible="!canPrint"
-      v-model="searchedquery"
-      :btnFunction="handlePrint"
-    ></TableSearch>
-
-<div
- class="overflow-y-auto box-border h-auto relative"
- :style="{height:'50000px'}"
-  @scroll="handleScroll"
- >
-      <table
-      
-      class="divide-y w-full table-auto divide-gray-200 bg-white rounded-lg shadow-md"
-    >
-      <thead class="bg-teal-500 text-white sticky top-0  left-0 right-0">
-        <tr class="h-12">
-          <th
-            v-for="(item, index) in tableConfig"
-            :key="index"
-            class="pl-6 py-2 px-6 text-left text-xs font-medium uppercase tracking-wider"
-          >
-            {{ item.tableHead }}
-          </th>
-        </tr>
-      </thead>
-
-      <tbody
-        ref="scrollContainer"
-        :style="{ transform: `translateY(${scrollTop}px)`, maxWidth: '100%' }"
-        class="bg-white box-border max-w-full scroll-smooth overflow-y-auto h-auto table-auto"
+    <div class="flex flex-col h-full">
+      <div
+        class="relative h-auto overflow-y-auto box-border"
+        :style="{ height: totalHeight + 'px' }"
+        @scroll="handleScroll"
+         ref="scrollContainer"
       >
-        <tr
-          v-for="(item, index) in visibleData"
-          :key="index"
-          class="border-b whitespace-normal max-w-full h-10 box-border border-gray-200 hover:bg-gray-100"
+        <table
+          class="w-full table-auto divide-y divide-gray-300 bg-white rounded-lg shadow-md"
         >
-          <template v-for="(column , colIndex) in tableConfig" :key="list.tableHeader">
-            <td class="px-6 box-border h-10 py-2 text-left text-sm">
-                     <component :is="resolveComponent(column.component)" v-bind="items" :props="column.props"  />
-          <!-- here all the  properties of the cell.props object are passed as props to the componenet  being  redndered -->
-           <!-- the value of those keys now become props value -->
-          <template>
-          
-              <slot :name="`dynamicSlot-${rowIndex}-${colIndex}`" v-bind="slotProps" >
-               
-                {{ slotProps.default }}
-              </slot>
-       
-          </template>
-            </td>
-          </template>
-        </tr>
-      </tbody>
-    </table>
-</div>
-</div>
+          <thead class="sticky top-0 bg-gray-800 text-white">
+            <tr class="h-12">
+              <th
+                v-for="(column, index) in tableConfig[0].config"
+                :key="index"
+                class="py-2 px-2 text-left text-xs font-medium uppercase tracking-wider"
+              >
+                {{ column.tableHead }}
+              </th>
+            </tr>
+          </thead>
+          <tbody
+           
+            :style="{
+              transform: `translateY(${scrollTop}px)`,
+              maxWidth: '100%',
+            }"
+            class="bg-gray-100 overflow-y-auto"
+          >
+            <tr
+              v-for="(item, index) in visibleData"
+              :key="index"
+              class="border-b max-h-10 border-gray-300 hover:bg-gray-100"
+            >
+              <td
+                v-for="(column, colIndex) in tableConfig[0].config"
+                :key="colIndex"
+                class="box-border overflow-x-visible text-left text-sm break-all max-h-10 max-w-[150px]"
+              >
+                <component
+                  v-for="component in column.component"
+                  :is="resolveComponent(component)"
+                  v-bind="computedProps(item, column.props, component)"
+                  @buttonClick="handleButtonClick"
+                  :id="item.Id"
+                  :eventName="column.props.eventName"
+                  @inputChange="handleInputChange"
+                  :isScrolling="isScrolling"
+                  @optionSelected="handleOptionsSelection"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
-import debounce from 'lodash/debounce';
-import TabelText from './TabelText.vue';
-import TabelButton from './TabelButton.vue';
-import TabelInput from './TabelInput.vue';
-import TableAudio from './TableAudio.vue';
-import TableDropDown from './TableDropDown.vue';
-import TableIcon from './TableIcon.vue';
-import TableProgressBar from './TableProgressBar.vue';
-import TabelLink from './TabelLink.vue';
-import TabelImage from './TabelImage.vue';
-import Tablechart from './Tablechart.vue';
-import TableRating from './TableRating.vue';
+import debounce from "lodash/debounce";
+import TableText from "./TabelText.vue";
+import TableButton from "./TabelButton.vue";
+import TableInput from "./TabelInput.vue";
+import TableAudio from "./TableAudio.vue";
+import TableDropDown from "./TableDropDown.vue";
+import TableIcon from "./TableIcon.vue";
+import TableProgressBar from "./TableProgressBar.vue";
+import TableLink from "./TabelLink.vue";
+import TableImage from "./TabelImage.vue";
+import Tablechart from "./Tablechart.vue";
+import TableRating from "./TableRating.vue";
 export default {
-  emits: ['editValues'],
+  emits: ["editValues", "dynamicClickHandler", "dynamicInputHandler" , "dynamicSelectionHandler"],
   components: {
-    TabelInput ,
+    TableInput,
     TableAudio,
     TableDropDown,
     TableIcon,
-    TableProgressBar ,
-    TabelLink ,
-    TabelImage ,
-    TabelText ,
-    TabelButton ,
-    Tablechart ,
-    TableRating
-
+    TableProgressBar,
+    TableLink,
+    TableImage,
+    TableText,
+    TableButton,
+    Tablechart,
+    TableRating,
   },
   props: {
     fullData: {
       type: Array,
-      default: () => []
+      default: [],
     },
     tableConfig: {
       type: Array,
       required: true,
-      default: () => []
+      default: [],
     },
     Loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     DisplayData: {
       type: Array,
-      default: () => []
-    }
+      default: [],
+    },
   },
   data() {
     return {
       tableDataNames: [],
       allData: this.fullData,
-      Data:[],
-      searchedquery:'' ,
+      Data: [],
+      isScrolling: false,
+      searchedquery: "",
       scrollTop: 0,
       scrollDebounced: null,
       rowHeight: 40,
@@ -128,17 +123,20 @@ export default {
     };
   },
   computed: {
-  //    filteredData() {
-  //   const query = this.searchedquery.toLowerCase();
-  //   return this.DisplayData.filter((item) =>
-  //     Object.values(item).some((value) =>
-  //       value.toString().toLowerCase().includes(query)
-  //     )
-  //   );
-  // } ,
-  totalRows(){
- return this.DisplayData.length
-  } ,
+    //    filteredData() {
+    //   const query = this.searchedquery.toLowerCase();
+    //   return this.DisplayData.filter((item) =>
+    //     Object.values(item).some((value) =>
+    //       value.toString().toLowerCase().includes(query)
+    //     )
+    //   );
+    // } ,
+    totalHeight(){
+       return this.DisplayData.length * this.rowHeight
+    } , 
+    totalRows() {
+      return this.DisplayData.length;
+    },
     isLoading() {
       return this.Loading;
     },
@@ -155,24 +153,77 @@ export default {
     // }
   },
   methods: {
-    Assign(){
-        this.data=this.DisplayData
-    } ,
+    resolveComponent(componentName) {
+      const components = {
+        TableInput,
+        TableAudio,
+        TableDropDown,
+        TableIcon,
+        TableProgressBar,
+        TableLink,
+        TableImage,
+        TableText,
+        TableButton,
+        Tablechart,
+        TableRating,
+      };
+      return components[componentName];
+    },
+
+    computedProps(item, props, component) {
+      const mappedProps = { ...props };
+      switch (component) {
+        case "TableImage":
+          mappedProps.src = item[props.src] || column.props.src;
+          break;
+        case "TableText":
+          mappedProps.tabelText = props.tabelText;
+          break;
+        case "TableLink":
+          mappedProps.linkAddress =
+            item[props.linkAddress] || props.linkAddress;
+          break;
+        case "TableImage":
+          mappedProps.src = item[props.src] || props.src;
+          break;
+      }
+      return mappedProps;
+    },
+    handleButtonClick(buttonEvent, eventName, id) {
+      this.$emit("dynamicClickHandler", { buttonEvent, eventName, id });
+    },
+    handleInputChange(inputEvent, inputValue) {
+      console.log("input called in the parent ", inputValue);
+
+      this.$emit("dynamicInputHandler", { inputEvent, inputValue });
+    },
+    Assign() {
+      this.Data = this.DisplayData;
+    },
     handleScroll(event) {
+      console.log("hanscroll call");
+
       this.scrollTop = event.target.scrollTop;
+      this.isScrolling = true;
       this.updateVisibleCount();
+      setTimeout(() => {
+        this.isScrolling = false;
+      }, 500);
+    },
+    handleOptionsSelection(option , event) {
+      console.log('select value check in parent ' , option);
+      
+      this.$emit("dynamicSelectionHandler" , {option , event});
     },
     updateVisibleCount() {
       const containerHeight = this.$refs.containerHolder.clientHeight;
       this.visibleCount = Math.ceil(containerHeight / this.rowHeight) + 2;
-    }
+    },
   },
- async  created(){
- await this.DisplayData
- await    this.Assign()
-    console.log('data' , this.Data);
-    console.log('data2' , this.DisplayData);
-  } ,
+  async created() {
+    await this.DisplayData;
+    await this.Assign();
+  },
   async mounted() {
     this.scrollDebounced = debounce(this.handleScroll, 1000);
     this.$refs.scrollContainer.addEventListener("scroll", this.scrollDebounced);
@@ -187,21 +238,17 @@ export default {
     }
   },
   watch: {
-  DisplayData(newVal) {
-    this.Assign(); 
-    console.log('DisplayData updated:', newVal);
-    console.log('Data after update:', this.Data);
-  } ,
+    DisplayData(newVal) {
+      this.Assign();
+      console.log("DisplayData updated:", newVal);
+      console.log("Data after update:", this.Data);
+    },
     searchedquery(newQuery) {
-    this.search();  
-  }
-  }
+      this.search();
+    },
+  },
 };
 </script>
-
-
-
-
 
 <!-- SOMETHING WITH THE RENDER FUNCTION TO LOOK AT  -->
 <!-- <template>

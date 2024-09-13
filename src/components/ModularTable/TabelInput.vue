@@ -1,77 +1,97 @@
 <template>
-  <div :class="computedClass">
-    <component :is="inputTag" 
-               :type="props.inputType" 
-               :value="props.value" 
-               :placeholder="props.placeholder"
-               :class="inputClass"
-               @input="handleInput" 
-               @change="handleChange" />
+  <div >
+    {{ inputValue }}
+    <input
+    class="rounded-lg bg-white border border-gray-400 shadow-md"
+      :type="inputType"
+      v-model="inputValue"
+      :placeholder="placeholder"
+      :class="class"
+      @input="handleChange"
+    /> 
+    <!-- you can also do :value="value" , to set the initial value -->
   </div>
 </template>
 
 <script>
 export default {
+  emits:["inputChange"] ,
   props: {
-    props: {
-      type: Object,
-      default: () => ({
-        inputType: 'text', 
-        value: '',
-        placeholder: '',
-        class: '',
-        theme: '',
-        returnFunction: () => {},
-      }),
+    inputType: {
+      type: String,
+      default: "",
     },
+    placeholder: {
+      type: String,
+      default: "",
+    },
+    class: {
+      type: String,
+      default: "",
+    },
+    theme: {
+      type: String,
+      default: "",
+    },
+  },
+  data(){
+    return{
+     inputValue:''
+    }
   },
   computed: {
     computedClass() {
-      return `${this.themeClass} ${this.props.class}`;
+      return `${this.themeClass} ${this.class}`;
     },
     themeClass() {
-      switch (this.props.theme) {
-        case 'dark': return 'bg-gray-800 text-white';
-        case 'light': return 'bg-white text-black';
-        case 'primary': return 'bg-blue-500 text-white';
-        default: return 'bg-gray-200 text-black';
+      switch (this.theme) {
+        case "dark":
+          return "bg-gray-800 text-white ";
+        case "light":
+          return "bg-white text-black";
+        case "primary":
+          return "bg-blue-500 text-white";
+        default:
+          return "bg-gray-200 text-black";
       }
     },
     inputTag() {
-      switch (this.props.inputType) {
-        case 'textarea': return 'textarea';
-        case 'select': return 'select';
-        case 'file': return 'input';
-        case 'checkbox': return 'input';
-        case 'radio': return 'input';
-        default: return 'input';
+      switch (this.inputType) {
+        case "textarea":
+          return "textarea";
+        case "select":
+          return "select";
+        case "file":
+          return "input";
+        case "checkbox":
+          return "input";
+        case "radio":
+          return "input";
+        default:
+          return "input";
       }
     },
     inputClass() {
-
-      return '';
-    }
+      return "";
+    },
   },
   methods: {
-    handleInput(event) {
-      this.props.returnFunction(event.target.value);
-      this.$emit('input', event.target.value);
-    },
     handleChange(event) {
-      this.props.returnFunction(event.target.value);
-      this.$emit('change', event.target.value);
+      console.log('inputchange called' , this.inputValue);
+      
+      this.$emit("inputChange", event , this.inputValue );
     },
+    // handleChange(event) {
+    //   this.$emit("change", event.target.value);
+    // },
   },
 };
 </script>
 
-<style scoped>
-</style>
-
-
+<style scoped></style>
 
 <!-- USAGE -->
- 
+
 <!-- Text Input -->
 <!-- <MultiTypeInput :props="{ inputType: 'text', value: 'Hello', placeholder: 'Enter text', theme: 'dark' }" /> -->
 

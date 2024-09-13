@@ -1,39 +1,49 @@
-<template>
-  <a :href="props.linkAddress" :class="computedClass">{{
-    props.linkAddress
-  }}</a>
+<template class="" >
+  <a :href="linkAddress" :class="computedClass">{{ linkAddress }}</a>
 </template>
+
 <script>
 export default {
   props: {
-    props: {
-      type: Object,
-      default: () => ({
-        theme: "",
-        linkAddress: "",
-        class: "",
-      }),
+    linkAddress: {
+      type: String,
+      default: "",
+    },
+    class: {
+      type: String,
+      default: "p-2",
+    },
+    theme: {
+      type: String,
+      default: "light",
     },
   },
   computed: {
     computedClass() {
-      let baseClasses = "";
-      switch (this.props.theme) {
+         let baseClasses = "";
+      switch (this.theme) {
         case "dark":
-          baseClasses += "  p2 bg-gray-800 text-white";
+          baseClasses += "  p2  text-left text-sm break-all max-w-[150px] overflow-hidden text-white";
           break;
         case "light":
-          baseClasses += " p2  bg-white text-black";
+          baseClasses += "  p2 hover:underline  text-blue-950 text-left text-sm break-all w-10 !important overflow-hidden text-black";
           break;
+
+//   return this.theme === 'light' ? 'max-w-[150px] !important text-black' : 'other-classes';
+// }
+
         case "primary":
-          baseClasses += " p2  bg-blue-500 text-white";
+          baseClasses += "  p2  text-left text-sm break-all max-w-[150px] overflow-hidden text-white";
           break;
         default:
-          baseClasses += " p2  bg-gray-200 text-black";
+          baseClasses += "  p2  text-left text-sm break-all max-w-[150px] overflow-hidden text-white";
           break;
       }
-      return `${baseClasses} ${this.props.class}`;
+      return baseClasses 
     },
   },
+  created(){
+    
+  }
 };
 </script>

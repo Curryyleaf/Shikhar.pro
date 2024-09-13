@@ -1,38 +1,52 @@
 <template>
-  <img :src="props.src" :alt="props.alt" :class="props.class" />
+  <img :src="src" :alt="alt" :class="computedClass" />
 </template>
+
 <script>
 export default {
   props: {
-    props: {
-      type: Object,
-      default: () => ({
-        theme: "",
-        src: "",
-        alt: "",
-        class: "",
-      }),
+    src: {
+      type: String,
+      default: "",
+    },
+    alt: {
+      type: String,
+      default: "",
+    },
+    class: {
+      type: String,
+      default: "light",
+    },
+    theme: {
+      type: String,
+      default: "",
     },
   },
   computed: {
     computedClass() {
       let baseClasses = "";
-      switch (this.props.theme) {
+      switch (this.theme) {
         case "dark":
-          baseClasses += "  p2 bg-gray-800 text-white";
+          baseClasses +=
+            " object-cover border rounded-full bg-gray-800  h-8 w-10 text-white";
           break;
         case "light":
-          baseClasses += " p2  bg-white text-black";
+          baseClasses +=
+            " object-cover border rounded-full bg-white  h-8 w-10  text-black";
           break;
         case "primary":
-          baseClasses += " p2  bg-blue-500 text-white";
+          baseClasses +=
+            " object-cover border rounded-full bg-blue-500  h-8 w-10  text-white";
           break;
         default:
-          baseClasses += " p2  bg-gray-200 text-black";
+          baseClasses +=
+            " object-cover border rounded-full bg-gray-200  h-8 w-10  text-black";
           break;
       }
-      return `${baseClasses} ${this.props.class}`;
+      return `${baseClasses} ${this.class}`;
     },
+  },
+  created() {
   },
 };
 </script>

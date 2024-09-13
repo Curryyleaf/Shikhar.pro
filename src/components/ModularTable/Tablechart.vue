@@ -13,6 +13,10 @@ export default {
         class: '',
       }),
     },
+        theme:{
+      type:String ,
+      default:''
+    }
   },
   computed: {
     computedClass() {

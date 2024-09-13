@@ -1,41 +1,45 @@
 <template>
-<p :class="props.class">{{ props.text }}</p>
+  <p :class="class">{{ tabelText }}</p>
 </template>
 <script>
+
 export default {
   props: {
-    props: {
-      type: Object,
-      default: () => ({ 
-   
-            theme: '',
-    linkAddress: '',
-            class: '', 
-        
-      }),
-    },
+  tabelText: {
+    type:String ,
+    default:'' ,
+  },
+        class: {
+          type:String ,
+          default:''
+        },
+    theme:{
+      type:String ,
+      default:''
+    }
   },
   computed: {
     computedClass() {
-
-      let baseClasses = '';
+      let baseClasses = "";
       switch (this.props.theme) {
-        case 'dark':
-          baseClasses += '  p2 bg-gray-800 text-white'; 
+        case "dark":
+          baseClasses += " bg-gray-800 text-white";
           break;
-        case 'light':
-          baseClasses += ' p2  bg-white text-black'; 
+        case "light":
+          baseClasses += "   bg-white text-black";
           break;
-        case 'primary':
-          baseClasses += ' p2  bg-blue-500 text-white';
+        case "primary":
+          baseClasses += " bg-blue-500 text-white";
           break;
         default:
-          baseClasses += ' p2  bg-gray-200 text-black'; 
+          baseClasses += "   bg-gray-200 text-black";
           break;
       }
       return `${baseClasses} ${this.props.class}`;
     },
   },
+  created(){
+    
+  }
 };
-
 </script>

@@ -16,10 +16,10 @@ export default {
         }
       ),
     },
-    class: {
-      type: String,
-      default: '',
-    },
+    theme:{
+      type:String ,
+      default:''
+    }
   },
   computed: {
     iconClass() {
