@@ -26,7 +26,7 @@
 
 <div>
       <table
-      class="divide-y box-border table-auto max-w-full divide-gray-200 bg-white rounded-lg shadow-md "
+      class="divide-y box-border table-auto max-w-full divide-gray-200 bg-black rounded-lg shadow-md "
     >
       <thead class="bg-black sticky top-0 text-white">
         <tr class="h-12">
