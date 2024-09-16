@@ -1,16 +1,16 @@
 <template >
-  <aside class="max-w-full box-border">
-    <div class="flex box-border mt-2 mb-2">
+  <aside class="max-w-full  bg-black box-border">
+    <div class="flex box-border pt-4 bg-black pb-4">
       <input
         type="text"
         :placeholder="placeHolder"
-        class="w-full box-border md:w-2/5 border-2  border-gray-300  focus:border-teal-500 rounded-lg p-2  bg-white shadow-md transition-all duration-300"
+        class="w-full box-border md:w-1/3 bg-black-400  focus:border-teal-500 rounded-lg p-2   shadow-md transition-all duration-300"
         @input="$emit('update:modelValue', $event.target.value)"
         :value="modelValue"
       />
       <button v-if="buttonVisible"
         @click="btnFunction"
-        class="h-10 ml-auto mr-4 p-2 bg-gray-800 text-white rounded-lg shadow-md"
+        class="h-10 ml-auto mr-4 p-2 bg-black-400 text-gray-300 rounded-lg shadow-md"
       >
         {{ buttonMsg }}
       </button>

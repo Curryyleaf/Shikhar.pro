@@ -1,12 +1,9 @@
 <template>
   <section
-    class="p-4 bg-black"
+    class=" bg-black sticky top-0 "
   >
-    <header class="w-full h-16 mt-2 flex items-center justify-between border-b border-gray-200 bg-black text-white">
-      <div class="flex items-center ml-4">
-        <h1 class="font-extrabold text-4xl mr-2">P</h1>
-        <span class="leading-4 tracking-wider text-xl">TheTitle</span>
-      </div>
+    <header class="w-full h-16 flex items-center justify-between border-b border-gray-200 bg-black text-white">
+
       <div class="flex items-center mr-4">
         <button class=" text-teal-700  rounded-lg shadow-md" @click="prevChunk">
           <span class="text-lg"><</span>
@@ -51,9 +48,9 @@
             >
               <img
                 v-if="list.img"
-                :href="item[list.tableHeader]"
+                :src="item[list.tableHeader]"
                 alt="Item Image"
-                class="w-8 h-8 rounded-full object-cover"
+                class="w-8 h-8 rounded-full "
               />
               <p v-if="!list.img">{{ item[list.tableHeader] }}</p>
               <button

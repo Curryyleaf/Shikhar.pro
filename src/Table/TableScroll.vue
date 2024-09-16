@@ -1,7 +1,7 @@
 <template>
   <section
     ref="containerHolder"
-    class="relative right-0 left-0 top-0 no-scrollbar overflow-x-clip box-border h-screen w-screen mx-auto overflow-y-auto border border-solid border-gray-200 bg-gray-50 p-4 pt-0"
+    class="relative right-0 left-0 top-0 overflow-x-clip box-border h-screen w-screen mx-auto overflow-y-auto border border-solid border-gray-200 bg-gray-50 p-4 pt-0"
    
   >
 

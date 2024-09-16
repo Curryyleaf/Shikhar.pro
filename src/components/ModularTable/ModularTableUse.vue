@@ -1,14 +1,47 @@
 <template>
-  <ModularTable 
-  :table-config="tableConfig"
-  :-display-data="DisplayData"
- @dynamic-click-handler="handleAllClick"
- @dynamic-input-handler="handleAllInput"
- @dynamicSelectionHandler="handleAllSelection"
- :printConfig="printConfig"
+  <main class="h-screen no-scrollbar box-border relative">
+    <div class="absolute inset-0 -z-10">
+      <div class="h-[50%] bg-black"></div>
+    </div>
+    <header class="w-full h-24 flex items-center border-b border-white/10 transition-all duration-300 justify-between  text-[#d7e8cd]">
+      <div class="flex items-center ml-4">
+        <h1 class="font-extrabold text-4xl mr-2">P</h1>
+        <span class="leading-4 tracking-wider text-xl">TheTitle</span>
+      </div>
+       
+      <div>
+  <ul class="leading-loose tracking-widest text-gray-300 flex">
+    <li class="px-2"> <a href="">Products</a></li>
+    <li class="px-2"> <a href=""></a>Resources</li>
+    <li class="px-2"> <a href=""></a>Deveopers</li>
+    <li class="px-2"> <a href=""></a>Pricing</li>
+    <li class="px-2"> <a href=""></a>Contacts</li>
+  </ul>
+      </div>
 
-  > </ModularTable>
+      <div class="flex items-center mr-4">
+        <button
+          @click="startPrinting"
+          class=" ml-4 px-4 py-2   shadow-2xl  rounded-lg "
+        >
+          Sign In
+        </button>
+      </div>
+    </header>
+
+    <div class="h-[90%] w-[90%] mx-auto z-10 no-scrollbar">
+      <ModularTable 
+        :table-config="tableConfig"
+        :-display-data="DisplayData"
+        @dynamic-click-handler="handleAllClick"
+        @dynamic-input-handler="handleAllInput"
+        @dynamicSelectionHandler="handleAllSelection"
+        :printConfig="printConfig"
+      />
+    </div>
+  </main>
 </template>
+
 <script>
 import ModularTable from "./ModularTable.vue";
 import axios from "axios";
@@ -65,6 +98,11 @@ export default {
               props: {btnType:"button" ,btnText:'test Btn' ,  class: "p-1 " , eventName:'SubmitButton' ,},  
             },
             {
+              component: ["TableButton"],
+              tableHead: "Button",
+              props: {btnType:"submit" ,btnText:'test2 Btn' ,  class: "p-1 " , eventName:'SubmitButton' ,},  
+            },
+            {
               component: ["TableDropDown"],
               tableHead: "DropDown",
               props: {options:['option1' ,'option2' ,' option 3' , ' option 4 '] ,selcted:'option1' , theme:'light' ,  class: "p-1 " },
@@ -96,7 +134,13 @@ export default {
       ],
     };
   },
-  computed: {},
+  computed: {
+        themeComputation(){
+      const themes={
+        green:""
+      }
+    } ,
+  },
   methods: {
     handleAllClick(payload){
    console.log('button click checking' , payload);
@@ -133,9 +177,18 @@ console.log('select value checking' , payload);
         this.isLoading = false;
       }
     },
+
   },
   async created() {
     await this.fetchData();
   },
+
 };
 </script>
+
+<style>
+.background-split {
+  background: linear-gradient(to right, #ff7f50 50%, #87cefa 50%);
+  width: 100%;
+  height: 100vh; 
+}</style>

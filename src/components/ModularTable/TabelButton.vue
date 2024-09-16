@@ -1,5 +1,5 @@
 <template>
-  <button :type="btnType"  @click="handleClick" class=" p-2 text-xs bg-gray-800 rounded-lg text-white">
+  <button :type="btnType"  @click="handleClick" class=" p-2 text-xs bg-black text-gray-300 rounded-lg ">
     {{ btnText }}
   </button>
 </template>

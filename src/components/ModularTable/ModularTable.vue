@@ -1,7 +1,7 @@
 <template>
   <section
     ref="containerHolder"
-    class="relative inset-0 no-scrollbar overflow-x-hidden overflow-y-auto box-border h-screen w-screen mx-auto border border-gray-300 bg-gray-100 p-4"
+    class="relative inset-0 no-scrollbar overflow-x-hidden overflow-y-auto box-border h-full w-full mx-auto  bg-gray-100 "
   >
     <TableSearch
       v-if="!isPrinting"
@@ -22,10 +22,10 @@
             transform: `translateY(${scrollTop}px)`,
             maxWidth: '100%',
           }"
-          class="w-full table-auto divide-y divide-gray-300 bg-white rounded-lg shadow-md"
+          class="w-full table-auto divide-y  divide-gray-300  rounded-lg shadow-md"
         >
-          <thead class="z-50 bg-gray-800 text-white">
-            <tr class="h-12">
+          <thead class="z-50 bg-black rounded-lg text-gray-300">
+            <tr class="h-12 border-2 border-gray-400 ">
               <th
                 v-for="(column, index) in tableConfig[0].config"
                 :key="index"
@@ -35,7 +35,8 @@
               </th>
             </tr>
           </thead>
-          <tbody class="bg-gray-100 overflow-y-auto">
+
+          <tbody class="bg-gray-200 overflow-y-auto border border-gray-400">
             <!-- the tablehead not sticking could be caused  ny this translate -->
             <tr
               v-for="(item, index) in visibleData"
